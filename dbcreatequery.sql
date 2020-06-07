@@ -15,7 +15,7 @@ create table Patient (
 alter table Patient auto_increment = 0;
 
 create table Complaint (
-	id bigint primary key,
+	id bigint auto_increment primary key,
 	patient_id bigint not null,
 	complaint1 varchar(100) not null,
 	complaint2 varchar(100),
