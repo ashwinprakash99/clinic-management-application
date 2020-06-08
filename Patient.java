@@ -79,6 +79,7 @@ public class Patient {
             int result = preparedStatement.executeUpdate();
             if (result != 0) {
                 System.out.println("Added record " + result);
+                preparedStatement.close();
                 preparedStatement = connection.prepareStatement("SELECT MAX(UHID) FROM Patient;");
                 ResultSet resultSet = preparedStatement.executeQuery();
                 resultSet.next();
