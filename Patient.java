@@ -208,7 +208,7 @@ public class Patient {
         return false;
     }
 
-    public static Patient getPatinet(long UHID) {
+    public static Patient getPatient(long UHID) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         Patient patient = null;
