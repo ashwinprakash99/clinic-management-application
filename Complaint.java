@@ -255,7 +255,7 @@ public class Complaint {
         return complaint;
     }
 
-    public static Complaint[] getComplaints(long patientId, boolean flag) {
+    public static Complaint[] getComplaints(long patientId) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         Complaint[] complaints = new Complaint[0];
