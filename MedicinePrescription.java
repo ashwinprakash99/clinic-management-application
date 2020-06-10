@@ -319,22 +319,4 @@ public class MedicinePrescription {
         }
         return medicinePrescriptions;
     }
-
-    public static void main(String[] args) {
-        // MedicinePrescription medicinePrescription = new MedicinePrescription(2L, 3L, 15, false, true, true);
-        // long result = MedicinePrescription.addMedicinePrescription(medicinePrescription);
-        // System.out.println(medicinePrescription);
-        // boolean result = MedicinePrescription.removeMedicinePrescription(3L);
-        // MedicinePrescription medicinePrescription = new MedicinePrescription(2L, 3L, 15, false, true, false);
-        // medicinePrescription.setId(2L);
-        // boolean result = MedicinePrescription.updateMedicinePrescription(medicinePrescription);
-        // System.out.println(medicinePrescription);
-        // boolean result = MedicinePrescription.isMedicinePrescriptionPresent(2L);
-        // MedicinePrescription result = MedicinePrescription.getMedicinePrescription(3L);
-        // System.out.println(result);
-        // MedicinePrescription[] medicinePrescriptions = MedicinePrescription.getMedicinePrescriptions(6L);
-        // for (MedicinePrescription medicinePrescription : medicinePrescriptions) {
-            // System.out.println(medicinePrescription);
-        }
-    }
 }
