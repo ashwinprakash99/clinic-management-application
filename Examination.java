@@ -349,7 +349,7 @@ public class Examination {
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
             System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("SELECT * FROM Examination e, Complaint c WHERE e.complaint_id = c.id AND c.patient_id = ?;");
+            preparedStatement = connection.prepareStatement("SELECT e.id,e.bp,e.pulse,e.temperature,e.cvs,e.rs,e.pa,e.cns,e.labtest,e.ecg,e.x_ray,e.ct_scan_mri,e.two_d_echo,e.tmt,e.eeg,e.diagnosis,e.other,e.complaint_id FROM Examination e, Complaint c WHERE e.complaint_id = c.id AND c.patient_id = ?;");
             preparedStatement.setLong(1, patientId);
             ResultSet resultSet = preparedStatement.executeQuery();
             ArrayList<Examination> resultExamination = new ArrayList<>();
