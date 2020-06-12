@@ -14,6 +14,7 @@ create table Patient (
 );
 alter table Patient auto_increment = 0;
 
+
 create table Complaint (
 	id bigint auto_increment primary key,
 	patient_id bigint not null,
@@ -28,15 +29,18 @@ create table Complaint (
 );
 alter table Complaint auto_increment = 0;
 
+
 create table Medicine (
 	id bigint auto_increment primary key,
 	medicine_name varchar(100) not null,
 	price float not null,
 	tax float not null,
+	quantity int not null,
 	created_at datetime not null,
 	modified_at datetime not null
 );
 alter table Medicine auto_increment = 0;
+
 
 create table Medicine_Prescription (
 	id bigint auto_increment primary key,
@@ -53,6 +57,7 @@ create table Medicine_Prescription (
 );
 alter table Medicine_Prescription auto_increment = 0;
 
+
 create table Treatment (
 	id bigint auto_increment primary key,
 	doc_name varchar(100) not null,
@@ -62,6 +67,7 @@ create table Treatment (
 	foreign key(complaint_id) references Complaint(id) on update cascade on delete cascade
 );
 alter table Treatment auto_increment = 0;
+
 
 create table Examination (
 	id bigint auto_increment primary key,
@@ -86,6 +92,7 @@ create table Examination (
 	foreign key(complaint_id) references Complaint(id) on update cascade on delete cascade
 );
 alter table Examination auto_increment = 0;
+
 
 create table Billing (
 	id bigint auto_increment primary key,
