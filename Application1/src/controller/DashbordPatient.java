@@ -1,5 +1,6 @@
 package controller;
 
+import dbConnector.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class DashbordPatient {
@@ -50,20 +52,47 @@ public class DashbordPatient {
         pid.setPromptText("Patient ID ");
         gridPane.add(pid,0,0);
         alert.getDialogPane().setContent(gridPane);
-
         Optional<ButtonType> result=alert.showAndWait();
 
         if(result.get()==ButtonType.OK){
-            Alert alert1=new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setHeaderText("Are you sure of deleting the patient?");
-            Optional<ButtonType> res=alert1.showAndWait();
-            if(res.get()==ButtonType.OK){
-                //delete patient detail
+            if(!pid.getText().equals("")) {
+                Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
+                alert1.setContentText("Are you sure of deleting the patient?");
+                Optional<ButtonType> res = alert1.showAndWait();
+                if (res.get() == ButtonType.OK) {
+
+
+                    boolean v = Patient.removePatient(Long.parseLong(pid.getText()));
+                    if (v == true) {
+                        Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                        alert2.setTitle("Patient Deleted");
+                        alert2.setContentText("Patient id " + pid.getText());
+                        alert2.showAndWait();
+                    } else {
+                        Alert alert2 = new Alert(Alert.AlertType.ERROR);
+                        alert2.setTitle("Patient Not Found");
+                        alert2.setContentText("Patient is not present");
+                        alert2.showAndWait();
+
+                    }
+                }
+            }
+            else{
+                Alert alert3=new Alert(Alert.AlertType.ERROR);
+                alert3.setTitle("Error");
+                alert3.setContentText("Field are empty");
+                alert3.showAndWait();
+            }
+
+
+
+
+
             }
 
         }
 
-    }
+
 
     @FXML
     void updatePatientBtn(ActionEvent event) throws IOException {

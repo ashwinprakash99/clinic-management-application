@@ -58,15 +58,20 @@ public class AddPatient {
         pphone=patientPhoneNumber.getText();
 
 
-
-        //add to database
-
         Patient p=new Patient(pname,pdob,pgender,paddress,Long.parseLong(pphone));
-        Patient.addPatient(p);
-
-
-
-
+        Long uhid=Patient.addPatient(p);
+        if(uhid != -1){
+            Alert a=new Alert(Alert.AlertType.INFORMATION);
+            a.setTitle("Patient Added");
+            a.setContentText("Patient id: "+uhid);
+            a.showAndWait();
+        }
+        else{
+            Alert a=new Alert((Alert.AlertType.ERROR));
+            a.setTitle("Please Check the Patient details");
+            a.setContentText("Please recheck the patient details");
+            a.showAndWait();
+        }
 
 
 
