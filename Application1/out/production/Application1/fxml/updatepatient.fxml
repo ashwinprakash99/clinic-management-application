@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Updatepatient">
    <children>
       <AnchorPane prefHeight="100.0" prefWidth="1080.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -22,27 +21,27 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="50.0" prefWidth="1080.0" spacing="100.0">
                      <children>
-                        <TextField alignment="CENTER" prefHeight="50.0" prefWidth="300.0" promptText="Patient id">
+                        <TextField fx:id="patientId" alignment="CENTER" prefHeight="50.0" prefWidth="300.0" promptText="Patient id">
                            <font>
                               <Font size="23.0" />
                            </font>
                         </TextField>
-                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" text="Button">
+                        <Button fx:id="checkBtn" mnemonicParsing="false" onAction="#checkBtnClick" prefHeight="50.0" prefWidth="300.0" text="Check">
                            <font>
                               <Font size="23.0" />
                            </font>
                         </Button>
                      </children>
                   </HBox>
-                  <TextField alignment="CENTER" prefHeight="50.0" prefWidth="100.0" promptText="Patient Name">
+                  <TextField fx:id="patientName" alignment="CENTER" prefHeight="50.0" prefWidth="100.0" promptText="Patient Name">
                      <font>
                         <Font size="23.0" />
                      </font>
                   </TextField>
-                  <DatePicker prefHeight="40.0" prefWidth="399.0" promptText="Date of Birth" />
+                  <DatePicker fx:id="patientdob" prefHeight="40.0" prefWidth="399.0" promptText="Date of Birth" />
                   <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="50.0">
                      <children>
-                        <RadioButton mnemonicParsing="false" prefHeight="50.0" text="Male">
+                        <RadioButton fx:id="male" mnemonicParsing="false" prefHeight="50.0" text="Male">
                            <toggleGroup>
                               <ToggleGroup fx:id="gender" />
                            </toggleGroup>
@@ -50,29 +49,32 @@
                               <Font size="22.0" />
                            </font>
                         </RadioButton>
-                        <RadioButton mnemonicParsing="false" prefHeight="50.0" text="Female" toggleGroup="$gender">
+                        <RadioButton fx:id="female" mnemonicParsing="false" prefHeight="50.0" text="Female" toggleGroup="$gender">
                            <font>
                               <Font size="22.0" />
                            </font>
                         </RadioButton>
-                        <RadioButton mnemonicParsing="false" prefHeight="50.0" text="Others" toggleGroup="$gender">
+                        <RadioButton fx:id="others" mnemonicParsing="false" prefHeight="50.0" text="Others" toggleGroup="$gender">
                            <font>
                               <Font size="22.0" />
                            </font>
                         </RadioButton>
                      </children>
                   </HBox>
-                  <TextArea prefHeight="100.0" prefWidth="200.0" promptText="Address">
+                  <TextArea fx:id="patientAddress" prefHeight="100.0" prefWidth="200.0" promptText="Address">
                      <font>
                         <Font size="23.0" />
                      </font>
                   </TextArea>
-                  <TextField alignment="CENTER" prefHeight="50.0" promptText="Phone Number ">
+                  <TextField fx:id="patientPhonenumber" alignment="CENTER" prefHeight="50.0" promptText="Phone Number ">
                      <font>
                         <Font size="23.0" />
                      </font>
                   </TextField>
-                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" text="Update" />
+                  <Button mnemonicParsing="false" onAction="#updateBtnClick" prefHeight="50.0" prefWidth="300.0" text="Update">
+                     <font>
+                        <Font size="23.0" />
+                     </font></Button>
                </children>
                <padding>
                   <Insets bottom="50.0" left="100.0" right="100.0" top="50.0" />

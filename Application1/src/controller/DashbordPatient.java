@@ -66,7 +66,16 @@ public class DashbordPatient {
     }
 
     @FXML
-    void updatePatientBtn(ActionEvent event) {
+    void updatePatientBtn(ActionEvent event) throws IOException {
+
+        parent.getScene().getWindow().hide();
+        Stage dashbordClerk=new Stage();
+        Parent root= FXMLLoader.load(getClass().getResource("/fxml/updatepatient.fxml"));
+        Scene scene=new Scene(root);
+        dashbordClerk.setScene(scene);
+        dashbordClerk.show();
+
+
 
     }
 
