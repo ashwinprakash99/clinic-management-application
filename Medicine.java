@@ -8,15 +8,17 @@ public class Medicine {
     private String medicineName = null;
     private double price = 0.0;
     private double tax = 0.0;
+    private int quantity = 0;
 
     static SimpleDateFormat dff = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
     public Medicine() {}
 
-    public Medicine(String medicineName, double price, double tax) {
+    public Medicine(String medicineName, double price, double tax, int quantity) {
         this.medicineName = medicineName;
         this.price = price;
         this.tax = tax;
+        this.quantity = quantity;
     }
 
     public String toString() {
@@ -24,7 +26,8 @@ public class Medicine {
         message += "Medicine ID: " + id + "\n";
         message += "Medicine Name: " + medicineName + "\n";
         message += "Price: " + price + "\n";
-        message += "Tax: " + tax;
+        message += "Tax: " + tax + "\n";
+        message += "Quantity: " + quantity;
         return message;
     }
 
@@ -40,18 +43,22 @@ public class Medicine {
     public void setTax(double tax) { this.tax = tax; }
     public double getTax() { return tax; }
 
+    public void setQuantity(int quantity) { this.quantity = quantity; }
+    public int getQuantity() { return quantity; }
+
     public static long addMedicine(Medicine medicine) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
             System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("INSERT INTO Medicine VALUES (0, ?, ?, ?, ?, ?);");
+            preparedStatement = connection.prepareStatement("INSERT INTO Medicine VALUES (0, ?, ?, ?, ?, ?, ?);");
             preparedStatement.setString(1, medicine.getMedicineName());
             preparedStatement.setDouble(2, medicine.getPrice());
             preparedStatement.setDouble(3, medicine.getTax());
-            preparedStatement.setString(4, dff.format(new Date()));
+            preparedStatement.setInt(4, medicine.getQuantity());
             preparedStatement.setString(5, dff.format(new Date()));
+            preparedStatement.setString(6, dff.format(new Date()));
             int result = preparedStatement.executeUpdate();
             if (result != 0) {
                 System.out.println("Added record " + result);
@@ -120,12 +127,13 @@ public class Medicine {
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
             System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("UPDATE Medicine SET medicine_name = ?, price = ?, tax = ?, modified_at = ? WHERE id = ?;");
+            preparedStatement = connection.prepareStatement("UPDATE Medicine SET medicine_name = ?, price = ?, tax = ?, quantity = ?, modified_at = ? WHERE id = ?;");
             preparedStatement.setString(1, medicine.getMedicineName());
             preparedStatement.setDouble(2, medicine.getPrice());
             preparedStatement.setDouble(3, medicine.getTax());
-            preparedStatement.setString(4, dff.format(new Date()));
-            preparedStatement.setLong(5, medicine.getId());
+            preparedStatement.setInt(4, medicine.getQuantity());
+            preparedStatement.setString(5, dff.format(new Date()));
+            preparedStatement.setLong(6, medicine.getId());
             int result = preparedStatement.executeUpdate();
             if (result > 0) {
                 return true;
@@ -200,6 +208,7 @@ public class Medicine {
                 medicine.setMedicineName(resultSet.getString(2));
                 medicine.setPrice(resultSet.getDouble(3));
                 medicine.setTax(resultSet.getDouble(4));
+                medicine.setQuantity(resultSet.getInt(5));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -235,6 +244,7 @@ public class Medicine {
                 medicine.setMedicineName(resultSet.getString(2));
                 medicine.setPrice(resultSet.getDouble(3));
                 medicine.setTax(resultSet.getDouble(4));
+                medicine.setQuantity(resultSet.getInt(5));
                 resultMedicine.add(medicine);
             }
             if (resultMedicine.size() > 0) {
@@ -273,6 +283,7 @@ public class Medicine {
                 medicine.setMedicineName(resultSet.getString(2));
                 medicine.setPrice(resultSet.getDouble(3));
                 medicine.setTax(resultSet.getDouble(4));
+                medicine.setQuantity(resultSet.getInt(5));
                 resultMedicine.add(medicine);
             }
             if (resultMedicine.size() > 0) {
