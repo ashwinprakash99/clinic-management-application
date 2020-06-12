@@ -36,12 +36,8 @@ public class DashbordClerk {
 
     @FXML
     public void billingClick(ActionEvent e){
-//        Alert a1=new Alert(Alert.AlertType.INFORMATION);
-//        a1.setTitle("Billing");
-//        a1.setContentText("Billing details");
-//        a1.setHeaderText(null);
-//        a1.showAndWait();
 
+        ///alert box and table
 
         TextInputDialog dialog=new TextInputDialog("");
         dialog.setTitle("Bill");
@@ -58,7 +54,7 @@ public class DashbordClerk {
     }
     @FXML
     public void medicineClick(ActionEvent e) throws IOException {
-
+        parent.getScene().getWindow().hide();
         Stage dashbordClerk=new Stage();
         Parent root= FXMLLoader.load(getClass().getResource("/fxml/dashbordMedicine.fxml"));
         Scene scene=new Scene(root);

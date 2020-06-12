@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashbordPatient">
+<AnchorPane fx:id="parent" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashbordPatient">
    <children>
       <AnchorPane prefHeight="100.0" prefWidth="1080.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <AnchorPane prefHeight="620.0" prefWidth="1080.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
@@ -27,17 +26,17 @@
                   <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
                </padding>
                <children>
-                  <Button mnemonicParsing="false" prefHeight="237.0" prefWidth="479.0" text="ADD PATIENT">
+                  <Button fx:id="addPatientBtn" mnemonicParsing="false" onAction="#addPatientClick" prefHeight="237.0" prefWidth="479.0" text="ADD PATIENT">
                      <font>
                         <Font size="30.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="243.0" prefWidth="492.0" text="UPDATE PATIENT" GridPane.columnIndex="1">
+                  <Button fx:id="updatePateintBtn" mnemonicParsing="false" onAction="#updatePatientBtn" prefHeight="243.0" prefWidth="492.0" text="UPDATE PATIENT" GridPane.columnIndex="1">
                      <font>
                         <Font size="30.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="237.0" prefWidth="491.0" text="DELETE PATIENT" GridPane.rowIndex="1">
+                  <Button fx:id="deletePateintBtn" mnemonicParsing="false" onAction="#deletePatientClick" prefHeight="237.0" prefWidth="491.0" text="DELETE PATIENT" GridPane.rowIndex="1">
                      <font>
                         <Font size="30.0" />
                      </font>
