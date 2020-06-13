@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Complaint">
+<AnchorPane fx:id="parent" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ComplaintController">
    <children>
       <AnchorPane layoutY="14.0" prefHeight="100.0" prefWidth="1080.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <AnchorPane layoutY="154.0" prefHeight="620.0" prefWidth="1080.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
@@ -17,12 +17,12 @@
                <children>
                   <HBox prefHeight="50.0" prefWidth="1080.0" spacing="200.0">
                      <children>
-                        <TextField alignment="CENTER" prefHeight="99.0" prefWidth="300.0" promptText="Patient Id">
+                        <TextField fx:id="patientId" alignment="CENTER" prefHeight="99.0" prefWidth="300.0" promptText="Patient Id">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </TextField>
-                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" text="Previous history">
+                        <Button mnemonicParsing="false" onAction="#previousHistoryClick" prefHeight="50.0" prefWidth="300.0" text="Previous history">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -34,17 +34,17 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="50.0" prefWidth="1080.0" spacing="10.0">
                      <children>
-                        <TextField alignment="CENTER" prefHeight="50.0" prefWidth="300.0" promptText="Complain 1">
+                        <TextField fx:id="complain1" alignment="CENTER" prefHeight="50.0" prefWidth="300.0" promptText="Complain 1">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </TextField>
-                        <TextField alignment="CENTER" prefHeight="50.0" prefWidth="300.0" promptText="Complain 2">
+                        <TextField fx:id="complain2" alignment="CENTER" prefHeight="50.0" prefWidth="300.0" promptText="Complain 2">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </TextField>
-                        <TextField alignment="CENTER" prefHeight="50.0" prefWidth="300.0" promptText="complain 3">
+                        <TextField fx:id="complain3" alignment="CENTER" prefHeight="50.0" prefWidth="300.0" promptText="complain 3">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -53,24 +53,24 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="50.0" prefWidth="1080.0" spacing="10.0">
                      <children>
-                        <TextField alignment="CENTER" prefHeight="50.0" prefWidth="300.0" promptText="Examination 1">
+                        <TextField fx:id="examination1" alignment="CENTER" prefHeight="50.0" prefWidth="300.0" promptText="Examination 1">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </TextField>
-                        <TextField alignment="CENTER" prefHeight="50.0" prefWidth="300.0" promptText="Examination 2">
+                        <TextField fx:id="examination2" alignment="CENTER" prefHeight="50.0" prefWidth="300.0" promptText="Examination 2">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </TextField>
-                        <TextField alignment="CENTER" prefHeight="50.0" prefWidth="300.0" promptText="Examination 3">
+                        <TextField fx:id="examination3" alignment="CENTER" prefHeight="50.0" prefWidth="300.0" promptText="Examination 3">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </TextField>
                      </children>
                   </HBox>
-                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" text="Examination">
+                  <Button mnemonicParsing="false" onAction="#examinationClick" prefHeight="50.0" prefWidth="300.0" text="Examination">
                      <font>
                         <Font size="25.0" />
                      </font>

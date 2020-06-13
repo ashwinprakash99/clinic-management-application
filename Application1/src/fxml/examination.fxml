@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Examination">
+<AnchorPane fx:id="parent2" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ComplaintController">
    <children>
       <AnchorPane prefHeight="100.0" prefWidth="1080.0" AnchorPane.bottomAnchor="620.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <AnchorPane prefHeight="620.0" prefWidth="1080.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
@@ -17,46 +17,22 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0">
                      <children>
-                        <TextArea prefHeight="200.0" prefWidth="250.0" promptText="BP">
+                        <TextArea fx:id="bp" prefHeight="200.0" prefWidth="250.0" promptText="BP">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </TextArea>
-                        <TextArea prefHeight="200.0" prefWidth="250.0" promptText="Pulse">
+                        <TextArea fx:id="pulse" prefHeight="200.0" prefWidth="250.0" promptText="Pulse">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </TextArea>
-                        <TextArea prefHeight="200.0" prefWidth="250.0" promptText="Temperature">
+                        <TextArea fx:id="temp" prefHeight="200.0" prefWidth="250.0" promptText="Temperature">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </TextArea>
-                        <TextArea prefHeight="200.0" prefWidth="250.0" promptText="CVS">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </TextArea>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0">
-                     <children>
-                        <TextArea prefHeight="200.0" prefWidth="250.0" promptText="ECG">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </TextArea>
-                        <TextArea prefHeight="200.0" prefWidth="250.0" promptText="TMT">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </TextArea>
-                        <TextArea prefHeight="200.0" prefWidth="250.0" promptText="CNS">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </TextArea>
-                        <TextArea prefHeight="200.0" prefWidth="250.0" promptText="LABTEST">
+                        <TextArea fx:id="cvs" prefHeight="200.0" prefWidth="250.0" promptText="CVS">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -65,22 +41,22 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0">
                      <children>
-                        <TextArea prefHeight="200.0" prefWidth="250.0" promptText="ECG">
+                        <TextArea fx:id="ecg" prefHeight="200.0" prefWidth="250.0" promptText="ECG">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </TextArea>
-                        <TextArea prefHeight="200.0" prefWidth="250.0" promptText="X-RAY">
+                        <TextArea fx:id="tmt" prefHeight="200.0" prefWidth="250.0" promptText="TMT">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </TextArea>
-                        <TextArea prefHeight="200.0" prefWidth="250.0" promptText="CT-SCAN / MRI">
+                        <TextArea fx:id="cns" prefHeight="200.0" prefWidth="250.0" promptText="CNS">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </TextArea>
-                        <TextArea prefHeight="200.0" prefWidth="250.0" promptText="TWO D ECHO">
+                        <TextArea fx:id="labtest" prefHeight="200.0" prefWidth="250.0" promptText="LABTEST">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -89,29 +65,53 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0">
                      <children>
-                        <TextArea prefHeight="200.0" prefWidth="340.0" promptText="PA">
+                        <TextArea fx:id="eeg" prefHeight="200.0" prefWidth="250.0" promptText="EEG">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </TextArea>
-                        <TextArea prefHeight="200.0" prefWidth="340.0" promptText="RS">
+                        <TextArea prefHeight="200.0" prefWidth="250.0" promptText="X-RAY" fx:id="xray">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </TextArea>
-                        <TextArea prefHeight="200.0" prefWidth="340.0" promptText="DIAGNOSIS">
+                        <TextArea fx:id="ct" prefHeight="200.0" prefWidth="250.0" promptText="CT-SCAN / MRI">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </TextArea>
+                        <TextArea fx:id="two" prefHeight="200.0" prefWidth="250.0" promptText="TWO D ECHO">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </TextArea>
                      </children>
                   </HBox>
-                  <TextArea prefHeight="100.0" prefWidth="200.0" promptText="OTHER">
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0">
+                     <children>
+                        <TextArea fx:id="pa" prefHeight="200.0" prefWidth="340.0" promptText="PA">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </TextArea>
+                        <TextArea fx:id="rs" prefHeight="200.0" prefWidth="340.0" promptText="RS">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </TextArea>
+                        <TextArea fx:id="diag" prefHeight="200.0" prefWidth="340.0" promptText="DIAGNOSIS">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </TextArea>
+                     </children>
+                  </HBox>
+                  <TextArea fx:id="others" prefHeight="100.0" prefWidth="200.0" promptText="OTHER">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </TextArea>
-                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="NEXT">
+                  <Button mnemonicParsing="false" onAction="#nextClick" prefHeight="50.0" prefWidth="200.0" text="NEXT">
                      <font>
                         <Font size="24.0" />
                      </font>
