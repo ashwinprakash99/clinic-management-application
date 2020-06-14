@@ -6,9 +6,10 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashbordMedicine">
+<AnchorPane fx:id="parent" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashbordMedicine">
    <children>
       <AnchorPane prefHeight="100.0" prefWidth="1080.0" />
       <AnchorPane prefHeight="620.0" prefWidth="1080.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
@@ -23,17 +24,31 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="addMedicineBtn" mnemonicParsing="false" onAction="#addMedicineClick" prefHeight="244.0" prefWidth="467.0" text="ADD MEDICINE">
+                  <Button fx:id="addMedicineBtn" mnemonicParsing="false" onAction="#addMedicineClick" prefHeight="244.0" prefWidth="467.0" text="NEW MEDICINE">
                      <font>
                         <Font size="30.0" />
                      </font>
                   </Button>
-                  <Button fx:id="deleteMedicineBtn" mnemonicParsing="false" onAction="#deleteMedicineClick" prefHeight="244.0" prefWidth="467.0" text="DELETE MEDICINE" GridPane.rowIndex="1">
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <children>
+                        <Button fx:id="updateMedicineBtn" mnemonicParsing="false" onAction="#updateMedicineClick" prefHeight="244.0" prefWidth="467.0" text="UPDATE MEDICINE">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="deleteMedicineBtn" mnemonicParsing="false" onAction="#deleteMedicineClick" prefHeight="244.0" prefWidth="467.0" text="DELETE MEDICINE">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <Button fx:id="addMedicineBtn1" mnemonicParsing="false" onAction="#checkMedicineClick" prefHeight="244.0" prefWidth="467.0" text="CHECK MEDICINE" GridPane.columnIndex="1">
                      <font>
                         <Font size="30.0" />
                      </font>
                   </Button>
-                  <Button fx:id="updateMedicineBtn" mnemonicParsing="false" onAction="#updateMedicineClick" prefHeight="244.0" prefWidth="467.0" text="UPDATE MEDICINE" GridPane.columnIndex="1">
+                  <Button fx:id="addMedicineBtn2" mnemonicParsing="false" onAction="#buyMedicineClick" prefHeight="244.0" prefWidth="467.0" text="ADD MEDICINE" GridPane.rowIndex="1">
                      <font>
                         <Font size="30.0" />
                      </font>

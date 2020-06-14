@@ -16,7 +16,7 @@ import java.io.IOException;
 
 public class ComplaintController {
 
-    Long complainId,examinationId;
+   static Long complainId,examinationId;
 
 
 
@@ -157,10 +157,10 @@ public class ComplaintController {
     //************************************************************************  EXAMINATION ********************************************************************//
 
 
+
     @FXML
     void nextClick(ActionEvent event) throws IOException {
         Examination examination=new Examination(complainId,bp.getText(),pulse.getText(),temp.getText(),cvs.getText(),rs.getText(),pa.getText(),cns.getText(),labtest.getText(),ecg.getText(),xray.getText(),ct.getText(),two.getText(),tmt.getText(),eeg.getText(),diag.getText(),others.getText());
-
         examinationId= Examination.addExamination(examination);
 
         if (examinationId == -1){
