@@ -102,7 +102,26 @@ public class ComplaintController {
     private TextArea others;
 
 
-//*********************************************************************************************************************************************************//
+    //******************************************************************************************************************************************************************//
+
+    //************************************************************************** TREATMENT AND PRESCRIPTION ************************************************************//
+
+
+
+    @FXML
+    private TextField doctorName;
+
+    @FXML
+    private TextArea treatmentDescription;
+
+    @FXML
+    private CheckBox morning;
+
+    @FXML
+    private CheckBox afternoon;
+
+    @FXML
+    private CheckBox night;
 
 
 
@@ -113,6 +132,8 @@ public class ComplaintController {
 
 
 
+
+    //**************************************************************************************************************************************************************//
 
     //*************************************************************************  EVENT HANDLER  ********************************************************************//
 
@@ -147,7 +168,7 @@ public class ComplaintController {
 
         if ( v == true ){
             Complaint[] c = Complaint.getComplaints(Long.parseLong(patientId.getText()));
-// COMPLAIN PREVIEW
+            // COMPLAIN PREVIEW
 
 
         }
@@ -167,9 +188,9 @@ public class ComplaintController {
             Alert alert=new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR IN DATABASE");
             alert.setContentText("EXAMINATION DID NOT REGISTER IN DATABASE");
+            alert.showAndWait();
         }
         else{
-            //pending
 
             parent2.getScene().getWindow().hide();
             Stage dashbordClerk=new Stage();
@@ -181,9 +202,41 @@ public class ComplaintController {
         }
 
     }
+    //********************************************************************************************************************************************************************//
+
+    //************************************************************************** TREATMENT AND PRESCRIPTION ************************************************************//
+
+    @FXML
+    void enterTreatmentClick(ActionEvent event) {
+
+        if (doctorName.getText().equals("")){
+            doctorName.setText("Default");
+        }
+        if(treatmentDescription.getText().equals("")){
+            treatmentDescription.setText("Everything is good, Please take some rest !!");
+        }
+
+        Treatment treatment=new Treatment(doctorName.getText(),treatmentDescription.getText(),complainId);
 
 
+        Long tid=Treatment.addTreatment(treatment);
+
+        if (tid== -1){
+            Alert alert=new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR IN DATABASE");
+            alert.setContentText("TREATMENT DID NOT REGISTER IN DATABASE");
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    void presciptionDoneClick(ActionEvent event) {
 
 
+    }
 
 }
+
+
+
+

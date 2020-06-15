@@ -1,6 +1,10 @@
 package controller;
 
+import GetterSetter.*;
 import dbConnector.*;
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -9,12 +13,14 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 public class DashbordMedicine {
@@ -304,7 +310,49 @@ public class DashbordMedicine {
         @FXML
         void checkMedicineClick(ActionEvent event) {
         //display the medicine lower than 10
+
+                Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Patient information");
+                alert.setHeight(400);
+                alert.setWidth(800);
+
+                GridPane gridPane=new GridPane();
+                gridPane.setHgap(10);
+                gridPane.setVgap(10);
+                gridPane.setPadding(new Insets(10,10,10,10));
+                TableView<LowMedicineDetails> tableView= new TableView();
+
+                TableColumn<LowMedicineDetails,Long> tableColumn=new TableColumn<>("ID");
+                TableColumn<LowMedicineDetails,String> tableColumn1=new TableColumn<>("Medicine Name");
+                TableColumn<LowMedicineDetails,Double> tableColumn2=new TableColumn<>("Price");
+                TableColumn<LowMedicineDetails,Integer> tableColumn3=new TableColumn<>("Quantity");
+
+                ObservableList<LowMedicineDetails> list= FXCollections.observableArrayList();
+
+                tableColumn.setCellValueFactory(new PropertyValueFactory<>("ID"));
+                tableColumn.setCellValueFactory(new PropertyValueFactory<>("Medicine Name"));
+                tableColumn.setCellValueFactory(new PropertyValueFactory<>("Price"));
+                tableColumn.setCellValueFactory(new PropertyValueFactory<>("Quantity"));
+
+                tableView.getColumns().addAll(tableColumn,tableColumn1,tableColumn2,tableColumn3);
+
+
+                Medicine[] m=Medicine.getAllMedicines();
+                for(int i=0;i<m.length;i++){
+                        list.add(new LowMedicineDetails(m[i].getId(),m[i].getMedicineName(),m[i].getPrice(),m[i].getQuantity()));
+                        tableView.setItems(list);
+                }
+
+
+
+                gridPane.add(tableView,0,0);
+                alert.getDialogPane().setContent(gridPane);
+                alert.showAndWait();
         }
+
+
+
+
 
 
 
