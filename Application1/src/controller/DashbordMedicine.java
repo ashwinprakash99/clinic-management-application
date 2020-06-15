@@ -329,21 +329,23 @@ public class DashbordMedicine {
 
                 ObservableList<LowMedicineDetails> list= FXCollections.observableArrayList();
 
-                tableColumn.setCellValueFactory(new PropertyValueFactory<>("ID"));
-                tableColumn.setCellValueFactory(new PropertyValueFactory<>("Medicine Name"));
-                tableColumn.setCellValueFactory(new PropertyValueFactory<>("Price"));
-                tableColumn.setCellValueFactory(new PropertyValueFactory<>("Quantity"));
+                tableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+                tableColumn.setCellValueFactory(new PropertyValueFactory<>("medName"));
+                tableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+                tableColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
                 tableView.getColumns().addAll(tableColumn,tableColumn1,tableColumn2,tableColumn3);
 
 
                 Medicine[] m=Medicine.getAllMedicines();
                 for(int i=0;i<m.length;i++){
-                        list.add(new LowMedicineDetails(m[i].getId(),m[i].getMedicineName(),m[i].getPrice(),m[i].getQuantity()));
-                        tableView.setItems(list);
+
+                        if( m[i].getQuantity() < 10){
+
+                                list.add(new LowMedicineDetails(m[i].getId(),m[i].getMedicineName(),m[i].getPrice(),m[i].getQuantity()));
+                                tableView.setItems(list);
+                        }
                 }
-
-
 
                 gridPane.add(tableView,0,0);
                 alert.getDialogPane().setContent(gridPane);

@@ -1,13 +1,18 @@
 package controller;
 
+import GetterSetter.*;
 import dbConnector.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -103,6 +108,62 @@ public class DashbordPatient {
         Scene scene=new Scene(root);
         dashbordClerk.setScene(scene);
         dashbordClerk.show();
+
+
+
+    }
+
+    @FXML
+    void forgetIdClick(ActionEvent event) {
+
+        Alert alert=new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Forgot ID");
+
+        GridPane gridPane=new GridPane();
+        gridPane.setVgap(10);
+        gridPane.setHgap(10);
+        gridPane.setPadding(new Insets(10,10,10,10));
+
+        TextField ptname=new TextField();
+        ptname.setPromptText("Patient Name");
+
+        Button click=new Button("CHECK");
+
+        TableView<ForgotId> tableView=new TableView();
+
+        TableColumn<ForgotId,Long> tableColumn=new TableColumn<>("Patient ID");
+        TableColumn<ForgotId,String> tableColumn1=new TableColumn<>("Patient Name");
+        TableColumn<ForgotId,Long> tableColumn2=new TableColumn<>("Patient Phone No");
+
+        ObservableList<ForgotId> list= FXCollections.observableArrayList();
+
+        tableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        tableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tableColumn.setCellValueFactory(new PropertyValueFactory<>("Phone"));
+
+        tableView.getColumns().addAll(tableColumn,tableColumn1,tableColumn2);
+
+        click.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+
+                Patient[] patient=Patient.getPatients(ptname.getText());
+
+                for (int i=0;i<patient.length;i++){
+                    list.add(new ForgotId(patient[i].getUHID(),patient[i].getPatientName(),patient[i].getPhoneNumber()));
+                    tableView.setItems(list);
+                }
+
+            }
+        });
+
+        gridPane.add(ptname,0,0);
+        gridPane.add(click,1,0);
+        gridPane.add(tableView,0,1);
+
+        alert.getDialogPane().setContent(gridPane);
+
+        alert.showAndWait();
 
 
 

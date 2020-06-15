@@ -103,12 +103,14 @@ public class Updatepatient {
         System.out.println(pname+" "+pdob+" "+pgender+" "+paddress+" "+pphone+" "+pid);
 
           Patient patient=new Patient();
+
           patient.setUHID(pid);
           patient.setPatientName(pname);
           patient.setDOB(pdob);
           patient.setGender(pgender);
           patient.setAddress(paddress);
           patient.setPhoneNumber(pphone);
+
           Patient.updatePatient(patient);
 
           //Alert box pending

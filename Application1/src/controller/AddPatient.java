@@ -90,12 +90,6 @@ public class AddPatient {
                 dashbordClerk.show();
 
 
-
-
-
-
-
-
             }
             else{
                 Alert a=new Alert((Alert.AlertType.ERROR));
