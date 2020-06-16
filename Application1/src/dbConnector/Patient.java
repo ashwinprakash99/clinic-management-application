@@ -287,4 +287,44 @@ public class Patient {
         }
         return patients;
     }
+    public static Patient[] getAllPatients() {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        Patient[] patients = new Patient[0];
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
+            System.out.println("Connection successfull...");
+            preparedStatement = connection.prepareStatement("SELECT * FROM Patient;");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            ArrayList<Patient> resultPatient = new ArrayList<>();
+            while (resultSet.next()) {
+                Patient patient = new Patient();
+                patient.setUHID(resultSet.getLong(1));
+                patient.setPatientName(resultSet.getString(2));
+                patient.setDOB(resultSet.getString(3));
+                patient.setGender(resultSet.getString(4));
+                patient.setAddress(resultSet.getString(5));
+                patient.setPhoneNumber(resultSet.getLong(6));
+                resultPatient.add(patient);
+            }
+            if (resultPatient.size() > 0) {
+                patients = resultPatient.toArray(patients);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return patients;
+    }
+
 }

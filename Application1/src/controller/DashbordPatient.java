@@ -170,4 +170,19 @@ public class DashbordPatient {
     }
 
 
+    public void clerkPageClick(ActionEvent actionEvent) throws IOException {
+
+    }
+
+    public void doctorPageClick(ActionEvent actionEvent) {
+    }
+
+    public void backClick(ActionEvent actionEvent) throws IOException {
+        parent.getScene().getWindow().hide();
+        Stage dashbordClerk=new Stage();
+        Parent root= FXMLLoader.load(getClass().getResource("/fxml/dashbordClerk.fxml"));
+        Scene scene=new Scene(root);
+        dashbordClerk.setScene(scene);
+        dashbordClerk.show();
+    }
 }

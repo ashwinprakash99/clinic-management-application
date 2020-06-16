@@ -59,7 +59,7 @@ public class DashbordMedicine {
                 quantity.setPromptText("Quantity");
                 gridPane.add(medicineName,0,0);
                 gridPane.add(medPrice,1,0);
-                gridPane.add(tax,1,0);
+                gridPane.add(tax,0,1);
                 gridPane.add(quantity,1,1);
                 alert.getDialogPane().setContent(gridPane);
                 Optional<ButtonType> result=alert.showAndWait();
@@ -353,11 +353,18 @@ public class DashbordMedicine {
         }
 
 
+        public void backClick(ActionEvent actionEvent) throws IOException {
+                parent.getScene().getWindow().hide();
+                Stage dashbordClerk=new Stage();
+                Parent root= FXMLLoader.load(getClass().getResource("/fxml/dashbordClerk.fxml"));
+                Scene scene=new Scene(root);
+                dashbordClerk.setScene(scene);
+                dashbordClerk.show();
+        }
 
+        public void clerkPageClick(ActionEvent actionEvent) {
+        }
 
-
-
-
-
-
+        public void doctorPageClick(ActionEvent actionEvent) {
+        }
 }
