@@ -1,13 +1,17 @@
 package controller;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import javax.swing.text.html.Option;
@@ -39,15 +43,39 @@ public class DashbordClerk {
 
         ///alert box and table
 
-        TextInputDialog dialog=new TextInputDialog("");
-        dialog.setTitle("Bill");
-        dialog.setHeaderText("Medicine Details");
-        dialog.setContentText("Patient id: ");
+        Alert alert=new Alert(Alert.AlertType.NONE);
 
-        Optional<String > result=dialog.showAndWait();
-        if(result.isPresent()){
-            System.out.println("Patient id" +result.get());
-        }
+        alert.setTitle("Select");
+
+        GridPane gridPane=new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        gridPane.setPadding(new Insets(10,10,10,10));
+        Button bill=new Button("Bill Directly"),forgetBill=new Button("Forget Id");
+        alert.setHeight(300);
+        alert.setWidth(300);
+        bill.setPrefSize(100,100);
+        forgetBill.setPrefSize(100,100);
+
+        bill.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+
+            }
+        });
+        forgetBill.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+
+            }
+        });
+
+        gridPane.add(bill,0,0);
+        gridPane.add(forgetBill,1,0);
+
+        alert.getDialogPane().setContent(gridPane);
+
+        alert.showAndWait();
 
 
 

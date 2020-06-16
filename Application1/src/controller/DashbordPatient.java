@@ -138,8 +138,8 @@ public class DashbordPatient {
         ObservableList<ForgotId> list= FXCollections.observableArrayList();
 
         tableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        tableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        tableColumn.setCellValueFactory(new PropertyValueFactory<>("Phone"));
+        tableColumn1.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tableColumn2.setCellValueFactory(new PropertyValueFactory<>("Phone"));
 
         tableView.getColumns().addAll(tableColumn,tableColumn1,tableColumn2);
 

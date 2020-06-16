@@ -2,7 +2,7 @@ package controller;
 
 import GetterSetter.*;
 import dbConnector.*;
-import javafx.beans.Observable;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,9 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
 public class DashbordMedicine {
@@ -36,8 +34,6 @@ public class DashbordMedicine {
         @FXML
         private AnchorPane parent;
         Long id;
-
-
 
         Long addId;
         String addName;
@@ -83,10 +79,7 @@ public class DashbordMedicine {
                                 dashbordClerk.show();
                         }
                 }
-
-
         }
-
         @FXML
         void deleteMedicineClick(ActionEvent event) throws IOException {
 
@@ -122,10 +115,8 @@ public class DashbordMedicine {
                                 Scene scene=new Scene(root);
                                 dashbordClerk.setScene(scene);
                                 dashbordClerk.show();
-
                         }
                 }
-
         }
 
         @FXML
@@ -138,16 +129,12 @@ public class DashbordMedicine {
                 gridPane.setPadding(new Insets(20,20,20,20));
                 TextField medId=new TextField(),medName=new TextField(),tax=new TextField(),quantity=new TextField(),price=new TextField();
 
-
-
                 medId.setPromptText("Medicine Id");
                 medName.setPromptText("Medicine Name");
                 price.setPromptText("Price");
                 tax.setPromptText("Tax");
                 quantity.setPromptText("Quantity");
-
                 Button checkMed=new Button("Check Medicine");
-
                 gridPane.add(medId,0,0);
                 gridPane.add(checkMed,1,0);
                 gridPane.add(medName,0,1);
@@ -155,8 +142,6 @@ public class DashbordMedicine {
                 gridPane.add(tax,0,2);
                 gridPane.add(quantity,1,2);
                 alert.getDialogPane().setContent(gridPane);
-
-
                 checkMed.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent actionEvent) {
@@ -178,7 +163,6 @@ public class DashbordMedicine {
                                 }
                         }
                 });
-
                 Optional<ButtonType> result=alert.showAndWait();
 
                 if (result.get()==ButtonType.OK){
@@ -309,7 +293,6 @@ public class DashbordMedicine {
 
         @FXML
         void checkMedicineClick(ActionEvent event) {
-        //display the medicine lower than 10
 
                 Alert alert=new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Patient information");
@@ -330,9 +313,9 @@ public class DashbordMedicine {
                 ObservableList<LowMedicineDetails> list= FXCollections.observableArrayList();
 
                 tableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-                tableColumn.setCellValueFactory(new PropertyValueFactory<>("medName"));
-                tableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-                tableColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+                tableColumn1.setCellValueFactory(new PropertyValueFactory<>("medName"));
+                tableColumn2.setCellValueFactory(new PropertyValueFactory<>("price"));
+                tableColumn3.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
                 tableView.getColumns().addAll(tableColumn,tableColumn1,tableColumn2,tableColumn3);
 
@@ -340,7 +323,7 @@ public class DashbordMedicine {
                 Medicine[] m=Medicine.getAllMedicines();
                 for(int i=0;i<m.length;i++){
 
-                        if( m[i].getQuantity() < 10){
+                        if( m[i].getQuantity() < 5){
 
                                 list.add(new LowMedicineDetails(m[i].getId(),m[i].getMedicineName(),m[i].getPrice(),m[i].getQuantity()));
                                 tableView.setItems(list);

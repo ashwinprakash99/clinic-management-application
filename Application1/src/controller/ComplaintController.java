@@ -253,6 +253,24 @@ public class ComplaintController {
 
     public void doctorPageClick(ActionEvent actionEvent) {
     }
+
+    public void backClickExamination(ActionEvent actionEvent) {
+    }
+
+    public void clerkPageClickExamination(ActionEvent actionEvent) {
+    }
+
+    public void doctorPageClickExamination(ActionEvent actionEvent) {
+    }
+
+    public void backClickPresciption(ActionEvent actionEvent) {
+    }
+
+    public void clerkPageClickPrescription(ActionEvent actionEvent) {
+    }
+
+    public void doctorPageClickPrescription(ActionEvent actionEvent) {
+    }
 }
 
 

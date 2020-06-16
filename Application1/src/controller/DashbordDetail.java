@@ -48,9 +48,9 @@ public class DashbordDetail {
         ObservableList<allMedicine> list= FXCollections.observableArrayList();
 
         tableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        tableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        tableColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        tableColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        tableColumn1.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tableColumn2.setCellValueFactory(new PropertyValueFactory<>("price"));
+        tableColumn3.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
         tableView.getColumns().addAll(tableColumn,tableColumn1,tableColumn2,tableColumn3);
 
@@ -60,20 +60,11 @@ public class DashbordDetail {
 
             list.add(new allMedicine(m[i].getId(),m[i].getMedicineName(),m[i].getPrice(),m[i].getQuantity()));
             tableView.setItems(list);
-
         }
-
         gridPane.add(tableView,0,0);
         alert.getDialogPane().setContent(gridPane);
 
         alert.showAndWait();
-
-
-
-
-
-
-
     }
 
     @FXML
@@ -98,29 +89,27 @@ public class DashbordDetail {
         ObservableList<AllPatientDetails> list= FXCollections.observableArrayList();
 
         tableColumn.setCellValueFactory(new PropertyValueFactory<>("uhid"));
-        tableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        tableColumn.setCellValueFactory(new PropertyValueFactory<>("dob"));
-        tableColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
-        tableColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
-        tableColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        tableColumn1.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tableColumn2.setCellValueFactory(new PropertyValueFactory<>("dob"));
+        tableColumn3.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        tableColumn4.setCellValueFactory(new PropertyValueFactory<>("address"));
+        tableColumn5.setCellValueFactory(new PropertyValueFactory<>("phone"));
 
-        tableView.getColumns().addAll(tableColumn,tableColumn1,tableColumn2,tableColumn3,tableColumn4,tableColumn5);
+        tableView.getColumns().add(tableColumn);
+        tableView.getColumns().add(tableColumn1);
+        tableView.getColumns().add(tableColumn2);
+        tableView.getColumns().add(tableColumn3);
+        tableView.getColumns().add(tableColumn4);
+        tableView.getColumns().add(tableColumn5);
 
         for (int i=0;i<p.length;i++){
             list.add(new AllPatientDetails(p[i].getUHID(),p[i].getPatientName(),p[i].getDOB(),p[i].getGender(),p[i].getAddress(),p[i].getPhoneNumber()));
             tableView.setItems(list);
-
         }
+
         gridPane.add(tableView,0,0);
         alert.getDialogPane().setContent(gridPane);
         alert.showAndWait();
-
-
-
-
-
-
-
 
     }
 

@@ -118,4 +118,12 @@ public class Updatepatient {
 
     }
 
+    public void backClick(ActionEvent actionEvent) {
+    }
+
+    public void clerkPageClick(ActionEvent actionEvent) {
+    }
+
+    public void doctorPageClick(ActionEvent actionEvent) {
+    }
 }
