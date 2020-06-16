@@ -9,23 +9,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-import javax.swing.text.html.Option;
 import java.io.IOException;
-import java.util.Optional;
 
 public class DashbordClerk {
 
-
     @FXML
     private AnchorPane parent;
-
-
-
 
     @FXML
     public void patientEntryClick(ActionEvent e) throws IOException {
@@ -35,15 +28,13 @@ public class DashbordClerk {
         Scene scene=new Scene(root);
         dashbordClerk.setScene(scene);
         dashbordClerk.show();
-
     }
 
     @FXML
     public void billingClick(ActionEvent e){
 
-        ///alert box and table
 
-        Alert alert=new Alert(Alert.AlertType.NONE);
+        Alert alert=new Alert(Alert.AlertType.INFORMATION);
 
         alert.setTitle("Select");
 
@@ -52,7 +43,7 @@ public class DashbordClerk {
         gridPane.setVgap(10);
         gridPane.setPadding(new Insets(10,10,10,10));
         Button bill=new Button("Bill Directly"),forgetBill=new Button("Forget Id");
-        alert.setHeight(300);
+        alert.setHeight(500);
         alert.setWidth(300);
         bill.setPrefSize(100,100);
         forgetBill.setPrefSize(100,100);
@@ -60,13 +51,13 @@ public class DashbordClerk {
         bill.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-
+        //Bill
             }
         });
         forgetBill.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-
+            //forget id
             }
         });
 
@@ -101,9 +92,23 @@ public class DashbordClerk {
 
     }
 
-    public void clerkPageClick(ActionEvent actionEvent) {
+    public void allDetails(ActionEvent actionEvent) throws IOException {
+
+        parent.getScene().getWindow().hide();
+        Stage dashbordClerk=new Stage();
+        Parent root= FXMLLoader.load(getClass().getResource("/fxml/dashbordDetail.fxml"));
+        Scene scene=new Scene(root);
+        dashbordClerk.setScene(scene);
+        dashbordClerk.show();
+
     }
 
-    public void doctorPageClick(ActionEvent actionEvent) {
+    public void doctorPageClick(ActionEvent actionEvent) throws IOException {
+        parent.getScene().getWindow().hide();
+        Stage dashbordClerk=new Stage();
+        Parent root= FXMLLoader.load(getClass().getResource("/fxml/complaint.fxml"));
+        Scene scene=new Scene(root);
+        dashbordClerk.setScene(scene);
+        dashbordClerk.show();
     }
 }

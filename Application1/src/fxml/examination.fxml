@@ -37,8 +37,8 @@
                               </Button>
                               <ButtonBar prefHeight="100.0" prefWidth="1002.0">
                                  <buttons>
-                                    <Button mnemonicParsing="false" onAction="#clerkPageClickExamination" prefHeight="60.0" prefWidth="445.0" text="CLERK" />
-                                    <Button mnemonicParsing="false" onAction="#doctorPageClickExamination" prefHeight="60.0" prefWidth="234.0" text="DOCTOR" />
+                                    <Button disable="true" mnemonicParsing="false" onAction="#clerkPageClickExamination" prefHeight="60.0" prefWidth="445.0" text="CLERK" />
+                                    <Button disable="true" mnemonicParsing="false" onAction="#allDetailClickExamination" prefHeight="60.0" prefWidth="234.0" text="ALL DETAIL" />
                                  </buttons>
                                  <padding>
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

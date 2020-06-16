@@ -109,6 +109,9 @@ public class ComplaintController {
 
 
     @FXML
+    private AnchorPane parent3;
+
+    @FXML
     private TextField doctorName;
 
     @FXML
@@ -140,24 +143,33 @@ public class ComplaintController {
     //**************************************************************************  COMPLAINT  *********************************************************************//
     @FXML
     void examinationClick(ActionEvent event) throws IOException {
-        Complaint complaint=new Complaint(Long.parseLong(patientId.getText()),complain1.getText(),complain2.getText(),complain3.getText(),examination1.getText(),examination2.getText(),examination3.getText());
-        complainId = Complaint.addComplaint(complaint);
-        if(complainId==-1){
+
+        if(patientId.getText().equals("") || complain1.getText().equals("") || examination1.getText().equals("")){
             Alert alert=new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error in complain");
-            alert.setContentText(" COMPLAIN DID NOT REGISTER IN DATABASE");
+            alert.setTitle("Empty Fields");
+            alert.setContentText("FIELDS ARE EMPTY PLEASE ENTER THE DETAILS!!!");
             alert.showAndWait();
+
         }
-        else
-        {
-            parent.getScene().getWindow().hide();
-            Stage dashbordClerk=new Stage();
-            Parent root= FXMLLoader.load(getClass().getResource("/fxml/examination.fxml"));
-            Scene scene=new Scene(root);
-            dashbordClerk.setScene(scene);
-            dashbordClerk.show();
+        else {
+
+            Complaint complaint = new Complaint(Long.parseLong(patientId.getText()), complain1.getText(), complain2.getText(), complain3.getText(), examination1.getText(), examination2.getText(), examination3.getText());
+            complainId = Complaint.addComplaint(complaint);
+            if (complainId == -1) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error in complain");
+                alert.setContentText(" COMPLAIN DID NOT REGISTER IN DATABASE");
+                alert.showAndWait();
+            } else {
+                parent.getScene().getWindow().hide();
+                Stage dashbordClerk = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/fxml/examination.fxml"));
+                Scene scene = new Scene(root);
+                dashbordClerk.setScene(scene);
+                dashbordClerk.show();
 
 
+            }
         }
 
     }
@@ -176,7 +188,6 @@ public class ComplaintController {
     //**********************************************************************************************************************************************************//
 
     //************************************************************************  EXAMINATION ********************************************************************//
-
 
 
     @FXML
@@ -239,6 +250,8 @@ public class ComplaintController {
 
 
 
+    //***************************************************************************************************************************************************************//
+
     public void backClick(ActionEvent actionEvent) throws IOException {
         parent.getScene().getWindow().hide();
         Stage dashbordClerk=new Stage();
@@ -248,29 +261,105 @@ public class ComplaintController {
         dashbordClerk.show();
     }
 
-    public void clerkPageClick(ActionEvent actionEvent) {
+    public void clerkPageClick(ActionEvent actionEvent) throws IOException {
+        parent.getScene().getWindow().hide();
+        Stage dashbordClerk=new Stage();
+        Parent root= FXMLLoader.load(getClass().getResource("/fxml/dashbordClerk.fxml"));
+        Scene scene=new Scene(root);
+        dashbordClerk.setScene(scene);
+        dashbordClerk.show();
+
     }
 
-    public void doctorPageClick(ActionEvent actionEvent) {
+    public void allDetailClick(ActionEvent actionEvent) throws IOException {
+        parent.getScene().getWindow().hide();
+        Stage dashbordClerk=new Stage();
+        Parent root= FXMLLoader.load(getClass().getResource("/fxml/dashbordClerk.fxml"));
+        Scene scene=new Scene(root);
+        dashbordClerk.setScene(scene);
+        dashbordClerk.show();
+
     }
 
-    public void backClickExamination(ActionEvent actionEvent) {
+
+    public void backClickExamination(ActionEvent actionEvent) throws IOException {
+        parent2.getScene().getWindow().hide();
+        Stage dashbordClerk=new Stage();
+        Parent root= FXMLLoader.load(getClass().getResource("/fxml/complaint.fxml"));
+        Scene scene=new Scene(root);
+        dashbordClerk.setScene(scene);
+        dashbordClerk.show();
+
+        //if delete for complaint
+
+    }
+    public void clerkPageClickExamination(ActionEvent actionEvent) throws IOException {
+        parent2.getScene().getWindow().hide();
+        Stage dashbordClerk=new Stage();
+        Parent root= FXMLLoader.load(getClass().getResource("/fxml/dashbordClerk.fxml"));
+        Scene scene=new Scene(root);
+        dashbordClerk.setScene(scene);
+        dashbordClerk.show();
+
+        //delete
+
     }
 
-    public void clerkPageClickExamination(ActionEvent actionEvent) {
+    public void allDetailClickExamination(ActionEvent actionEvent) throws IOException {
+        parent2.getScene().getWindow().hide();
+        Stage dashbordClerk=new Stage();
+        Parent root= FXMLLoader.load(getClass().getResource("/fxml/dashbordClerk.fxml"));
+        Scene scene=new Scene(root);
+        dashbordClerk.setScene(scene);
+        dashbordClerk.show();
+
+        //delte
+
     }
 
-    public void doctorPageClickExamination(ActionEvent actionEvent) {
+
+
+    public void backClickPresciption(ActionEvent actionEvent) throws IOException {
+
+        parent3.getScene().getWindow().hide();
+        Stage dashbordClerk=new Stage();
+        Parent root= FXMLLoader.load(getClass().getResource("/fxml/examination.fxml"));
+        Scene scene=new Scene(root);
+        dashbordClerk.setScene(scene);
+        dashbordClerk.show();
+
+        //delete examination
+
     }
 
-    public void backClickPresciption(ActionEvent actionEvent) {
+    public void clerkPageClickPrescription(ActionEvent actionEvent) throws IOException {
+        parent3.getScene().getWindow().hide();
+        Stage dashbordClerk=new Stage();
+        Parent root= FXMLLoader.load(getClass().getResource("/fxml/dashbordClerk.fxml"));
+        Scene scene=new Scene(root);
+        dashbordClerk.setScene(scene);
+        dashbordClerk.show();
+
+        //delte
     }
 
-    public void clerkPageClickPrescription(ActionEvent actionEvent) {
+    public void allDetailClickPrescription(ActionEvent actionEvent) throws IOException {
+        parent3.getScene().getWindow().hide();
+        Stage dashbordClerk=new Stage();
+        Parent root= FXMLLoader.load(getClass().getResource("/fxml/dashbordClerk.fxml"));
+        Scene scene=new Scene(root);
+        dashbordClerk.setScene(scene);
+        dashbordClerk.show();
+
+        //delte
+
     }
 
-    public void doctorPageClickPrescription(ActionEvent actionEvent) {
-    }
+
+
+
+
+
 }
 
 

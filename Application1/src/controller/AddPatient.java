@@ -4,6 +4,7 @@ import dbConnector.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -11,10 +12,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.ResourceBundle;
 
-public class AddPatient {
+public class AddPatient implements Initializable {
 
 
     @FXML
@@ -49,6 +55,16 @@ public class AddPatient {
 
     String pname,pdob,pgender,paddress,pphone;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        Date date = new Date();
+        String modifiedDate= new SimpleDateFormat("yyyy-MM-dd").format(date);
+        LocalDate localDate=LocalDate.parse(modifiedDate,dateTimeFormatter);
+        dob.setValue(localDate);
+
+    }
+
     public void addPatientButtonClick(ActionEvent e) throws ParseException, IOException {
         LocalDate date = dob.getValue();
         pname=patientName.getText();
@@ -64,6 +80,8 @@ public class AddPatient {
         pdob=date.toString();
         paddress=patientAddress.getText();
         pphone=patientPhoneNumber.getText();
+
+
 
         if(pname.equals("") || pdob.equals("") || pgender.equals("") || paddress.equals("") || pphone.equals("")){
 
@@ -100,19 +118,33 @@ public class AddPatient {
         }
 
 
-
-
-
-
     }
 
 
-    public void backClick(ActionEvent actionEvent) {
+    public void backClick(ActionEvent actionEvent) throws IOException {
+        parent.getScene().getWindow().hide();
+        Stage dashbordClerk=new Stage();
+        Parent root= FXMLLoader.load(getClass().getResource("/fxml/dashbordClerk.fxml"));
+        Scene scene=new Scene(root);
+        dashbordClerk.setScene(scene);
+        dashbordClerk.show();
     }
 
-    public void clerkPageClick(ActionEvent actionEvent) {
-    }
+    public void doctorPageClick(ActionEvent actionEvent) throws IOException {
+        parent.getScene().getWindow().hide();
+        Stage dashbordClerk=new Stage();
+        Parent root= FXMLLoader.load(getClass().getResource("/fxml/complaint.fxml"));
+        Scene scene=new Scene(root);
+        dashbordClerk.setScene(scene);
+        dashbordClerk.show();
 
-    public void doctorPageClick(ActionEvent actionEvent) {
+    }
+    public void allDetailsClick(ActionEvent actionEvent) throws IOException {
+        parent.getScene().getWindow().hide();
+        Stage dashbordClerk=new Stage();
+        Parent root= FXMLLoader.load(getClass().getResource("/fxml/dashbordDetail.fxml"));
+        Scene scene=new Scene(root);
+        dashbordClerk.setScene(scene);
+        dashbordClerk.show();
     }
 }

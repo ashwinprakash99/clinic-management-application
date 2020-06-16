@@ -10,19 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 public class DashbordFront {
-
-    @FXML
-    private Button clerkBtn;
-
-    @FXML
-    private Button doctorBtn;
-
-    @FXML
-    private Button detailsBtn;
 
     @FXML
     private AnchorPane dashbordfront;

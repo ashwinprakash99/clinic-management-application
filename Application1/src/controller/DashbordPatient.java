@@ -89,14 +89,9 @@ public class DashbordPatient {
                 alert3.showAndWait();
             }
 
-
-
-
-
             }
 
         }
-
 
 
     @FXML
@@ -118,6 +113,8 @@ public class DashbordPatient {
 
         Alert alert=new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Forgot ID");
+        alert.setWidth(800);
+        alert.setHeight(500);
 
         GridPane gridPane=new GridPane();
         gridPane.setVgap(10);

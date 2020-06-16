@@ -26,8 +26,6 @@ public class DashbordDetail {
     @FXML
     private AnchorPane patent;
 
-
-
     @FXML
     void allMedicineInfoClick(ActionEvent event) {
 
