@@ -96,10 +96,10 @@ alter table Examination auto_increment = 0;
 
 create table Billing (
 	id bigint auto_increment primary key,
-	med_pres_id bigint not null,
+	complaint_id bigint not null,
 	consultation_fee int not null,
 	total_fee float not null,
 	created_at datetime not null,
-	foreign key(med_pres_id) references Medicine_Prescription(id) on update cascade on delete cascade
+	foreign key(complaint_id) references Complaint(id) on update cascade on delete cascade
 );
 alter table Billing auto_increment = 0;
