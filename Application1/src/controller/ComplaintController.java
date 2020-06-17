@@ -287,7 +287,7 @@ public class ComplaintController {
 
         for (int i=0;i<m.length;i++) {
 
-            selcts = new CheckBox(""+i+1);
+            selcts = new CheckBox(""+(i+1));
             CheckBox morn = new CheckBox(null);
             CheckBox after = new CheckBox(null);
             CheckBox nig = new CheckBox(null);
@@ -307,13 +307,10 @@ public class ComplaintController {
 
         Medicine[] m=Medicine.getAllMedicines();
 
-        for (int i=0;i<m.length;i++){
-
-            if(selcts.isSelected()){
-                System.out.println(""+m[i].getMedicineName());
-
+        for(int i=0;i<tableView.getItems().size();i++){
+            if(tableView.getItems().get(i).getSelect().isSelected()){
+                System.out.println(""+m[i]);
             }
-
         }
 
     }
