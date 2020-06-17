@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ComplaintController implements Initializable {
+public class ComplaintController {
 
    static Long complainId,examinationId;
 
@@ -153,7 +153,11 @@ public class ComplaintController implements Initializable {
     private TableColumn<PrescriptionOperation, CheckBox> prescNight;
 
 
+    CheckBox selcts;
 
+
+
+    //******************************************************
 
 
 
@@ -266,7 +270,7 @@ public class ComplaintController implements Initializable {
             alert.showAndWait();
         }
 
-        
+
         ObservableList<PrescriptionOperation> list= FXCollections.observableArrayList();
 
         Medicine[] m=Medicine.getAllMedicines();
@@ -283,7 +287,7 @@ public class ComplaintController implements Initializable {
 
         for (int i=0;i<m.length;i++) {
 
-            CheckBox selcts = new CheckBox();
+            selcts = new CheckBox(""+i+1);
             CheckBox morn = new CheckBox(null);
             CheckBox after = new CheckBox(null);
             CheckBox nig = new CheckBox(null);
@@ -297,21 +301,20 @@ public class ComplaintController implements Initializable {
 
 
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
-    }
-
-
     @FXML
     void presciptionDoneClick(ActionEvent event) {
 
 
+        Medicine[] m=Medicine.getAllMedicines();
 
+        for (int i=0;i<m.length;i++){
 
+            if(selcts.isSelected()){
+                System.out.println(""+m[i].getMedicineName());
 
+            }
 
+        }
 
     }
 
