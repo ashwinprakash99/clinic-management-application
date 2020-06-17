@@ -1,27 +1,23 @@
 package controller;
 
-import GetterSetter.PrescriptionOperation;
-import dbConnector.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import dbConnector.Complaint;
+import dbConnector.Examination;
+import dbConnector.Treatment;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class ComplaintController implements Initializable {
+public class AlternateComplaintController {
 
    static Long complainId,examinationId;
 
@@ -125,36 +121,21 @@ public class ComplaintController implements Initializable {
     private TextArea treatmentDescription;
 
     @FXML
-    private TableView<PrescriptionOperation> tableView;
-
-
-    @FXML
-    private TableColumn<PrescriptionOperation, CheckBox> select;
+    private CheckBox morning;
 
     @FXML
-    private TableColumn<PrescriptionOperation, String> prescMedName;
+    private CheckBox afternoon;
 
     @FXML
-    private TableColumn<PrescriptionOperation, Integer> prescStock;
-
-    @FXML
-    private TableColumn<PrescriptionOperation, TextField> prescQuantity;
-
-    @FXML
-    private TableColumn<PrescriptionOperation, Long> prescPrice;
-
-    @FXML
-    private TableColumn<PrescriptionOperation, CheckBox> prescMorning;
-
-    @FXML
-    private TableColumn<PrescriptionOperation, CheckBox> prescAfternoon;
-
-    @FXML
-    private TableColumn<PrescriptionOperation, CheckBox> prescNight;
+    private CheckBox night;
 
 
 
+//*************************************************************************************************************************************************************
 
+    static String ptid,comp1,comp2,comp3,exm1,exm2,exm3;
+    static String pul,bpp,tempp,cvss,ecgg,eegg,tmtt,cnss,labtestt,xrayy,ctt,twoo,paa,rss,diagg,otherss;
+    static String docname,docDescription;
 
 
 
@@ -180,14 +161,23 @@ public class ComplaintController implements Initializable {
         }
         else {
 
-            Complaint complaint = new Complaint(Long.parseLong(patientId.getText()), complain1.getText(), complain2.getText(), complain3.getText(), examination1.getText(), examination2.getText(), examination3.getText());
-            complainId = Complaint.addComplaint(complaint);
-            if (complainId == -1) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error in complain");
-                alert.setContentText(" COMPLAIN DID NOT REGISTER IN DATABASE");
-                alert.showAndWait();
-            } else {
+            ptid=patientId.getText();
+            comp1=complain1.getText();
+            comp2=complain2.getText();
+            comp3=complain3.getText();
+            exm1=examination1.getText();
+            exm2=examination2.getText();
+            exm3=examination3.getText();
+
+//            Complaint complaint = new Complaint(Long.parseLong(patientId.getText()), complain1.getText(), complain2.getText(), complain3.getText(), examination1.getText(), examination2.getText(), examination3.getText());
+//            complainId = Complaint.addComplaint(complaint);
+//            if (complainId == -1) {
+//                Alert alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setTitle("Error in complain");
+//                alert.setContentText(" COMPLAIN DID NOT REGISTER IN DATABASE");
+//                alert.showAndWait();
+//            } else {
+
                 parent.getScene().getWindow().hide();
                 Stage dashbordClerk = new Stage();
                 Parent root = FXMLLoader.load(getClass().getResource("/fxml/examination.fxml"));
@@ -195,9 +185,9 @@ public class ComplaintController implements Initializable {
                 dashbordClerk.setScene(scene);
                 dashbordClerk.show();
 
-
-            }
+//            }
         }
+
 
     }
 
@@ -219,16 +209,35 @@ public class ComplaintController implements Initializable {
 
     @FXML
     void nextClick(ActionEvent event) throws IOException {
-        Examination examination=new Examination(complainId,bp.getText(),pulse.getText(),temp.getText(),cvs.getText(),rs.getText(),pa.getText(),cns.getText(),labtest.getText(),ecg.getText(),xray.getText(),ct.getText(),two.getText(),tmt.getText(),eeg.getText(),diag.getText(),others.getText());
-        examinationId= Examination.addExamination(examination);
 
-        if (examinationId == -1){
-            Alert alert=new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("ERROR IN DATABASE");
-            alert.setContentText("EXAMINATION DID NOT REGISTER IN DATABASE");
-            alert.showAndWait();
-        }
-        else{
+        bpp=bp.getText();
+        pul=pulse.getText();
+        tempp=temp.getText();
+        cvss=cvs.getText();
+        rss=rs.getText();
+        paa=pa.getText();
+        cnss=cns.getText();
+        labtestt=labtest.getText();
+        ecgg=ecg.getText();
+        xrayy=xray.getText();
+        ctt=ct.getText();
+        twoo=two.getText();
+        tmtt=tmt.getText();
+        eegg=eeg.getText();
+        diagg=diag.getText();
+        otherss=others.getText();
+
+
+//        Examination examination=new Examination(complainId,bp.getText(),pulse.getText(),temp.getText(),cvs.getText(),rs.getText(),pa.getText(),cns.getText(),labtest.getText(),ecg.getText(),xray.getText(),ct.getText(),two.getText(),tmt.getText(),eeg.getText(),diag.getText(),others.getText());
+//        examinationId= Examination.addExamination(examination);
+//
+//        if (examinationId == -1){
+//            Alert alert=new Alert(Alert.AlertType.ERROR);
+//            alert.setTitle("ERROR IN DATABASE");
+//            alert.setContentText("EXAMINATION DID NOT REGISTER IN DATABASE");
+//            alert.showAndWait();
+//        }
+//        else{
 
             parent2.getScene().getWindow().hide();
             Stage dashbordClerk=new Stage();
@@ -237,7 +246,7 @@ public class ComplaintController implements Initializable {
             dashbordClerk.setScene(scene);
             dashbordClerk.show();
 
-        }
+//        }
 
     }
     //********************************************************************************************************************************************************************//
@@ -254,9 +263,47 @@ public class ComplaintController implements Initializable {
             treatmentDescription.setText("Everything is good, Please take some rest !!");
         }
 
+        docname=doctorName.getText();
+        docDescription=treatmentDescription.getText();
+
+//        Treatment treatment=new Treatment(doctorName.getText(),treatmentDescription.getText(),complainId);
+//        Long tid=Treatment.addTreatment(treatment);
+//        if (tid== -1){
+//            Alert alert=new Alert(Alert.AlertType.ERROR);
+//            alert.setTitle("ERROR IN DATABASE");
+//            alert.setContentText("TREATMENT DID NOT REGISTER IN DATABASE");
+//            alert.showAndWait();
+//        }
+    }
+
+    @FXML
+    void presciptionDoneClick(ActionEvent event) {
+
+
+        // prescription event should occur
+
+
+        Complaint complaint = new Complaint(Long.parseLong(ptid), comp1, comp2, comp3, exm1, exm2, exm3);
+            complainId = Complaint.addComplaint(complaint);
+            if (complainId == -1) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error in complain");
+                alert.setContentText(" COMPLAIN DID NOT REGISTER IN DATABASE");
+                alert.showAndWait();
+            }
+//
+
+        Examination examination=new Examination(complainId,bpp,pul,tempp,cvss,rss,paa,cnss,labtestt,ecgg,xrayy,ctt,twoo,tmtt,eegg,diagg,otherss);
+        examinationId= Examination.addExamination(examination);
+
+        if (examinationId == -1){
+            Alert alert=new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR IN DATABASE");
+            alert.setContentText("EXAMINATION DID NOT REGISTER IN DATABASE");
+            alert.showAndWait();
+        }
+
         Treatment treatment=new Treatment(doctorName.getText(),treatmentDescription.getText(),complainId);
-
-
         Long tid=Treatment.addTreatment(treatment);
 
         if (tid== -1){
@@ -266,56 +313,13 @@ public class ComplaintController implements Initializable {
             alert.showAndWait();
         }
 
-        
-        ObservableList<PrescriptionOperation> list= FXCollections.observableArrayList();
 
-        Medicine[] m=Medicine.getAllMedicines();
-
-        select.setCellValueFactory(new PropertyValueFactory<>("select"));
-        prescMedName.setCellValueFactory(new PropertyValueFactory<>("prescMedName"));
-        prescStock.setCellValueFactory(new PropertyValueFactory<>("prescStock"));
-        prescQuantity.setCellValueFactory(new PropertyValueFactory<>("presQuantity"));
-        prescPrice.setCellValueFactory(new PropertyValueFactory<>("prescPrice"));
-        prescMorning.setCellValueFactory(new PropertyValueFactory<>("morning"));
-        prescAfternoon.setCellValueFactory(new PropertyValueFactory<>("afternoon"));
-        prescNight.setCellValueFactory(new PropertyValueFactory<>("evening"));
+//      prescription event is pending
 
 
-        for (int i=0;i<m.length;i++) {
 
-            CheckBox selcts = new CheckBox();
-            CheckBox morn = new CheckBox(null);
-            CheckBox after = new CheckBox(null);
-            CheckBox nig = new CheckBox(null);
-            TextField geQuantity = new TextField();
 
-            list.add(new PrescriptionOperation(selcts,m[i].getMedicineName(),m[i].getQuantity(),geQuantity,m[i].getPrice(),morn,after,nig));
-            tableView.setItems(list);
         }
-
-    }
-
-
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
-    }
-
-
-    @FXML
-    void presciptionDoneClick(ActionEvent event) {
-
-
-
-
-
-
-
-    }
-
-
 
 
 
@@ -359,7 +363,7 @@ public class ComplaintController implements Initializable {
         dashbordClerk.setScene(scene);
         dashbordClerk.show();
 
-
+        //if delete for complaint
 
     }
     public void clerkPageClickExamination(ActionEvent actionEvent) throws IOException {
@@ -370,7 +374,7 @@ public class ComplaintController implements Initializable {
         dashbordClerk.setScene(scene);
         dashbordClerk.show();
 
-
+        //delete
 
     }
 
@@ -381,6 +385,8 @@ public class ComplaintController implements Initializable {
         Scene scene=new Scene(root);
         dashbordClerk.setScene(scene);
         dashbordClerk.show();
+
+        //delte
 
     }
 
@@ -395,6 +401,7 @@ public class ComplaintController implements Initializable {
         dashbordClerk.setScene(scene);
         dashbordClerk.show();
 
+        //delete examination
 
     }
 
@@ -406,6 +413,7 @@ public class ComplaintController implements Initializable {
         dashbordClerk.setScene(scene);
         dashbordClerk.show();
 
+        //delte
     }
 
     public void allDetailClickPrescription(ActionEvent actionEvent) throws IOException {
@@ -416,8 +424,12 @@ public class ComplaintController implements Initializable {
         dashbordClerk.setScene(scene);
         dashbordClerk.show();
 
+        //delte
 
     }
+
+
+
 
 
 

@@ -89,6 +89,7 @@ public class DashbordPatient {
                 alert3.showAndWait();
             }
 
+
             }
 
         }
@@ -144,11 +145,21 @@ public class DashbordPatient {
             @Override
             public void handle(ActionEvent actionEvent) {
 
-                Patient[] patient=Patient.getPatients(ptname.getText());
+                if(ptname.getText().equals("")){
+                    Alert alert=new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Fields are empty !!!");
+                    alert.setContentText("Fields are empty please fill ");
+                    alert.showAndWait();
+                }
+                else {
 
-                for (int i=0;i<patient.length;i++){
-                    list.add(new ForgotId(patient[i].getUHID(),patient[i].getPatientName(),patient[i].getPhoneNumber()));
-                    tableView.setItems(list);
+
+                    Patient[] patient = Patient.getPatients(ptname.getText());
+
+                    for (int i = 0; i < patient.length; i++) {
+                        list.add(new ForgotId(patient[i].getUHID(), patient[i].getPatientName(), patient[i].getPhoneNumber()));
+                        tableView.setItems(list);
+                    }
                 }
 
             }
@@ -167,11 +178,24 @@ public class DashbordPatient {
     }
 
 
-    public void clerkPageClick(ActionEvent actionEvent) throws IOException {
+    public void allDetails(ActionEvent actionEvent) throws IOException {
+
+        parent.getScene().getWindow().hide();
+        Stage dashbordClerk=new Stage();
+        Parent root= FXMLLoader.load(getClass().getResource("/fxml/dashbordDetail.fxml"));
+        Scene scene=new Scene(root);
+        dashbordClerk.setScene(scene);
+        dashbordClerk.show();
 
     }
 
-    public void doctorPageClick(ActionEvent actionEvent) {
+    public void doctorPageClick(ActionEvent actionEvent) throws IOException {
+        parent.getScene().getWindow().hide();
+        Stage dashbordClerk=new Stage();
+        Parent root= FXMLLoader.load(getClass().getResource("/fxml/complaint.fxml"));
+        Scene scene=new Scene(root);
+        dashbordClerk.setScene(scene);
+        dashbordClerk.show();
     }
 
     public void backClick(ActionEvent actionEvent) throws IOException {

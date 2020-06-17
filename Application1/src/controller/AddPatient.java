@@ -124,7 +124,7 @@ public class AddPatient implements Initializable {
     public void backClick(ActionEvent actionEvent) throws IOException {
         parent.getScene().getWindow().hide();
         Stage dashbordClerk=new Stage();
-        Parent root= FXMLLoader.load(getClass().getResource("/fxml/dashbordClerk.fxml"));
+        Parent root= FXMLLoader.load(getClass().getResource("/fxml/dashbordPatient.fxml"));
         Scene scene=new Scene(root);
         dashbordClerk.setScene(scene);
         dashbordClerk.show();
