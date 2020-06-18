@@ -1,22 +1,27 @@
 package controller;
+import GetterSetter.*;
 import dbConnector.*;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class BillingWithComplain implements Initializable {
@@ -107,7 +112,7 @@ public class BillingWithComplain implements Initializable {
         }
         else if(cusultaion.getText().equals("") && !extra.getText().equals("")){
             consu=200+Integer.parseInt(extra.getText());
-            
+
         }
         else if(extra.getText().equals("")){
             consu=Integer.parseInt(cusultaion.getText());
@@ -130,9 +135,83 @@ public class BillingWithComplain implements Initializable {
             totalFess.setText(""+billing.getTotalFee());
         }
 
-
-
     }
+
+
+
+    @FXML
+    void updateButon(ActionEvent event) throws Exception {
+
+        Alert alert=new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Update");
+        GridPane gridPane=new GridPane();
+
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        gridPane.setPadding(new Insets(10,10,10,10));
+
+        TableView<updateMedicine> tableView=new TableView();
+
+        TableColumn<updateMedicine,CheckBox> tableColumn=new TableColumn("Select");
+        TableColumn<updateMedicine,String> tableColumn1=new TableColumn<>("Medicine Name");
+        TableColumn<updateMedicine,TextField> tableColumn2=new TableColumn<>("Quantity");
+
+        tableView.getColumns().addAll(tableColumn,tableColumn1,tableColumn2);
+
+        CompleteMedicinePrescription[] cp=CompleteMedicinePrescription.getCompleteMedicineData(Long.parseLong(complaintId.getText()));
+
+        ObservableList<updateMedicine> list= FXCollections.observableArrayList();
+        tableColumn.setCellValueFactory(new PropertyValueFactory<>("select"));
+        tableColumn1.setCellValueFactory(new PropertyValueFactory<>("medName"));
+        tableColumn2.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+
+
+        for(int i=0;i<cp.length;i++){
+            CheckBox select=new CheckBox(""+(i+1));
+            TextField qnt=new TextField(""+cp[i].getMedicinePrescription().getQuantity());
+            list.add(new updateMedicine(select,cp[i].getMedicine().getMedicineName(),qnt));
+            tableView.setItems(list);
+
+        }
+        gridPane.add(tableView,0,0);
+        alert.getDialogPane().setContent(gridPane);
+
+        Optional<ButtonType> result=alert.showAndWait();
+
+        if(result.get()==ButtonType.OK){
+
+            for(int i=0;i<tableView.getItems().size();i++) {
+                if (tableView.getItems().get(i).getSelect().isSelected()) {
+
+                    MedicinePrescription mp=new MedicinePrescription();
+                    mp.setId(cp[i].getMedicinePrescription().getId());
+                    mp.setComplaintId(Long.parseLong(complaintId.getText()));
+                    mp.setMedicineId(cp[i].getMedicinePrescription().getMedicineId());
+                    mp.setQuantity(Integer.parseInt(tableView.getItems().get(i).getQuantity().getText()));
+                    mp.setMorning(cp[i].getMedicinePrescription().getMorning());
+                    mp.setAfternoon(cp[i].getMedicinePrescription().getAfternoon());
+                    mp.setNight(cp[i].getMedicinePrescription().getNight());
+
+                    boolean v=MedicinePrescription.updateMedicinePrescription(mp);
+
+
+                }
+            }
+                }
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
 
     @FXML
     void home(ActionEvent event) throws IOException {

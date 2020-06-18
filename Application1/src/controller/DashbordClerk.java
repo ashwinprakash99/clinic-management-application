@@ -52,6 +52,7 @@ public class DashbordClerk {
         bill.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                alert.hide();
 
                 parent.getScene().getWindow().hide();
                 Stage dashbordClerk=new Stage();
