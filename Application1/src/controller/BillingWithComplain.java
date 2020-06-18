@@ -50,8 +50,6 @@ public class BillingWithComplain {
                 tableView.setItems(list);
             }
 
-            
-
         }
         catch (Exception e){
             e.printStackTrace();
