@@ -43,6 +43,16 @@ public class BillingWithComplain implements Initializable {
     private TableColumn<GetterSetter.BillingWithComplain, Double> tabPrice;
 
     @FXML
+    private TableColumn<GetterSetter.BillingWithComplain, Boolean> morn;
+
+    @FXML
+    private TableColumn<GetterSetter.BillingWithComplain, Boolean> after;
+
+    @FXML
+    private TableColumn<GetterSetter.BillingWithComplain, Boolean> nig;
+
+
+    @FXML
     private TextField cusultaion;
 
     @FXML
@@ -70,9 +80,12 @@ public class BillingWithComplain implements Initializable {
             tabMed.setCellValueFactory(new PropertyValueFactory<>("MedName"));
             tabQntty.setCellValueFactory(new PropertyValueFactory<>("quantity"));
             tabPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+            morn.setCellValueFactory(new PropertyValueFactory<>("morning"));
+            after.setCellValueFactory(new PropertyValueFactory<>("Afternoon"));
+            nig.setCellValueFactory(new PropertyValueFactory<>("night"));
 
             for(int i=0;i<cp.length;i++){
-                list.add(new GetterSetter.BillingWithComplain((long) (i+1),cp[i].getMedicine().getMedicineName(),cp[i].getMedicinePrescription().getQuantity(),cp[i].getMedicinePrescription().getCost()));
+                list.add(new GetterSetter.BillingWithComplain((long) (i+1),cp[i].getMedicine().getMedicineName(),cp[i].getMedicinePrescription().getQuantity(),cp[i].getMedicinePrescription().getCost(),cp[i].getMedicinePrescription().getMorning(),cp[i].getMedicinePrescription().getAfternoon(),cp[i].getMedicinePrescription().getNight()));
                 tableView.setItems(list);
             }
 

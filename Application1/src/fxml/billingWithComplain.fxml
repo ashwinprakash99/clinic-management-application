@@ -71,10 +71,13 @@
                      <content>
                         <TableView fx:id="tableView" prefHeight="1000.0" prefWidth="862.0">
                           <columns>
-                            <TableColumn fx:id="tabId" prefWidth="84.0" text="ID" />
-                            <TableColumn fx:id="tabMed" prefWidth="363.0" text="MEDICINE NAME" />
-                              <TableColumn fx:id="tabQntty" prefWidth="174.0" text="QUANTITY" />
-                              <TableColumn fx:id="tabPrice" minWidth="0.0" prefWidth="240.0" text="PRICE" />
+                            <TableColumn fx:id="tabId" prefWidth="62.0" text="ID" />
+                            <TableColumn fx:id="tabMed" prefWidth="266.0" text="MEDICINE NAME" />
+                              <TableColumn fx:id="morn" minWidth="0.0" prefWidth="106.0" text="MORNING" />
+                              <TableColumn fx:id="after" minWidth="0.0" prefWidth="124.0" text="AFTERNOON" />
+                              <TableColumn fx:id="nig" minWidth="0.0" prefWidth="111.0" text="NIGHT" />
+                              <TableColumn fx:id="tabQntty" prefWidth="83.0" text="QUANTITY" />
+                              <TableColumn fx:id="tabPrice" minWidth="0.0" prefWidth="105.0" text="PRICE" />
                           </columns>
                         </TableView>
                      </content>
