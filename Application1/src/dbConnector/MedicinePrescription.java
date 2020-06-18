@@ -279,15 +279,15 @@ public class MedicinePrescription {
         return medicinePrescription;
     }
 
-    public static MedicinePrescription[] getMedicinePrescriptions(long patientId) {
+    public static MedicinePrescription[] getMedicinePrescriptions(long complaintId) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         MedicinePrescription[] medicinePrescriptions = new MedicinePrescription[0];
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
             System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("SELECT mp.id,mp.complaint_id,mp.medicine_id,quantity,morning,afternoon,night,cost FROM Medicine_Prescription mp, Complaint c WHERE mp.complaint_id = c.id AND c.patient_id = ?;");
-            preparedStatement.setLong(1, patientId);
+            preparedStatement = connection.prepareStatement("SELECT * FROM Medicine_Prescription WHERE complaint_id = ?;");
+            preparedStatement.setLong(1, complaintId);
             ResultSet resultSet = preparedStatement.executeQuery();
             ArrayList<MedicinePrescription> resultMedicinePrescription = new ArrayList<>();
             while (resultSet.next()) {

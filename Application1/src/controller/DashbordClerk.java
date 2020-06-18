@@ -1,5 +1,6 @@
 package controller;
 
+import dbConnector.CompleteMedicinePrescription;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -34,7 +35,7 @@ public class DashbordClerk {
     public void billingClick(ActionEvent e){
 
 
-        Alert alert=new Alert(Alert.AlertType.INFORMATION);
+        Alert alert=new Alert(Alert.AlertType.NONE);
 
         alert.setTitle("Select");
 
@@ -51,7 +52,23 @@ public class DashbordClerk {
         bill.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-        //Bill
+
+                parent.getScene().getWindow().hide();
+                Stage dashbordClerk=new Stage();
+                Parent root= null;
+                try {
+                    root = FXMLLoader.load(getClass().getResource("/fxml/billingWithComplain.fxml"));
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                Scene scene=new Scene(root);
+                dashbordClerk.setScene(scene);
+                dashbordClerk.show();
+
+
+
+
+
             }
         });
         forgetBill.setOnAction(new EventHandler<ActionEvent>() {

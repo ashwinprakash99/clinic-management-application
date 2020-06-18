@@ -218,6 +218,40 @@ public class Treatment {
         return treatment;
     }
 
+    public static Treatment getTreatmentWithComplaintId(long complaintId) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        Treatment treatment = null;
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
+            System.out.println("Connection successfull...");
+            preparedStatement = connection.prepareStatement("SELECT * FROM Treatment WHERE complaint_id = ?;");
+            preparedStatement.setLong(1, complaintId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                treatment = new Treatment();
+                treatment.setId(resultSet.getLong(1));
+                treatment.setDocName(resultSet.getString(2));
+                treatment.setDescription(resultSet.getString(3));
+                treatment.setComplaintId(resultSet.getLong(4));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return treatment;
+    }
+
     public static Treatment[] getTreatments(long patientId) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;

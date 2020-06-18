@@ -344,6 +344,54 @@ public class Examination {
         return examination;
     }
 
+    public static Examination getExaminationWithComplaintId(long complaintId) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        Examination examination = null;
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
+            System.out.println("Connection successfull...");
+            preparedStatement = connection.prepareStatement("SELECT * FROM Examination WHERE complaint_id = ?;");
+            preparedStatement.setLong(1, complaintId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                examination = new Examination();
+                examination.setId(resultSet.getLong(1));
+                examination.setBp(resultSet.getString(2));
+                examination.setPulse(resultSet.getString(3));
+                examination.setTemperature(resultSet.getString(4));
+                examination.setCvs(resultSet.getString(5));
+                examination.setRs(resultSet.getString(6));
+                examination.setPa(resultSet.getString(7));
+                examination.setCns(resultSet.getString(8));
+                examination.setLabtest(resultSet.getString(9));
+                examination.setEcg(resultSet.getString(10));
+                examination.setXray(resultSet.getString(11));
+                examination.setCtScanMri(resultSet.getString(12));
+                examination.setTwoDEcho(resultSet.getString(13));
+                examination.setTmt(resultSet.getString(14));
+                examination.setEeg(resultSet.getString(15));
+                examination.setDiagnosis(resultSet.getString(16));
+                examination.setOther(resultSet.getString(17));
+                examination.setComplaintId(resultSet.getLong(18));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return examination;
+    }
+
     public static Examination[] getExaminations(long patientId) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
