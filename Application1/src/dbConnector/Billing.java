@@ -51,19 +51,11 @@ public class Billing {
             preparedStatement = connection.prepareStatement("SELECT cost FROM Medicine_Prescription WHERE complaint_id = ?;");
             preparedStatement.setLong(1, billing.getComplaintId());
             ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                // double cost = resultSet.getDouble(1);
-                // totalFee = cost + billing.getConsultationFee();
-                // billing.setTotalFee(totalFee);
-                do {
-                    totalFee += resultSet.getDouble(1);
-                } while (resultSet.next());
-                totalFee += billing.getConsultationFee();
-                billing.setTotalFee(totalFee);
-            } else {
-                System.out.println("Complaint Id is not present.");
-                return -1;
+            while (resultSet.next()) {
+                totalFee += resultSet.getDouble(1);
             }
+            totalFee += billing.getConsultationFee();
+            billing.setTotalFee(totalFee);
             preparedStatement.close();
             preparedStatement = connection.prepareStatement("INSERT INTO Billing VALUES (0, ?, ?, ?, ?);");
             preparedStatement.setLong(1, billing.getComplaintId());
@@ -142,19 +134,11 @@ public class Billing {
             preparedStatement = connection.prepareStatement("SELECT cost FROM Medicine_Prescription WHERE complaint_id = ?;");
             preparedStatement.setLong(1, billing.getComplaintId());
             ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                // double cost = resultSet.getDouble(1);
-                // totalFee = cost + billing.getConsultationFee();
-                // billing.setTotalFee(totalFee);
-                do {
-                    totalFee += resultSet.getDouble(1);
-                } while (resultSet.next());
-                totalFee += billing.getConsultationFee();
-                billing.setTotalFee(totalFee);
-            } else {
-                System.out.println("Complaint Id is not present.");
-                return false;
+            while (resultSet.next()) {
+                totalFee += resultSet.getDouble(1);
             }
+            totalFee += billing.getConsultationFee();
+            billing.setTotalFee(totalFee);
             preparedStatement.close();
             preparedStatement = connection.prepareStatement("UPDATE Billing SET complaint_id = ?, consultation_fee = ?, total_fee = ? WHERE id = ?;");
             preparedStatement.setLong(1, billing.getComplaintId());

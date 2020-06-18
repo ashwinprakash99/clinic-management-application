@@ -305,38 +305,42 @@ public class ComplaintController {
     @FXML
     void presciptionDoneClick(ActionEvent event) {
         Medicine[] m=Medicine.getAllMedicines();
+        if(tableView.getItems().size()==0){
+
+        }
+        else{
 
         for(int i=0;i<tableView.getItems().size();i++){
-            if(tableView.getItems().get(i).getSelect().isSelected()){
-                boolean morning=false;
-                boolean afernoon=false;
-                boolean night=false;
-                if(tableView.getItems().get(i).getMorning().isSelected()){
-                    morning=true;
+            if(tableView.getItems().get(i).getSelect().isSelected()) {
+                boolean morning = false;
+                boolean afernoon = false;
+                boolean night = false;
+                if (tableView.getItems().get(i).getMorning().isSelected()) {
+                    morning = true;
                 }
-                if(tableView.getItems().get(i).getAfternoon().isSelected()){
-                    afernoon=true;
+                if (tableView.getItems().get(i).getAfternoon().isSelected()) {
+                    afernoon = true;
                 }
-                if(tableView.getItems().get(i).getEvening().isSelected()){
-                    night=true;
+                if (tableView.getItems().get(i).getEvening().isSelected()) {
+                    night = true;
                 }
 
-                MedicinePrescription mp=new MedicinePrescription(complainId,m[i].getId(),Integer.parseInt(tableView.getItems().get(i).getPresQuantity().getText()),morning,afernoon,night);
-                Long prescId=MedicinePrescription.addMedicinePrescription(mp);
+                MedicinePrescription mp = new MedicinePrescription(complainId, m[i].getId(), Integer.parseInt(tableView.getItems().get(i).getPresQuantity().getText()), morning, afernoon, night);
+                Long prescId = MedicinePrescription.addMedicinePrescription(mp);
 
-                if(prescId == -1){
-                    Alert alert=new Alert(Alert.AlertType.ERROR);
+                if (prescId == -1) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error occured");
                     alert.setContentText("Not inserted");
                     alert.showAndWait();
                     break;
-                }
-                else{
-                    Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Complaint ID");
-                    alert.setContentText("Complain ID : "+complainId);
+                    alert.setContentText("Complain ID : " + complainId);
                     alert.showAndWait();
                 }
+            }
 
             }
         }

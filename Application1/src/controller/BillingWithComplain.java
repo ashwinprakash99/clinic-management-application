@@ -56,7 +56,6 @@ public class BillingWithComplain implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         feesBox.setVisible(false);
-
     }
 
 
