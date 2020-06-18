@@ -306,6 +306,10 @@ public class ComplaintController {
     void presciptionDoneClick(ActionEvent event) {
         Medicine[] m=Medicine.getAllMedicines();
         if(tableView.getItems().size()==0){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Complaint ID");
+            alert.setContentText("Complain ID : " + complainId);
+            alert.showAndWait();
 
         }
         else{

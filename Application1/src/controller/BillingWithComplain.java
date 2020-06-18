@@ -105,9 +105,14 @@ public class BillingWithComplain implements Initializable {
         if(extra.getText().equals("") && cusultaion.getText().equals("")){
             consu=200;
         }
+        else if(cusultaion.getText().equals("") && !extra.getText().equals("")){
+            consu=200+Integer.parseInt(extra.getText());
+            
+        }
         else if(extra.getText().equals("")){
             consu=Integer.parseInt(cusultaion.getText());
         }
+
         else{
             consu=Integer.parseInt(cusultaion.getText())+Integer.parseInt(extra.getText());
         }
