@@ -58,7 +58,7 @@ public class GeneralMedicineOutlet {
             if (resultSet.next()) {
                 double price = resultSet.getDouble(1);
                 cost = price  * generalMedicineOutlet.getQuantity();
-                generalMedicineOutlet.setCost(cost);
+                generalMedicineOutlet.setCost((Math.round(cost*10.0)/10.0));
             } else {
                 System.out.println("Medicine Id is not present.");
                 return -1;
@@ -145,7 +145,7 @@ public class GeneralMedicineOutlet {
             if (resultSet.next()) {
                 double price = resultSet.getDouble(1);
                 cost = price  * generalMedicineOutlet.getQuantity();
-                generalMedicineOutlet.setCost(cost);
+                generalMedicineOutlet.setCost((Math.round(cost*10.0)/10.0));
             } else {
                 System.out.println("Medicine Id is not present.");
                 return false;

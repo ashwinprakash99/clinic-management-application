@@ -75,7 +75,7 @@ public class MedicinePrescription {
                 double price = resultSet.getDouble(1);
                 double tax = resultSet.getDouble(2);
                 cost = price * (1 + (tax / 100)) * medicinePrescription.getQuantity();
-                medicinePrescription.setCost(cost);
+                medicinePrescription.setCost((Math.round(cost*10.0)/10.0));
             } else {
                 System.out.println("Medicine Id is not present.");
                 return -1;
@@ -166,7 +166,7 @@ public class MedicinePrescription {
                 double price = resultSet.getDouble(1);
                 double tax = resultSet.getDouble(2);
                 cost = price * (1 + (tax / 100)) * medicinePrescription.getQuantity();
-                medicinePrescription.setCost(cost);
+                medicinePrescription.setCost((Math.round(cost*10.0)/10.0));
             } else {
                 System.out.println("Medicine Id is not present.");
                 return false;

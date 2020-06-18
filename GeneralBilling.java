@@ -224,6 +224,7 @@ public class GeneralBilling {
             while (resultSet.next()) {
                 cost += resultSet.getDouble(1);
             }
+            cost = (Math.round(cost*10.0)/10.0);
             preparedStatement.close();
             preparedStatement = connection.prepareStatement("UPDATE General_Billing SET cost = ? WHERE id = ?;");
             preparedStatement.setDouble(1, cost);

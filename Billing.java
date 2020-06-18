@@ -53,7 +53,7 @@ public class Billing {
                 totalFee += resultSet.getDouble(1);
             }
             totalFee += billing.getConsultationFee();
-            billing.setTotalFee(totalFee);
+            billing.setTotalFee((Math.round(totalFee*10.0)/10.0));
             preparedStatement.close();
             preparedStatement = connection.prepareStatement("INSERT INTO Billing VALUES (0, ?, ?, ?, ?);");
             preparedStatement.setLong(1, billing.getComplaintId());
@@ -136,7 +136,7 @@ public class Billing {
                 totalFee += resultSet.getDouble(1);
             }
             totalFee += billing.getConsultationFee();
-            billing.setTotalFee(totalFee);
+            billing.setTotalFee((Math.round(totalFee*10.0)/10.0));
             preparedStatement.close();
             preparedStatement = connection.prepareStatement("UPDATE Billing SET complaint_id = ?, consultation_fee = ?, total_fee = ? WHERE id = ?;");
             preparedStatement.setLong(1, billing.getComplaintId());
