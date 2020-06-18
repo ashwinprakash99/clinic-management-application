@@ -46,7 +46,7 @@ public class BillingWithComplain {
             tabPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
 
             for(int i=0;i<cp.length;i++){
-                list.add(new GetterSetter.BillingWithComplain((long) (i+1),cp[i].getMedicine().getMedicineName(),cp[i].getMedicinePrescription().getQuantity(),cp[i].getMedicine().getPrice()));
+                list.add(new GetterSetter.BillingWithComplain((long) (i+1),cp[i].getMedicine().getMedicineName(),cp[i].getMedicinePrescription().getQuantity(),cp[i].getMedicinePrescription().getCost()));
                 tableView.setItems(list);
             }
 
