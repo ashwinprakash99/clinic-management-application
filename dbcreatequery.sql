@@ -103,3 +103,23 @@ create table Billing (
 	foreign key(complaint_id) references Complaint(id) on update cascade on delete cascade
 );
 alter table Billing auto_increment = 0;
+
+
+create table General_Billing (
+	id bigint auto_increment primary key,
+	name varchar(100) not null,
+	cost float not null,
+	created_at datetime not null
+);
+alter table General_Billing auto_increment = 0;
+
+
+create table General_Medicine_Outlet (
+	id bigint auto_increment primary key,
+	bill_id bigint not null,
+	medicine_id bigint not null,
+	quantity int not null,
+	cost float not null,
+	created_at datetime not null
+);
+alter table General_Medicine_Outlet auto_increment = 0;
