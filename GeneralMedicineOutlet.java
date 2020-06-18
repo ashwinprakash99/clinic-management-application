@@ -52,13 +52,12 @@ public class GeneralMedicineOutlet {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
             System.out.println("Connection successfull...");
             double cost = 0.0;
-            preparedStatement = connection.prepareStatement("SELECT price,tax FROM Medicine WHERE id = ?;");
+            preparedStatement = connection.prepareStatement("SELECT price FROM Medicine WHERE id = ?;");
             preparedStatement.setLong(1, generalMedicineOutlet.getMedicineId());
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 double price = resultSet.getDouble(1);
-                double tax = resultSet.getDouble(2);
-                cost = price * (1 + (tax / 100)) * generalMedicineOutlet.getQuantity();
+                cost = price  * generalMedicineOutlet.getQuantity();
                 generalMedicineOutlet.setCost(cost);
             } else {
                 System.out.println("Medicine Id is not present.");
@@ -140,13 +139,12 @@ public class GeneralMedicineOutlet {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
             System.out.println("Connection successfull...");
             double cost = 0.0;
-            preparedStatement = connection.prepareStatement("SELECT price,tax FROM Medicine WHERE id = ?;");
+            preparedStatement = connection.prepareStatement("SELECT price FROM Medicine WHERE id = ?;");
             preparedStatement.setLong(1, generalMedicineOutlet.getMedicineId());
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 double price = resultSet.getDouble(1);
-                double tax = resultSet.getDouble(2);
-                cost = price * (1 + (tax / 100)) * generalMedicineOutlet.getQuantity();
+                cost = price  * generalMedicineOutlet.getQuantity();
                 generalMedicineOutlet.setCost(cost);
             } else {
                 System.out.println("Medicine Id is not present.");
