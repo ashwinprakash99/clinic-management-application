@@ -123,3 +123,43 @@ create table General_Medicine_Outlet (
 	created_at datetime not null
 );
 alter table General_Medicine_Outlet auto_increment = 0;
+
+
+-- Triggers
+
+create trigger med_pres_reduce_insert
+after insert
+on Medicine_Prescription for each row
+update Medicine set quantity=quantity-new.quantity where id=new.medicine_id;
+
+
+create trigger med_pres_reduce_before_update
+before update
+on Medicine_Prescription for each row
+update Medicine set quantity=quantity+old.quantity where id=old.medicine_id;
+
+
+create trigger med_pres_reduce_after_update
+after update
+on Medicine_Prescription for each row
+update Medicine set quantity=quantity-new.quantity where id=new.medicine_id;
+
+
+
+create trigger gen_med_pres_reduce_insert
+after insert
+on General_Medicine_Outlet for each row
+update Medicine set quantity=quantity-new.quantity where id=new.medicine_id;
+
+
+create trigger gen_med_pres_reduce_before_update
+before update
+on General_Medicine_Outlet for each row
+update Medicine set quantity=quantity+old.quantity where id=old.medicine_id;
+
+
+create trigger gen_med_pres_reduce_after_update
+after update
+on General_Medicine_Outlet for each row
+update Medicine set quantity=quantity-new.quantity where id=new.medicine_id;
+
