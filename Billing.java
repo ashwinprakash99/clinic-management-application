@@ -40,13 +40,10 @@ public class Billing {
     public double getTotalFee() { return totalFee; }
 
     public static long addBilling(Billing billing) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
             double totalFee = 0.0;
-            preparedStatement = connection.prepareStatement("SELECT cost FROM Medicine_Prescription WHERE complaint_id = ?;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT cost FROM Medicine_Prescription WHERE complaint_id = ?;");
             preparedStatement.setLong(1, billing.getComplaintId());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -55,7 +52,7 @@ public class Billing {
             totalFee += billing.getConsultationFee();
             billing.setTotalFee((Math.round(totalFee*10.0)/10.0));
             preparedStatement.close();
-            preparedStatement = connection.prepareStatement("INSERT INTO Billing VALUES (0, ?, ?, ?, ?);");
+            preparedStatement = MainDataConnection.connection.prepareStatement("INSERT INTO Billing VALUES (0, ?, ?, ?, ?);");
             preparedStatement.setLong(1, billing.getComplaintId());
             preparedStatement.setInt(2, billing.getConsultationFee());
             preparedStatement.setDouble(3, billing.getTotalFee());
@@ -64,7 +61,7 @@ public class Billing {
             if (result != 0) {
                 System.out.println("Added record " + result);
                 preparedStatement.close();
-                preparedStatement = connection.prepareStatement("SELECT MAX(id) FROM Billing;");
+                preparedStatement = MainDataConnection.connection.prepareStatement("SELECT MAX(id) FROM Billing;");
                 resultSet = preparedStatement.executeQuery();
                 resultSet.next();
                 long id = resultSet.getLong(1);
@@ -78,9 +75,6 @@ public class Billing {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
@@ -92,12 +86,9 @@ public class Billing {
     }
 
     public static boolean removeBilling(long id) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("DELETE FROM Billing WHERE id = ?;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("DELETE FROM Billing WHERE id = ?;");
             preparedStatement.setLong(1, id);
             int result = preparedStatement.executeUpdate();
             if (result != 0) {
@@ -109,9 +100,6 @@ public class Billing {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
@@ -123,13 +111,10 @@ public class Billing {
     }
 
     public static boolean updateBilling(Billing billing) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
             double totalFee = 0.0;
-            preparedStatement = connection.prepareStatement("SELECT cost FROM Medicine_Prescription WHERE complaint_id = ?;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT cost FROM Medicine_Prescription WHERE complaint_id = ?;");
             preparedStatement.setLong(1, billing.getComplaintId());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -138,7 +123,7 @@ public class Billing {
             totalFee += billing.getConsultationFee();
             billing.setTotalFee((Math.round(totalFee*10.0)/10.0));
             preparedStatement.close();
-            preparedStatement = connection.prepareStatement("UPDATE Billing SET complaint_id = ?, consultation_fee = ?, total_fee = ? WHERE id = ?;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("UPDATE Billing SET complaint_id = ?, consultation_fee = ?, total_fee = ? WHERE id = ?;");
             preparedStatement.setLong(1, billing.getComplaintId());
             preparedStatement.setInt(2, billing.getConsultationFee());
             preparedStatement.setDouble(3, billing.getTotalFee());
@@ -153,9 +138,6 @@ public class Billing {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
@@ -167,12 +149,9 @@ public class Billing {
     }
 
     public static boolean isBillingPresent(long id) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("SELECT * FROM Billing WHERE id = ?;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT * FROM Billing WHERE id = ?;");
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             int count = 0;
@@ -188,9 +167,6 @@ public class Billing {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
@@ -202,13 +178,10 @@ public class Billing {
     }
 
     public static Billing getBilling(long id) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         Billing billing = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("SELECT * FROM Billing WHERE id = ?;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT * FROM Billing WHERE id = ?;");
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -222,9 +195,6 @@ public class Billing {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
@@ -236,13 +206,10 @@ public class Billing {
     }
 
     public static Billing getBillingWithComplaintId(long complaintId) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         Billing billing = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("SELECT * FROM Billing WHERE complaint_id = ?;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT * FROM Billing WHERE complaint_id = ?;");
             preparedStatement.setLong(1, complaintId);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -256,9 +223,6 @@ public class Billing {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
@@ -270,13 +234,10 @@ public class Billing {
     }
 
     public static Billing[] getBillings(long patientId) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         Billing[] billings = new Billing[0];
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("SELECT b.id,b.complaint_id,b.consultation_fee,b.total_fee FROM Billing b, Complaint c WHERE b.complaint_id = c.id AND c.patient_id = ?;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT b.id,b.complaint_id,b.consultation_fee,b.total_fee FROM Billing b, Complaint c WHERE b.complaint_id = c.id AND c.patient_id = ?;");
             preparedStatement.setLong(1, patientId);
             ResultSet resultSet = preparedStatement.executeQuery();
             ArrayList<Billing> resultBilling = new ArrayList<>();
@@ -295,9 +256,6 @@ public class Billing {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
