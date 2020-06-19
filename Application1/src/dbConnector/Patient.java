@@ -287,6 +287,7 @@ public class Patient {
         }
         return patients;
     }
+
     public static Patient[] getAllPatients() {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -326,5 +327,4 @@ public class Patient {
         }
         return patients;
     }
-
 }

@@ -307,4 +307,44 @@ public class Medicine {
         }
         return medicines;
     }
+
+    public static Medicine[] getAllLowQuantityMedicines(int minQuantity) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        Medicine[] medicines = new Medicine[0];
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
+            System.out.println("Connection successfull...");
+            preparedStatement = connection.prepareStatement("SELECT * FROM Medicine WHERE quantity < ?;");
+            preparedStatement.setInt(1, minQuantity);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            ArrayList<Medicine> resultMedicine = new ArrayList<>();
+            while (resultSet.next()) {
+                Medicine medicine = new Medicine();
+                medicine.setId(resultSet.getLong(1));
+                medicine.setMedicineName(resultSet.getString(2));
+                medicine.setPrice(resultSet.getDouble(3));
+                medicine.setTax(resultSet.getDouble(4));
+                medicine.setQuantity(resultSet.getInt(5));
+                resultMedicine.add(medicine);
+            }
+            if (resultMedicine.size() > 0) {
+                medicines = resultMedicine.toArray(medicines);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return medicines;
+    }
 }

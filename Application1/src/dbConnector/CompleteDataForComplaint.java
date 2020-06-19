@@ -1,6 +1,7 @@
 package dbConnector;
 
 import java.util.*;
+import java.sql.*;
 
 public class CompleteDataForComplaint {
     private Billing billing = null;
@@ -60,6 +61,34 @@ public class CompleteDataForComplaint {
             datas.add(c);
         }
         completeDataForComplaints = datas.toArray(completeDataForComplaints);
+        return completeDataForComplaints;
+    }
+
+    public static CompleteDataForComplaint[] getDataBetweenDates(String from_date, String to_date) {
+        CompleteDataForComplaint[] completeDataForComplaints = new CompleteDataForComplaint[0];
+        ArrayList<CompleteDataForComplaint> datas = new ArrayList<>();
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT id FROM Complaint WHERE DATE(created_at) BETWEEN ? AND ?;");
+            preparedStatement.setString(1, from_date);
+            preparedStatement.setString(2, to_date);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                CompleteDataForComplaint completeDataForComplaint = new CompleteDataForComplaint(resultSet.getLong(1));
+                datas.add(completeDataForComplaint);
+            }
+            completeDataForComplaints = datas.toArray(completeDataForComplaints);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         return completeDataForComplaints;
     }
 }

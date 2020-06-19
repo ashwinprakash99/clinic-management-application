@@ -5,36 +5,29 @@ import java.util.*;
 import java.text.SimpleDateFormat;
 import java.sql.*;
 
-public class MedicinePrescription {
+public class GeneralMedicineOutlet {
     private long id = 0L;
-    private long complaintId = 0L;
+    private long billId = 0L;
     private long medicineId = 0L;
     private int quantity = 0;
-    private boolean morning = false, afternoon = false, night = false;
     private double cost = 0.0;
 
     static SimpleDateFormat dff = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
-    public MedicinePrescription() {}
+    public GeneralMedicineOutlet() {}
 
-    public MedicinePrescription(long complaintId, long medicineId, int quantity, boolean morning, boolean afternoon, boolean night) {
-        this.complaintId = complaintId;
+    public GeneralMedicineOutlet(long billId, long medicineId, int quantity) {
+        this.billId = billId;
         this.medicineId = medicineId;
         this.quantity = quantity;
-        this.morning = morning;
-        this.afternoon = afternoon;
-        this.night = night;
     }
 
     public String toString() {
         String message = "";
-        message += "Medicine Prescription ID: " + id + "\n";
-        message += "Complaint ID: " + complaintId + "\n";
+        message += "General Medicine Outlet ID: " + id + "\n";
+        message += "General Medicine Bill ID: " + billId + "\n";
         message += "Medicine ID: " + medicineId + "\n";
         message += "Quantity: " + quantity + "\n";
-        message += "Morning: " + morning + "\n";
-        message += "Afternoon: " + afternoon + "\n";
-        message += "Night: " + night + "\n";
         message += "Cost: " + cost;
         return message;
     }
@@ -42,8 +35,8 @@ public class MedicinePrescription {
     public void setId(long id) { this.id = id; }
     public long getId() { return id; }
 
-    public void setComplaintId(long complaintId) { this.complaintId = complaintId; }
-    public long getComplaintId() { return complaintId; }
+    public void setBillId(long billId) { this.billId = billId; }
+    public long getBillId() { return billId; }
 
     public void setMedicineId(long medicineId) { this.medicineId = medicineId; }
     public long getMedicineId() { return medicineId; }
@@ -51,56 +44,43 @@ public class MedicinePrescription {
     public void setQuantity(int quantity) { this.quantity = quantity; }
     public int getQuantity() { return quantity; }
 
-    public void setMorning(boolean morning) { this.morning = morning; }
-    public boolean getMorning() { return morning; }
-
-    public void setAfternoon(boolean afternoon) { this.afternoon = afternoon; }
-    public boolean getAfternoon() { return afternoon; }
-
-    public void setNight(boolean night) { this.night = night; }
-    public boolean getNight() { return night; }
-
     public void setCost(double cost) { this.cost = cost; }
     public double getCost() { return cost; }
 
-    public static long addMedicinePrescription(MedicinePrescription medicinePrescription) {
+    public static long addGeneralMedicineOutlet(GeneralMedicineOutlet generalMedicineOutlet) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
             System.out.println("Connection successfull...");
             double cost = 0.0;
-            preparedStatement = connection.prepareStatement("SELECT price,tax FROM Medicine WHERE id = ?;");
-            preparedStatement.setLong(1, medicinePrescription.getMedicineId());
+            preparedStatement = connection.prepareStatement("SELECT price FROM Medicine WHERE id = ?;");
+            preparedStatement.setLong(1, generalMedicineOutlet.getMedicineId());
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 double price = resultSet.getDouble(1);
-                double tax = resultSet.getDouble(2);
-                cost = price * (1 + (tax / 100)) * medicinePrescription.getQuantity();
-                medicinePrescription.setCost((Math.round(cost*10.0)/10.0));
+                cost = price  * generalMedicineOutlet.getQuantity();
+                generalMedicineOutlet.setCost((Math.round(cost*10.0)/10.0));
             } else {
                 System.out.println("Medicine Id is not present.");
                 return -1;
             }
             preparedStatement.close();
-            preparedStatement = connection.prepareStatement("INSERT INTO Medicine_Prescription VALUES (0, ?, ?, ?, ?, ?, ?, ?, ?);");
-            preparedStatement.setLong(1, medicinePrescription.getComplaintId());
-            preparedStatement.setLong(2, medicinePrescription.getMedicineId());
-            preparedStatement.setInt(3, medicinePrescription.getQuantity());
-            preparedStatement.setBoolean(4, medicinePrescription.getMorning());
-            preparedStatement.setBoolean(5, medicinePrescription.getAfternoon());
-            preparedStatement.setBoolean(6, medicinePrescription.getNight());
-            preparedStatement.setDouble(7, medicinePrescription.getCost());
-            preparedStatement.setString(8,dff.format(new Date()));
+            preparedStatement = connection.prepareStatement("INSERT INTO General_Medicine_Outlet VALUES (0, ?, ?, ?, ?, ?);");
+            preparedStatement.setLong(1, generalMedicineOutlet.getBillId());
+            preparedStatement.setLong(2, generalMedicineOutlet.getMedicineId());
+            preparedStatement.setInt(3, generalMedicineOutlet.getQuantity());
+            preparedStatement.setDouble(4, generalMedicineOutlet.getCost());
+            preparedStatement.setString(5, dff.format(new Date()));
             int result = preparedStatement.executeUpdate();
             if (result != 0) {
                 System.out.println("Added record " + result);
                 preparedStatement.close();
-                preparedStatement = connection.prepareStatement("SELECT MAX(id) FROM Medicine_Prescription;");
+                preparedStatement = connection.prepareStatement("SELECT MAX(id) FROM General_Medicine_Outlet;");
                 resultSet = preparedStatement.executeQuery();
                 resultSet.next();
                 long id = resultSet.getLong(1);
-                medicinePrescription.setId(id);
+                generalMedicineOutlet.setId(id);
                 return id;
             } else {
                 System.out.println("No records added");
@@ -123,13 +103,13 @@ public class MedicinePrescription {
         return -1;
     }
 
-    public static boolean removeMedicinePrescription(long id) {
+    public static boolean removeGeneralMedicineOutlet(long id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
             System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("DELETE FROM Medicine_Prescription WHERE id = ?;");
+            preparedStatement = connection.prepareStatement("DELETE FROM General_Medicine_Outlet WHERE id = ?;");
             preparedStatement.setLong(1, id);
             int result = preparedStatement.executeUpdate();
             if (result != 0) {
@@ -154,35 +134,31 @@ public class MedicinePrescription {
         return false;
     }
 
-    public static boolean updateMedicinePrescription(MedicinePrescription medicinePrescription) {
+    public static boolean updateGeneralMedicineOutlet(GeneralMedicineOutlet generalMedicineOutlet) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
             System.out.println("Connection successfull...");
             double cost = 0.0;
-            preparedStatement = connection.prepareStatement("SELECT price,tax FROM Medicine WHERE id = ?;");
-            preparedStatement.setLong(1, medicinePrescription.getMedicineId());
+            preparedStatement = connection.prepareStatement("SELECT price FROM Medicine WHERE id = ?;");
+            preparedStatement.setLong(1, generalMedicineOutlet.getMedicineId());
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 double price = resultSet.getDouble(1);
-                double tax = resultSet.getDouble(2);
-                cost = price * (1 + (tax / 100)) * medicinePrescription.getQuantity();
-                medicinePrescription.setCost((Math.round(cost*10.0)/10.0));
+                cost = price  * generalMedicineOutlet.getQuantity();
+                generalMedicineOutlet.setCost((Math.round(cost*10.0)/10.0));
             } else {
                 System.out.println("Medicine Id is not present.");
                 return false;
             }
             preparedStatement.close();
-            preparedStatement = connection.prepareStatement("UPDATE Medicine_Prescription SET complaint_id = ?, medicine_id = ?, quantity = ?, morning = ?, afternoon = ?, night = ?, cost = ? WHERE id = ?;");
-            preparedStatement.setLong(1, medicinePrescription.getComplaintId());
-            preparedStatement.setLong(2, medicinePrescription.getMedicineId());
-            preparedStatement.setInt(3, medicinePrescription.getQuantity());
-            preparedStatement.setBoolean(4, medicinePrescription.getMorning());
-            preparedStatement.setBoolean(5, medicinePrescription.getAfternoon());
-            preparedStatement.setBoolean(6, medicinePrescription.getNight());
-            preparedStatement.setDouble(7, medicinePrescription.getCost());
-            preparedStatement.setLong(8, medicinePrescription.getId());
+            preparedStatement = connection.prepareStatement("UPDATE General_Medicine_Outlet SET bill_id = ?, medicine_id = ?, quantity = ?, cost = ? WHERE id = ?;");
+            preparedStatement.setLong(1, generalMedicineOutlet.getBillId());
+            preparedStatement.setLong(2, generalMedicineOutlet.getMedicineId());
+            preparedStatement.setInt(3, generalMedicineOutlet.getQuantity());
+            preparedStatement.setDouble(4, generalMedicineOutlet.getCost());
+            preparedStatement.setLong(5, generalMedicineOutlet.getId());
             int result = preparedStatement.executeUpdate();
             if (result > 0) {
                 return true;
@@ -206,13 +182,13 @@ public class MedicinePrescription {
         return false;
     }
 
-    public static boolean isMedicinePrescriptionPresent(long id) {
+    public static boolean isGeneralMedicineOutletPresent(long id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
             System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("SELECT * FROM Medicine_Prescription WHERE id = ?;");
+            preparedStatement = connection.prepareStatement("SELECT * FROM General_Medicine_Outlet WHERE id = ?;");
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             int count = 0;
@@ -241,26 +217,23 @@ public class MedicinePrescription {
         return false;
     }
 
-    public static MedicinePrescription getMedicinePrescription(long id) {
+    public static GeneralMedicineOutlet getGeneralMedicineOutlet(long id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        MedicinePrescription medicinePrescription = null;
+        GeneralMedicineOutlet generalMedicineOutlet = null;
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
             System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("SELECT * FROM Medicine_Prescription WHERE id = ?;");
+            preparedStatement = connection.prepareStatement("SELECT * FROM General_Medicine_Outlet WHERE id = ?;");
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                medicinePrescription = new MedicinePrescription();
-                medicinePrescription.setId(resultSet.getLong(1));
-                medicinePrescription.setComplaintId(resultSet.getLong(2));
-                medicinePrescription.setMedicineId(resultSet.getLong(3));
-                medicinePrescription.setQuantity(resultSet.getInt(4));
-                medicinePrescription.setMorning(resultSet.getBoolean(5));
-                medicinePrescription.setAfternoon(resultSet.getBoolean(6));
-                medicinePrescription.setNight(resultSet.getBoolean(7));
-                medicinePrescription.setCost(resultSet.getDouble(8));
+                generalMedicineOutlet = new GeneralMedicineOutlet();
+                generalMedicineOutlet.setId(resultSet.getLong(1));
+                generalMedicineOutlet.setBillId(resultSet.getLong(2));
+                generalMedicineOutlet.setMedicineId(resultSet.getLong(3));
+                generalMedicineOutlet.setQuantity(resultSet.getInt(4));
+                generalMedicineOutlet.setCost(resultSet.getDouble(5));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -276,34 +249,31 @@ public class MedicinePrescription {
                 e.printStackTrace();
             }
         }
-        return medicinePrescription;
+        return generalMedicineOutlet;
     }
 
-    public static MedicinePrescription[] getMedicinePrescriptions(long complaintId) {
+    public static GeneralMedicineOutlet[] getGeneralMedicineOutlets(long billId) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        MedicinePrescription[] medicinePrescriptions = new MedicinePrescription[0];
+        GeneralMedicineOutlet[] generalMedicineOutlets = new GeneralMedicineOutlet[0];
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
             System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("SELECT * FROM Medicine_Prescription WHERE complaint_id = ?;");
-            preparedStatement.setLong(1, complaintId);
+            preparedStatement = connection.prepareStatement("SELECT * FROM General_Medicine_Outlet WHERE bill_id = ?;");
+            preparedStatement.setLong(1, billId);
             ResultSet resultSet = preparedStatement.executeQuery();
-            ArrayList<MedicinePrescription> resultMedicinePrescription = new ArrayList<>();
+            ArrayList<GeneralMedicineOutlet> resultGeneralMedicineOutlet = new ArrayList<>();
             while (resultSet.next()) {
-                MedicinePrescription medicinePrescription = new MedicinePrescription();
-                medicinePrescription.setId(resultSet.getLong(1));
-                medicinePrescription.setComplaintId(resultSet.getLong(2));
-                medicinePrescription.setMedicineId(resultSet.getLong(3));
-                medicinePrescription.setQuantity(resultSet.getInt(4));
-                medicinePrescription.setMorning(resultSet.getBoolean(5));
-                medicinePrescription.setAfternoon(resultSet.getBoolean(6));
-                medicinePrescription.setNight(resultSet.getBoolean(7));
-                medicinePrescription.setCost(resultSet.getDouble(8));
-                resultMedicinePrescription.add(medicinePrescription);
+                GeneralMedicineOutlet generalMedicineOutlet = new GeneralMedicineOutlet();
+                generalMedicineOutlet.setId(resultSet.getLong(1));
+                generalMedicineOutlet.setBillId(resultSet.getLong(2));
+                generalMedicineOutlet.setMedicineId(resultSet.getLong(3));
+                generalMedicineOutlet.setQuantity(resultSet.getInt(4));
+                generalMedicineOutlet.setCost(resultSet.getDouble(5));
+                resultGeneralMedicineOutlet.add(generalMedicineOutlet);
             }
-            if (resultMedicinePrescription.size() > 0) {
-                medicinePrescriptions = resultMedicinePrescription.toArray(medicinePrescriptions);
+            if (resultGeneralMedicineOutlet.size() > 0) {
+                generalMedicineOutlets = resultGeneralMedicineOutlet.toArray(generalMedicineOutlets);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -319,6 +289,6 @@ public class MedicinePrescription {
                 e.printStackTrace();
             }
         }
-        return medicinePrescriptions;
+        return generalMedicineOutlets;
     }
 }

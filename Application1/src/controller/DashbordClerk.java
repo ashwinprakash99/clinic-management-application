@@ -35,24 +35,8 @@ public class DashbordClerk {
     public void billingClick(ActionEvent e){
 
 
-        Alert alert=new Alert(Alert.AlertType.NONE);
 
-        alert.setTitle("Select");
 
-        GridPane gridPane=new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-        gridPane.setPadding(new Insets(10,10,10,10));
-        Button bill=new Button("Bill Directly"),forgetBill=new Button("Forget Id");
-        alert.setHeight(500);
-        alert.setWidth(300);
-        bill.setPrefSize(100,100);
-        forgetBill.setPrefSize(100,100);
-
-        bill.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                alert.hide();
 
                 parent.getScene().getWindow().hide();
                 Stage dashbordClerk=new Stage();
@@ -70,21 +54,8 @@ public class DashbordClerk {
 
 
 
-            }
-        });
-        forgetBill.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-            //forget id
-            }
-        });
 
-        gridPane.add(bill,0,0);
-        gridPane.add(forgetBill,1,0);
 
-        alert.getDialogPane().setContent(gridPane);
-
-        alert.showAndWait();
 
 
 
