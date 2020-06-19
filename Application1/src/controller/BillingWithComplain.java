@@ -196,6 +196,21 @@ public class BillingWithComplain implements Initializable {
 
 
                 }
+                else
+                {
+
+                    MedicinePrescription mp=new MedicinePrescription();
+                    mp.setId(cp[i].getMedicinePrescription().getId());
+                    mp.setComplaintId(Long.parseLong(complaintId.getText()));
+                    mp.setMedicineId(cp[i].getMedicinePrescription().getMedicineId());
+                    mp.setQuantity(0);
+                    mp.setMorning(cp[i].getMedicinePrescription().getMorning());
+                    mp.setAfternoon(cp[i].getMedicinePrescription().getAfternoon());
+                    mp.setNight(cp[i].getMedicinePrescription().getNight());
+
+                    boolean v=MedicinePrescription.updateMedicinePrescription(mp);
+
+                }
             }
                 }
 

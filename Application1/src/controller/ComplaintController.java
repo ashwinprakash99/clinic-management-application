@@ -1,6 +1,7 @@
 package controller;
 
 import GetterSetter.PrescriptionOperation;
+import GetterSetter.PreviousHistory;
 import dbConnector.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -15,6 +17,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -207,15 +210,45 @@ public class ComplaintController {
     }
 
     @FXML
-    void previousHistoryClick(ActionEvent event) {
-        boolean v=Complaint.isComplaintPresent(Long.parseLong(patientId.getText()));
+    void previousHistoryClick(ActionEvent event) throws Exception {
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        a.setTitle("Patient info");
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(10, 10, 10, 10));
+        TableView<PreviousHistory> tb = new TableView();
+        TableColumn<PreviousHistory, Long> tb1 = new TableColumn<>("complaint id");
+        TableColumn<PreviousHistory, Long> tb2 = new TableColumn<>("complaint 1");
+        TableColumn<PreviousHistory, Long> tb3 = new TableColumn<>("complaint 2");
+        TableColumn<PreviousHistory, Long> tb4 = new TableColumn<>("complaint 3");
+        TableColumn<PreviousHistory, Long> tb5 = new TableColumn<>("examination 1");
+        TableColumn<PreviousHistory, Long> tb6 = new TableColumn<>("examination 2");
+        TableColumn<PreviousHistory, Long> tb7 = new TableColumn<>("examination 3");
 
-        if ( v == true ){
-            Complaint[] c = Complaint.getComplaints(Long.parseLong(patientId.getText()));
-            // COMPLAIN PREVIEW
+        tb1.setCellValueFactory(new PropertyValueFactory<>("compid"));
+        tb2.setCellValueFactory(new PropertyValueFactory<>("comp1"));
+        tb3.setCellValueFactory(new PropertyValueFactory<>("comp2"));
+        tb4.setCellValueFactory(new PropertyValueFactory<>("comp3"));
+        tb5.setCellValueFactory(new PropertyValueFactory<>("examin1"));
+        tb6.setCellValueFactory(new PropertyValueFactory<>("examin2"));
+        tb7.setCellValueFactory(new PropertyValueFactory<>("examin3"));
+        tb.getColumns().addAll(tb1,tb2,tb3,tb4,tb5,tb6,tb7);
+
+        ObservableList<PreviousHistory> ob = FXCollections.observableArrayList();
+
+            CompleteDataForComplaint[] cd = CompleteDataForComplaint.getDataForPatientId(Long.parseLong(patientId.getText()));
+            System.out.println(patientId.getText());
+            for (int i=0;i<cd.length;i++)
+            {
+                ob.add(new PreviousHistory(cd[i].getComplaint().getId(),cd[i].getComplaint().getComplaint1(),cd[i].getComplaint().getComplaint2(),cd[i].getComplaint().getComplaint3(),cd[i].getComplaint().getExplanation1(),cd[i].getComplaint().getExplanation2(),cd[i].getComplaint().getExplanation3()));
+                tb.setItems(ob);
+            }
 
 
-        }
+        grid.add(tb,0,0);
+        a.getDialogPane().setContent(grid);
+        a.showAndWait();
     }
     //**********************************************************************************************************************************************************//
 
