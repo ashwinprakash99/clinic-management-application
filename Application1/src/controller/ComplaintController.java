@@ -239,8 +239,10 @@ public class ComplaintController {
 
         ObservableList<PreviousHistory> ob = FXCollections.observableArrayList();
 
+        ObservableList<PreviousHistory> ob1= FXCollections.observableArrayList();
+        ObservableList<PreviousHistory> ob2= FXCollections.observableArrayList();
 
-            CompleteDataForComplaint[] cd = CompleteDataForComplaint.getDataForPatientId(Long.parseLong(patientId.getText()));
+        CompleteDataForComplaint[] cd = CompleteDataForComplaint.getDataForPatientId(Long.parseLong(patientId.getText()));
 
             for (int i=0;i<cd.length;i++)
             {
@@ -294,8 +296,8 @@ public class ComplaintController {
 
    for(int i=0;i<cd.length;i++)
    {
-       ob.add(new PreviousHistory(cd[i].getExamination().getComplaintId(),cd[i].getExamination().getId(),cd[i].getExamination().getBp(),cd[i].getExamination().getPulse(),cd[i].getExamination().getTemperature(),cd[i].getExamination().getCvs(),cd[i].getExamination().getRs(),cd[i].getExamination().getPa(),cd[i].getExamination().getCns(),cd[i].getExamination().getLabtest(),cd[i].getExamination().getEcg(),cd[i].getExamination().getXray(),cd[i].getExamination().getCtScanMri(),cd[i].getExamination().getTwoDEcho(),cd[i].getExamination().getTmt(),cd[i].getExamination().getEeg(),cd[i].getExamination().getDiagnosis(),cd[i].getExamination().getOther()));
-       t1.setItems(ob);
+       ob1.add(new PreviousHistory(cd[i].getExamination().getComplaintId(),cd[i].getExamination().getId(),cd[i].getExamination().getBp(),cd[i].getExamination().getPulse(),cd[i].getExamination().getTemperature(),cd[i].getExamination().getCvs(),cd[i].getExamination().getRs(),cd[i].getExamination().getPa(),cd[i].getExamination().getCns(),cd[i].getExamination().getLabtest(),cd[i].getExamination().getEcg(),cd[i].getExamination().getXray(),cd[i].getExamination().getCtScanMri(),cd[i].getExamination().getTwoDEcho(),cd[i].getExamination().getTmt(),cd[i].getExamination().getEeg(),cd[i].getExamination().getDiagnosis(),cd[i].getExamination().getOther()));
+       t1.setItems(ob1);
    }
 
    TableView<PreviousHistory> t2=new TableView<>();
@@ -319,9 +321,11 @@ public class ComplaintController {
 
    t2.getColumns().addAll(tl1,tl2,tl3,tl4,tl5,tl6,tl7);
 
-        for(int i=0;i<cd.length;i++)
+        CompleteMedicinePrescription[] cm=CompleteMedicinePrescription.getCompleteMedicineData(Long.parseLong(patientId.getText()));
+        for(int i=0;i<cm.length;i++)
         {
-           
+            ob2.add(new PreviousHistory(cm[i].getMedicinePrescription().getComplaintId(),cm[i].getMedicinePrescription().getId(),cm[i].getMedicinePrescription().getMedicineId(),cm[i].getMedicinePrescription().getQuantity(),cm[i].getMedicinePrescription().getMorning(),cm[i].getMedicinePrescription().getAfternoon(),cm[i].getMedicinePrescription().getNight()));
+            t2.setItems(ob2);
         }
 
 
@@ -334,6 +338,7 @@ public class ComplaintController {
         grid.add(tx1,0,2);
         grid.add(t1,0,3);
         grid.add(tx2,0,4);
+        grid.add(t2,0,5);
 
         a.getDialogPane().setContent(grid);
 
