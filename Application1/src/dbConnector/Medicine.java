@@ -49,12 +49,9 @@ public class Medicine {
     public int getQuantity() { return quantity; }
 
     public static long addMedicine(Medicine medicine) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("INSERT INTO Medicine VALUES (0, ?, ?, ?, ?, ?, ?);");
+            preparedStatement = MainDataConnection.connection.prepareStatement("INSERT INTO Medicine VALUES (0, ?, ?, ?, ?, ?, ?);");
             preparedStatement.setString(1, medicine.getMedicineName());
             preparedStatement.setDouble(2, medicine.getPrice());
             preparedStatement.setDouble(3, medicine.getTax());
@@ -65,7 +62,7 @@ public class Medicine {
             if (result != 0) {
                 System.out.println("Added record " + result);
                 preparedStatement.close();
-                preparedStatement = connection.prepareStatement("SELECT MAX(id) FROM Medicine;");
+                preparedStatement = MainDataConnection.connection.prepareStatement("SELECT MAX(id) FROM Medicine;");
                 ResultSet resultSet = preparedStatement.executeQuery();
                 resultSet.next();
                 long id = resultSet.getLong(1);
@@ -79,9 +76,6 @@ public class Medicine {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
@@ -93,12 +87,9 @@ public class Medicine {
     }
 
     public static boolean removeMedicine(long id) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("DELETE FROM Medicine WHERE id = ?;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("DELETE FROM Medicine WHERE id = ?;");
             preparedStatement.setLong(1, id);
             int result = preparedStatement.executeUpdate();
             if (result != 0) {
@@ -110,9 +101,6 @@ public class Medicine {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
@@ -124,12 +112,9 @@ public class Medicine {
     }
 
     public static boolean updateMedicine(Medicine medicine) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("UPDATE Medicine SET medicine_name = ?, price = ?, tax = ?, quantity = ?, modified_at = ? WHERE id = ?;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("UPDATE Medicine SET medicine_name = ?, price = ?, tax = ?, quantity = ?, modified_at = ? WHERE id = ?;");
             preparedStatement.setString(1, medicine.getMedicineName());
             preparedStatement.setDouble(2, medicine.getPrice());
             preparedStatement.setDouble(3, medicine.getTax());
@@ -146,9 +131,6 @@ public class Medicine {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
@@ -160,12 +142,9 @@ public class Medicine {
     }
 
     public static boolean isMedicinePresent(long id) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("SELECT * FROM Medicine WHERE id = ?;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT * FROM Medicine WHERE id = ?;");
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             int count = 0;
@@ -181,9 +160,6 @@ public class Medicine {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
@@ -195,13 +171,10 @@ public class Medicine {
     }
 
     public static Medicine getMedicine(long id) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         Medicine medicine = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("SELECT * FROM Medicine WHERE id = ?;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT * FROM Medicine WHERE id = ?;");
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -216,9 +189,6 @@ public class Medicine {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
@@ -230,13 +200,10 @@ public class Medicine {
     }
 
     public static Medicine[] getMedicines(String name) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         Medicine[] medicines = new Medicine[0];
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("SELECT * FROM Medicine WHERE UPPER(medicine_name) LIKE ?;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT * FROM Medicine WHERE UPPER(medicine_name) LIKE ?;");
             preparedStatement.setString(1, "%"+name.toUpperCase()+"%");
             ResultSet resultSet = preparedStatement.executeQuery();
             ArrayList<Medicine> resultMedicine = new ArrayList<>();
@@ -256,9 +223,6 @@ public class Medicine {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
@@ -270,13 +234,10 @@ public class Medicine {
     }
 
     public static Medicine[] getAllMedicines() {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         Medicine[] medicines = new Medicine[0];
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("SELECT * FROM Medicine;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT * FROM Medicine;");
             ResultSet resultSet = preparedStatement.executeQuery();
             ArrayList<Medicine> resultMedicine = new ArrayList<>();
             while (resultSet.next()) {
@@ -295,9 +256,6 @@ public class Medicine {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
@@ -309,13 +267,10 @@ public class Medicine {
     }
 
     public static Medicine[] getAllLowQuantityMedicines(int minQuantity) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         Medicine[] medicines = new Medicine[0];
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("SELECT * FROM Medicine WHERE quantity < ?;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT * FROM Medicine WHERE quantity < ?;");
             preparedStatement.setInt(1, minQuantity);
             ResultSet resultSet = preparedStatement.executeQuery();
             ArrayList<Medicine> resultMedicine = new ArrayList<>();
@@ -335,9 +290,6 @@ public class Medicine {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }

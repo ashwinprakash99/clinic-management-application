@@ -1,5 +1,4 @@
 package dbConnector;
-
 import java.util.*;
 
 public class CompleteMedicinePrescription {
@@ -30,3 +29,4 @@ public class CompleteMedicinePrescription {
         return completeMedicinePrescriptions;
     }
 }
+
