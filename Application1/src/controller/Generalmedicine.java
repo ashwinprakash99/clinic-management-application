@@ -23,16 +23,16 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Generalmedicine  {
+public class Generalmedicine implements Initializable  {
+
     @FXML
-    private AnchorPane parent1;
-//    @FXML
-//    private HBox hbox;
-//    @FXML
-//    private Text tv;
+    private HBox hbox;
+    @FXML
+    private Text tv;
 
     @FXML
     private TextField patientName;
+
     @FXML
     private TableView<GetterSetter.Generalmedicine> tabview;
 
@@ -48,8 +48,11 @@ public class Generalmedicine  {
     @FXML
     private TableColumn<GetterSetter.Generalmedicine, Double> cost;
     Long id;
-//    Double sum=0.0;
+    Double sum=0.0;
     Medicine[] m = Medicine.getAllMedicines();
+
+    public Generalmedicine() {
+    }
 
 
     @FXML
@@ -89,28 +92,28 @@ public class Generalmedicine  {
             if (tabview.getItems().get(i).getSelect().isSelected()) {
                 GeneralMedicineOutlet gm = new GeneralMedicineOutlet(id, m[i].getId(), Integer.parseInt(tabview.getItems().get(i).getQuantity().getText()));
                 Long billid = GeneralMedicineOutlet.addGeneralMedicineOutlet(gm);
-                if (id == -1) {
+                if (billid == -1) {
                     Alert a3 = new Alert(Alert.AlertType.INFORMATION);
                     a3.setTitle("Some");
                     a3.setContentText("Id not found");
                     a3.showAndWait();
                 }
                 System.out.println("Success");
-//                sum+=gm.getCost();
+                sum+=gm.getCost();
             }
         }
 
-//       hbox.setVisible(true);
-//       tv.setText(""+sum);
+       hbox.setVisible(true);
+       tv.setText(""+sum);
    }
 
-//    @Override
-//    public void initialize(URL url, ResourceBundle resourceBundle) {
-//        hbox.setVisible(false);
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        hbox.setVisible(false);
 
 
 
-//    }
+    }
 }
 
 
