@@ -70,6 +70,15 @@ public class DashbordClerk {
         dashbordClerk.show();
     }
 
+    public void generalClick(ActionEvent actionEvent) throws IOException {
+        parent.getScene().getWindow().hide();
+        Stage dashbordClerk=new Stage();
+        Parent root= FXMLLoader.load(getClass().getResource("/fxml/dashbordMedicine.fxml"));
+        Scene scene=new Scene(root);
+        dashbordClerk.setScene(scene);
+        dashbordClerk.show();
+    }
+
 
     public void backClick(ActionEvent actionEvent) throws IOException {
         parent.getScene().getWindow().hide();
@@ -100,4 +109,6 @@ public class DashbordClerk {
         dashbordClerk.setScene(scene);
         dashbordClerk.show();
     }
+
+
 }

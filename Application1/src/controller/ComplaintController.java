@@ -321,12 +321,10 @@ public class ComplaintController {
 
    t2.getColumns().addAll(tl1,tl2,tl3,tl4,tl5,tl6,tl7);
 
-        CompleteMedicinePrescription[] cm=CompleteMedicinePrescription.getCompleteMedicineData(Long.parseLong(patientId.getText()));
-        for(int i=0;i<cm.length;i++)
-        {
-            ob2.add(new PreviousHistory(cm[i].getMedicinePrescription().getComplaintId(),cm[i].getMedicinePrescription().getId(),cm[i].getMedicinePrescription().getMedicineId(),cm[i].getMedicinePrescription().getQuantity(),cm[i].getMedicinePrescription().getMorning(),cm[i].getMedicinePrescription().getAfternoon(),cm[i].getMedicinePrescription().getNight()));
-            t2.setItems(ob2);
-        }
+        //for(int i=0;i<cd.length;i++)
+        //{
+          //  ob2.add(new PreviousHistory(cd[i].getMedicinePrescriptions().
+        //}
 
 
         Text tx=new Text("Complaints :");
@@ -467,21 +465,21 @@ public class ComplaintController {
                     alert.setContentText("Not inserted");
                     alert.showAndWait();
                     break;
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Complaint ID");
-                    alert.setContentText("Complain ID : " + complainId);
-                    alert.showAndWait();
-                    parent3.getScene().getWindow().hide();
-                    Stage dashbordClerk=new Stage();
-                    Parent root= FXMLLoader.load(getClass().getResource("/fxml/complaint.fxml"));
-                    Scene scene=new Scene(root);
-                    dashbordClerk.setScene(scene);
-                    dashbordClerk.show();
                 }
             }
 
             }
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Complaint ID");
+                alert.setContentText("Complain ID : " + complainId);
+                alert.showAndWait();
+                parent3.getScene().getWindow().hide();
+                Stage dashbordClerk=new Stage();
+                Parent root= FXMLLoader.load(getClass().getResource("/fxml/complaint.fxml"));
+                Scene scene=new Scene(root);
+                dashbordClerk.setScene(scene);
+                dashbordClerk.show();
+
         }
 
     }

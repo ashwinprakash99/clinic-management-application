@@ -217,7 +217,15 @@ public class BillingWithComplain implements Initializable {
 
         }
 
+    public void printClick(ActionEvent actionEvent) throws IOException {
+        Stage dashbordClerk=new Stage();
+        Parent root= FXMLLoader.load(getClass().getResource("/fxml/dashbordClerk.fxml"));
+        Scene scene=new Scene(root);
+        dashbordClerk.setScene(scene);
+        dashbordClerk.show();
 
+
+    }
 
 
 
@@ -266,4 +274,6 @@ public class BillingWithComplain implements Initializable {
         dashbordClerk.setScene(scene);
         dashbordClerk.show();
     }
+
+
 }
