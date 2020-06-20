@@ -5,14 +5,14 @@ public class CompleteDataForComplaint {
     private Billing billing = null;
     private Complaint complaint = null;
     private Examination examination = null;
-    private MedicinePrescription[] medicinePrescriptions = null;
+    private CompleteMedicinePrescription[] completeMedicinePrescriptions = null;
     private Patient patient = null;
     private Treatment treatment = null;
 
     public Billing getBilling() { return billing; }
     public Complaint getComplaint() { return complaint; }
     public Examination getExamination() { return examination; }
-    public MedicinePrescription[] getMedicinePrescriptions() { return medicinePrescriptions; }
+    public CompleteMedicinePrescription[] getCompleteMedicinePrescriptions() { return completeMedicinePrescriptions; }
     public Patient getPatient() { return patient; }
     public Treatment getTreatment() { return treatment; }
 
@@ -40,7 +40,7 @@ public class CompleteDataForComplaint {
         } else {
             this.examination = examination;
         }
-        medicinePrescriptions = MedicinePrescription.getMedicinePrescriptions(complaintId);
+        completeMedicinePrescriptions = CompleteMedicinePrescription.getCompleteMedicineData(complaintId);
         Treatment treatment = Treatment.getTreatmentWithComplaintId(complaintId);
         if (treatment == null) {
             throw new Exception("No Treatment found.");
