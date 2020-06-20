@@ -125,12 +125,9 @@ public class Examination {
     public String getOther() { return other; }
 
     public static long addExamination(Examination examination) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("INSERT INTO Examination VALUES (0, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+            preparedStatement = MainDataConnection.connection.prepareStatement("INSERT INTO Examination VALUES (0, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
             preparedStatement.setString(1, examination.getBp());
             preparedStatement.setString(2, examination.getPulse());
             preparedStatement.setString(3, examination.getTemperature());
@@ -153,7 +150,7 @@ public class Examination {
             if (result != 0) {
                 System.out.println("Added record " + result);
                 preparedStatement.close();
-                preparedStatement = connection.prepareStatement("SELECT MAX(id) FROM Examination;");
+                preparedStatement = MainDataConnection.connection.prepareStatement("SELECT MAX(id) FROM Examination;");
                 ResultSet resultSet = preparedStatement.executeQuery();
                 resultSet.next();
                 long id = resultSet.getLong(1);
@@ -167,9 +164,6 @@ public class Examination {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
@@ -181,12 +175,9 @@ public class Examination {
     }
 
     public static boolean removeExamination(long id) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("DELETE FROM Examination WHERE id = ?;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("DELETE FROM Examination WHERE id = ?;");
             preparedStatement.setLong(1, id);
             int result = preparedStatement.executeUpdate();
             if (result != 0) {
@@ -198,9 +189,6 @@ public class Examination {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
@@ -212,12 +200,9 @@ public class Examination {
     }
 
     public static boolean updateExamination(Examination examination) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("UPDATE Examination SET bp = ?, pulse = ?, temperature = ?, cvs = ?, rs = ?, pa = ?, cns = ?, labtest = ?, ecg = ?, x_ray = ?, ct_scan_mri = ?, two_d_echo = ?, tmt = ?, eeg = ?, diagnosis = ?, other = ?, complaint_id = ? WHERE id = ?;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("UPDATE Examination SET bp = ?, pulse = ?, temperature = ?, cvs = ?, rs = ?, pa = ?, cns = ?, labtest = ?, ecg = ?, x_ray = ?, ct_scan_mri = ?, two_d_echo = ?, tmt = ?, eeg = ?, diagnosis = ?, other = ?, complaint_id = ? WHERE id = ?;");
             preparedStatement.setString(1, examination.getBp());
             preparedStatement.setString(2, examination.getPulse());
             preparedStatement.setString(3, examination.getTemperature());
@@ -246,9 +231,6 @@ public class Examination {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
@@ -260,12 +242,9 @@ public class Examination {
     }
 
     public static boolean isExaminationPresent(long id) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("SELECT * FROM Examination WHERE id = ?;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT * FROM Examination WHERE id = ?;");
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             int count = 0;
@@ -281,9 +260,6 @@ public class Examination {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
@@ -295,13 +271,10 @@ public class Examination {
     }
 
     public static Examination getExamination(long id) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         Examination examination = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("SELECT * FROM Examination WHERE id = ?;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT * FROM Examination WHERE id = ?;");
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -329,9 +302,6 @@ public class Examination {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
@@ -343,13 +313,10 @@ public class Examination {
     }
 
     public static Examination getExaminationWithComplaintId(long complaintId) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         Examination examination = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("SELECT * FROM Examination WHERE complaint_id = ?;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT * FROM Examination WHERE complaint_id = ?;");
             preparedStatement.setLong(1, complaintId);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -377,9 +344,6 @@ public class Examination {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
@@ -391,13 +355,10 @@ public class Examination {
     }
 
     public static Examination[] getExaminations(long patientId) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         Examination[] examinations = new Examination[0];
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("SELECT e.id,e.bp,e.pulse,e.temperature,e.cvs,e.rs,e.pa,e.cns,e.labtest,e.ecg,e.x_ray,e.ct_scan_mri,e.two_d_echo,e.tmt,e.eeg,e.diagnosis,e.other,e.complaint_id FROM Examination e, Complaint c WHERE e.complaint_id = c.id AND c.patient_id = ?;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT e.id,e.bp,e.pulse,e.temperature,e.cvs,e.rs,e.pa,e.cns,e.labtest,e.ecg,e.x_ray,e.ct_scan_mri,e.two_d_echo,e.tmt,e.eeg,e.diagnosis,e.other,e.complaint_id FROM Examination e, Complaint c WHERE e.complaint_id = c.id AND c.patient_id = ?;");
             preparedStatement.setLong(1, patientId);
             ResultSet resultSet = preparedStatement.executeQuery();
             ArrayList<Examination> resultExamination = new ArrayList<>();
@@ -430,9 +391,6 @@ public class Examination {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }

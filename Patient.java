@@ -64,12 +64,9 @@ public class Patient {
     public long getPhoneNumber() { return this.phoneNumber; }
 
     public static long addPatient(Patient patient) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("INSERT INTO Patient VALUES (0, ?, ?, ?, ?, ?, ?);");
+            preparedStatement = MainDataConnection.connection.prepareStatement("INSERT INTO Patient VALUES (0, ?, ?, ?, ?, ?, ?);");
             preparedStatement.setString(1, patient.getPatientName());
             preparedStatement.setString(2, patient.getDOB());
             preparedStatement.setString(3, patient.getGender());
@@ -80,7 +77,7 @@ public class Patient {
             if (result != 0) {
                 System.out.println("Added record " + result);
                 preparedStatement.close();
-                preparedStatement = connection.prepareStatement("SELECT MAX(UHID) FROM Patient;");
+                preparedStatement = MainDataConnection.connection.prepareStatement("SELECT MAX(UHID) FROM Patient;");
                 ResultSet resultSet = preparedStatement.executeQuery();
                 resultSet.next();
                 long UHID = resultSet.getLong(1);
@@ -94,9 +91,6 @@ public class Patient {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
@@ -108,12 +102,9 @@ public class Patient {
     }
 
     public static boolean removePatient(long UHID) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("DELETE FROM Patient WHERE UHID = ?;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("DELETE FROM Patient WHERE UHID = ?;");
             preparedStatement.setLong(1, UHID);
             int result = preparedStatement.executeUpdate();
             if (result != 0) {
@@ -125,9 +116,6 @@ public class Patient {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
@@ -139,12 +127,9 @@ public class Patient {
     }
 
     public static boolean updatePatient(Patient patient) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("UPDATE Patient SET patient_name = ?, DOB = ?, gender = ?, address = ?, phone_number = ? WHERE UHID = ?;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("UPDATE Patient SET patient_name = ?, DOB = ?, gender = ?, address = ?, phone_number = ? WHERE UHID = ?;");
             preparedStatement.setString(1, patient.getPatientName());
             preparedStatement.setString(2, patient.getDOB());
             preparedStatement.setString(3, patient.getGender());
@@ -161,9 +146,6 @@ public class Patient {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
@@ -175,12 +157,9 @@ public class Patient {
     }
 
     public static boolean isPatientPresent(long UHID) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("SELECT * FROM Patient WHERE UHID = ?;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT * FROM Patient WHERE UHID = ?;");
             preparedStatement.setLong(1, UHID);
             ResultSet resultSet = preparedStatement.executeQuery();
             int count = 0;
@@ -196,9 +175,6 @@ public class Patient {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
@@ -210,13 +186,10 @@ public class Patient {
     }
 
     public static Patient getPatient(long UHID) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         Patient patient = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("SELECT * FROM Patient WHERE UHID = ?;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT * FROM Patient WHERE UHID = ?;");
             preparedStatement.setLong(1, UHID);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -232,9 +205,6 @@ public class Patient {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
@@ -246,13 +216,10 @@ public class Patient {
     }
 
     public static Patient[] getPatients(String name) {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         Patient[] patients = new Patient[0];
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("SELECT * FROM Patient WHERE UPPER(patient_name) LIKE ?;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT * FROM Patient WHERE UPPER(patient_name) LIKE ?;");
             preparedStatement.setString(1, "%"+name.toUpperCase()+"%");
             ResultSet resultSet = preparedStatement.executeQuery();
             ArrayList<Patient> resultPatient = new ArrayList<>();
@@ -273,9 +240,6 @@ public class Patient {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
@@ -287,13 +251,10 @@ public class Patient {
     }
 
     public static Patient[] getAllPatients() {
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         Patient[] patients = new Patient[0];
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clinic_management_application", "root", "root");
-            System.out.println("Connection successfull...");
-            preparedStatement = connection.prepareStatement("SELECT * FROM Patient;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT * FROM Patient;");
             ResultSet resultSet = preparedStatement.executeQuery();
             ArrayList<Patient> resultPatient = new ArrayList<>();
             while (resultSet.next()) {
@@ -313,9 +274,6 @@ public class Patient {
             e.printStackTrace();
         } finally {
             try {
-                if (connection != null) {
-                    connection.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
