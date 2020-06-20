@@ -43,6 +43,11 @@ public class Generalmedicine implements Initializable  {
     private TableColumn<GetterSetter.Generalmedicine, String> medName;
 
     @FXML
+    private TableColumn<GetterSetter.Generalmedicine, Integer> stock;
+
+
+
+    @FXML
     private TableColumn<GetterSetter.Generalmedicine, TextField> quantity;
 
     @FXML
@@ -68,6 +73,7 @@ public class Generalmedicine implements Initializable  {
         }
         select.setCellValueFactory(new PropertyValueFactory<>("select"));
         medName.setCellValueFactory(new PropertyValueFactory<>("medName"));
+        stock.setCellValueFactory(new PropertyValueFactory<>("stock"));
         quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         cost.setCellValueFactory(new PropertyValueFactory<>("cost"));
 
@@ -77,7 +83,7 @@ public class Generalmedicine implements Initializable  {
         for (int i = 0; i < m.length; i++) {
             CheckBox selct = new CheckBox("" + (i + 1));
             TextField tx1 = new TextField();
-            ol.add(new GetterSetter.Generalmedicine(selct, m[i].getMedicineName(), tx1, m[i].getPrice()));
+            ol.add(new GetterSetter.Generalmedicine(selct, m[i].getMedicineName(), m[i].getQuantity(),tx1, m[i].getPrice()));
             tabview.setItems(ol);
 
         }

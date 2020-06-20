@@ -6,12 +6,14 @@ import javafx.scene.control.TextField;
 public class Generalmedicine {
     CheckBox select;
     String medName;
+    Integer stock;
     TextField quantity;
     double cost;
 
-    public Generalmedicine(CheckBox select, String medName, TextField quantity, double cost) {
+    public Generalmedicine(CheckBox select, String medName, Integer stock, TextField quantity, double cost) {
         this.select = select;
         this.medName = medName;
+        this.stock = stock;
         this.quantity = quantity;
         this.cost = cost;
     }
@@ -32,6 +34,14 @@ public class Generalmedicine {
         this.medName = medName;
     }
 
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
     public TextField getQuantity() {
         return quantity;
     }
@@ -48,3 +58,4 @@ public class Generalmedicine {
         this.cost = cost;
     }
 }
+
