@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -25,6 +26,8 @@ import java.util.ResourceBundle;
 
 public class Generalmedicine implements Initializable  {
 
+    @FXML
+    private AnchorPane patene;
     @FXML
     private HBox hbox;
     @FXML
@@ -45,18 +48,23 @@ public class Generalmedicine implements Initializable  {
     @FXML
     private TableColumn<GetterSetter.Generalmedicine, Integer> stock;
 
-
+    @FXML
+    private Button submitBtn;
 
     @FXML
     private TableColumn<GetterSetter.Generalmedicine, TextField> quantity;
 
     @FXML
     private TableColumn<GetterSetter.Generalmedicine, Double> cost;
+
     Long id;
     Double sum=0.0;
     Medicine[] m = Medicine.getAllMedicines();
 
-    public Generalmedicine() {
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        hbox.setVisible(false);
     }
 
 
@@ -111,15 +119,23 @@ public class Generalmedicine implements Initializable  {
 
        hbox.setVisible(true);
        tv.setText(""+sum);
+       submitBtn.setDisable(true);
    }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        hbox.setVisible(false);
 
 
+    @FXML
+    void homeButton(ActionEvent event) throws IOException {
+        patene.getScene().getWindow().hide();
+        Stage dashbordClerk=new Stage();
+        Parent root= FXMLLoader.load(getClass().getResource("/fxml/dashbordClerk.fxml"));
+        Scene scene=new Scene(root);
+        dashbordClerk.setScene(scene);
+        dashbordClerk.show();
 
     }
+
+
 }
 
 
