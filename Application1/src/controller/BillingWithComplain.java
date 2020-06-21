@@ -68,6 +68,12 @@ public class BillingWithComplain implements Initializable {
 
     @FXML
     private Text totalFess;
+
+    @FXML
+    private Button okBt;
+
+    static Long compId;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         feesBox.setVisible(false);
@@ -78,7 +84,7 @@ public class BillingWithComplain implements Initializable {
     void checkComplaint(ActionEvent event)  {
         try {
             CompleteMedicinePrescription[] cp=CompleteMedicinePrescription.getCompleteMedicineData(Long.parseLong(complaintId.getText()));
-
+            compId=Long.parseLong(complaintId.getText());
             ObservableList<GetterSetter.BillingWithComplain> list = FXCollections.observableArrayList();
 
             tabId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -133,6 +139,7 @@ public class BillingWithComplain implements Initializable {
         else{
             feesBox.setVisible(true);
             totalFess.setText(""+billing.getTotalFee());
+            okBt.setDisable(true);
         }
 
     }
@@ -219,7 +226,7 @@ public class BillingWithComplain implements Initializable {
 
     public void printClick(ActionEvent actionEvent) throws IOException {
         Stage dashbordClerk=new Stage();
-        Parent root= FXMLLoader.load(getClass().getResource("/fxml/dashbordClerk.fxml"));
+        Parent root= FXMLLoader.load(getClass().getResource("/fxml/printMedicinePage.fxml"));
         Scene scene=new Scene(root);
         dashbordClerk.setScene(scene);
         dashbordClerk.show();

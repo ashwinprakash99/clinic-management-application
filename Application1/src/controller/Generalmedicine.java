@@ -51,6 +51,8 @@ public class Generalmedicine implements Initializable  {
     @FXML
     private Button submitBtn;
 
+
+
     @FXML
     private TableColumn<GetterSetter.Generalmedicine, TextField> quantity;
 

@@ -321,10 +321,15 @@ public class ComplaintController {
 
    t2.getColumns().addAll(tl1,tl2,tl3,tl4,tl5,tl6,tl7);
 
-        //for(int i=0;i<cd.length;i++)
-        //{
-          //  ob2.add(new PreviousHistory(cd[i].getMedicinePrescriptions().
-        //}
+        for(int i=0;i<cd.length;i++)
+        {
+            CompleteMedicinePrescription[] cm=cd[i].getCompleteMedicinePrescriptions();
+            for(int j=0;j<cm.length;j++){
+                ob2.add(new PreviousHistory(cm[j].getMedicinePrescription().getComplaintId(),cm[j].getMedicinePrescription().getId(),cm[j].getMedicinePrescription().getMedicineId(),cm[j].getMedicinePrescription().getQuantity(),cm[j].getMedicinePrescription().getMorning(),cm[j].getMedicinePrescription().getAfternoon(),cm[j].getMedicinePrescription().getNight()));
+                t2.setItems(ob2);
+            }
+
+        }
 
 
         Text tx=new Text("Complaints :");
