@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -23,6 +24,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 public class Generalmedicine implements Initializable  {
 
@@ -72,30 +74,42 @@ public class Generalmedicine implements Initializable  {
 
     @FXML
     void patientSubmitClick(ActionEvent event) {
-        GeneralBilling gb = new GeneralBilling(patientName.getText());
-        id = GeneralBilling.addGeneralBilling(gb);
-        System.out.println(id);
-        if (id == -1) {
-            Alert a2 = new Alert(Alert.AlertType.INFORMATION);
-            a2.setTitle("General billing");
-            a2.setContentText("Data is not inserted");
-            a2.showAndWait();
+        boolean b1= Pattern.matches("[a-zA-Z]+[ ]*[\\.\\-\\_]?[a-zA-Z]*[ ]*[\\.\\-\\_]?[a-zA-Z]*",patientName.getText());
+        if(b1==false)
+        {
+            Alert ab = new Alert(Alert.AlertType.INFORMATION);
+            ab.setTitle("Wrong Information");
+            ab.setContentText("Please enter valid patient name");
+            ab.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            ab.showAndWait();
+
         }
-        select.setCellValueFactory(new PropertyValueFactory<>("select"));
-        medName.setCellValueFactory(new PropertyValueFactory<>("medName"));
-        stock.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        cost.setCellValueFactory(new PropertyValueFactory<>("cost"));
+        else {
+            GeneralBilling gb = new GeneralBilling(patientName.getText());
+            id = GeneralBilling.addGeneralBilling(gb);
+            System.out.println(id);
+            if (id == -1) {
+                Alert a2 = new Alert(Alert.AlertType.INFORMATION);
+                a2.setTitle("General billing");
+                a2.setContentText("Data is not inserted");
+                a2.showAndWait();
+            }
+            select.setCellValueFactory(new PropertyValueFactory<>("select"));
+            medName.setCellValueFactory(new PropertyValueFactory<>("medName"));
+            stock.setCellValueFactory(new PropertyValueFactory<>("stock"));
+            quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+            cost.setCellValueFactory(new PropertyValueFactory<>("cost"));
 
 
-        ObservableList<GetterSetter.Generalmedicine> ol = FXCollections.observableArrayList();
+            ObservableList<GetterSetter.Generalmedicine> ol = FXCollections.observableArrayList();
 
-        for (int i = 0; i < m.length; i++) {
-            CheckBox selct = new CheckBox("" + (i + 1));
-            TextField tx1 = new TextField();
-            ol.add(new GetterSetter.Generalmedicine(selct, m[i].getMedicineName(), m[i].getQuantity(),tx1, m[i].getPrice()));
-            tabview.setItems(ol);
+            for (int i = 0; i < m.length; i++) {
+                CheckBox selct = new CheckBox("" + (i + 1));
+                TextField tx1 = new TextField();
+                ol.add(new GetterSetter.Generalmedicine(selct, m[i].getMedicineName(), m[i].getQuantity(), tx1, m[i].getPrice()));
+                tabview.setItems(ol);
 
+            }
         }
 
 

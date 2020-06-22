@@ -16,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -23,6 +24,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 public class BillingWithComplain implements Initializable {
 
@@ -87,22 +89,37 @@ public class BillingWithComplain implements Initializable {
             compId=Long.parseLong(complaintId.getText());
             ObservableList<GetterSetter.BillingWithComplain> list = FXCollections.observableArrayList();
 
-            tabId.setCellValueFactory(new PropertyValueFactory<>("id"));
-            tabMed.setCellValueFactory(new PropertyValueFactory<>("MedName"));
-            tabQntty.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-            tabPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-            morn.setCellValueFactory(new PropertyValueFactory<>("morning"));
-            after.setCellValueFactory(new PropertyValueFactory<>("Afternoon"));
-            nig.setCellValueFactory(new PropertyValueFactory<>("night"));
 
-            for(int i=0;i<cp.length;i++){
-                list.add(new GetterSetter.BillingWithComplain((long) (i+1),cp[i].getMedicine().getMedicineName(),cp[i].getMedicinePrescription().getQuantity(),cp[i].getMedicinePrescription().getCost(),cp[i].getMedicinePrescription().getMorning(),cp[i].getMedicinePrescription().getAfternoon(),cp[i].getMedicinePrescription().getNight()));
-                tableView.setItems(list);
+                tabId.setCellValueFactory(new PropertyValueFactory<>("id"));
+                tabMed.setCellValueFactory(new PropertyValueFactory<>("MedName"));
+                tabQntty.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+                tabPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+                morn.setCellValueFactory(new PropertyValueFactory<>("morning"));
+                after.setCellValueFactory(new PropertyValueFactory<>("Afternoon"));
+                nig.setCellValueFactory(new PropertyValueFactory<>("night"));
+
+                for (int i = 0; i < cp.length; i++) {
+                    list.add(new GetterSetter.BillingWithComplain((long) (i + 1), cp[i].getMedicine().getMedicineName(), cp[i].getMedicinePrescription().getQuantity(), cp[i].getMedicinePrescription().getCost(), cp[i].getMedicinePrescription().getMorning(), cp[i].getMedicinePrescription().getAfternoon(), cp[i].getMedicinePrescription().getNight()));
+                    tableView.setItems(list);
+                }
             }
 
-        }
+
         catch (Exception e){
-            e.printStackTrace();
+            Alert ab = new Alert(Alert.AlertType.INFORMATION);
+           boolean b1=Pattern.matches("\\d*",complaintId.getText());
+           if(b1==false)
+           {
+
+               ab.setTitle("Wrong Information");
+               ab.setContentText("Please enter numeric value");
+               ab.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+
+           }
+           else
+             ab.setContentText("Complaint ID not found in database");
+           ab.showAndWait();
+
         }
 
 

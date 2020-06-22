@@ -16,10 +16,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 public class DashbordMedicine {
 
@@ -69,23 +71,37 @@ public class DashbordMedicine {
                                 alert1.showAndWait();
                         }
                         else {
+                              //boolean b1=Pattern.matches("[a-zA-Z]+[ ]*[\\.\\-\\_]?[a-zA-Z]*[ ]*[\\.\\-\\_]?[a-zA-Z]*",medicineName.getText());
+                              boolean b2=Pattern.matches("\\d*[\\.\\,]*\\d*",medPrice.getText());
+                              boolean b3=Pattern.matches("\\d*[\\.\\,]*\\d*",tax.getText());
+                              boolean b4=Pattern.matches("\\d*",quantity.getText());
+                              if( b2==false || b3==false || b4==false)
+                              {
+                                      Alert ab = new Alert(Alert.AlertType.INFORMATION);
+                                      ab.setTitle("Wrong Information");
+                                      ab.setContentText("Please check whether you have entered proper values to the fields");
+                                      ab.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                                      ab.showAndWait();
+                              }
+                              else {
 
-                                Medicine medicine = new Medicine(medicineName.getText(), Double.parseDouble(medPrice.getText()), Double.parseDouble(tax.getText()), Integer.parseInt(quantity.getText()));
-                                Long medId = Medicine.addMedicine(medicine);
-                                if (medId == -1) {
-                                        Alert alert1 = new Alert(Alert.AlertType.ERROR);
-                                        alert1.setTitle("Medicine Not added");
-                                        alert1.setContentText("Medicine is not added in the database!!");
-                                        alert1.showAndWait();
+                                      Medicine medicine = new Medicine(medicineName.getText(), Double.parseDouble(medPrice.getText()), Double.parseDouble(tax.getText()), Integer.parseInt(quantity.getText()));
+                                      Long medId = Medicine.addMedicine(medicine);
+                                      if (medId == -1) {
+                                              Alert alert1 = new Alert(Alert.AlertType.ERROR);
+                                              alert1.setTitle("Medicine Not added");
+                                              alert1.setContentText("Medicine is not added in the database!!");
+                                              alert1.showAndWait();
 
-                                } else {
-                                        parent.getScene().getWindow().hide();
-                                        Stage dashbordClerk = new Stage();
-                                        Parent root = FXMLLoader.load(getClass().getResource("/fxml/dashbordMedicine.fxml"));
-                                        Scene scene = new Scene(root);
-                                        dashbordClerk.setScene(scene);
-                                        dashbordClerk.show();
-                                }
+                                      } else {
+                                              parent.getScene().getWindow().hide();
+                                              Stage dashbordClerk = new Stage();
+                                              Parent root = FXMLLoader.load(getClass().getResource("/fxml/dashbordMedicine.fxml"));
+                                              Scene scene = new Scene(root);
+                                              dashbordClerk.setScene(scene);
+                                              dashbordClerk.show();
+                                      }
+                              }
                         }
                 }
         }
@@ -113,24 +129,36 @@ public class DashbordMedicine {
                                 alert1.showAndWait();
                         }
                         else {
+                                boolean b2= Pattern.matches("\\d*",medId.getText());
+                                if(b2==false)
+                                {
+                                        Alert ab = new Alert(Alert.AlertType.INFORMATION);
+                                        ab.setTitle("Wrong Information");
+                                        ab.setContentText("Please enter numeric value");
+                                        ab.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                                        ab.showAndWait();
 
-                                boolean v = Medicine.removeMedicine(Long.parseLong(medId.getText()));
-                                if (v == false) {
-                                        Alert alert1 = new Alert(Alert.AlertType.ERROR);
-                                        alert1.setTitle("Delete Error");
-                                        alert1.setContentText("Error in deleting the Medicine!!");
-                                        alert1.showAndWait();
-                                } else {
-                                        Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-                                        alert1.setTitle("Medicine Deleted");
-                                        alert1.setContentText("Successfully Deleted Medicine!!");
-                                        alert1.showAndWait();
-                                        parent.getScene().getWindow().hide();
-                                        Stage dashbordClerk = new Stage();
-                                        Parent root = FXMLLoader.load(getClass().getResource("/fxml/dashbordMedicine.fxml"));
-                                        Scene scene = new Scene(root);
-                                        dashbordClerk.setScene(scene);
-                                        dashbordClerk.show();
+                                }
+                                else {
+
+                                        boolean v = Medicine.removeMedicine(Long.parseLong(medId.getText()));
+                                        if (v == false) {
+                                                Alert alert1 = new Alert(Alert.AlertType.ERROR);
+                                                alert1.setTitle("Delete Error");
+                                                alert1.setContentText("Error in deleting the Medicine!!");
+                                                alert1.showAndWait();
+                                        } else {
+                                                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                                                alert1.setTitle("Medicine Deleted");
+                                                alert1.setContentText("Successfully Deleted Medicine!!");
+                                                alert1.showAndWait();
+                                                parent.getScene().getWindow().hide();
+                                                Stage dashbordClerk = new Stage();
+                                                Parent root = FXMLLoader.load(getClass().getResource("/fxml/dashbordMedicine.fxml"));
+                                                Scene scene = new Scene(root);
+                                                dashbordClerk.setScene(scene);
+                                                dashbordClerk.show();
+                                        }
                                 }
                         }
                 }
@@ -170,21 +198,33 @@ public class DashbordMedicine {
                                         alert1.showAndWait();
                                 }
                                 else {
+                                        boolean b3=Pattern.matches("\\d*",medId.getText());
+                                        if(b3==false)
+                                        {
+                                                Alert ab = new Alert(Alert.AlertType.INFORMATION);
+                                                ab.setTitle("Wrong Information");
+                                                ab.setContentText("Please enter numeric value");
+                                                ab.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                                                ab.showAndWait();
 
-                                        boolean v = Medicine.isMedicinePresent(Long.parseLong(medId.getText()));
-                                        id = Long.parseLong(medId.getText());
-                                        if (v == false) {
-                                                Alert alert1 = new Alert(Alert.AlertType.ERROR);
-                                                alert1.setTitle("Not Present");
-                                                alert1.setContentText("Medicine Not present");
-                                                alert1.showAndWait();
-                                        } else {
-                                                Medicine m = Medicine.getMedicine(Long.parseLong(medId.getText()));
-                                                medName.setText(m.getMedicineName());
-                                                price.setText("" + m.getPrice());
-                                                tax.setText("" + m.getTax());
-                                                quantity.setText("" + m.getQuantity());
+                                        }
+                                        else {
 
+                                                boolean v = Medicine.isMedicinePresent(Long.parseLong(medId.getText()));
+                                                id = Long.parseLong(medId.getText());
+                                                if (v == false) {
+                                                        Alert alert1 = new Alert(Alert.AlertType.ERROR);
+                                                        alert1.setTitle("Not Present");
+                                                        alert1.setContentText("Medicine Not present");
+                                                        alert1.showAndWait();
+                                                } else {
+                                                        Medicine m = Medicine.getMedicine(Long.parseLong(medId.getText()));
+                                                        medName.setText(m.getMedicineName());
+                                                        price.setText("" + m.getPrice());
+                                                        tax.setText("" + m.getTax());
+                                                        quantity.setText("" + m.getQuantity());
+
+                                                }
                                         }
                                 }
                         }
@@ -200,33 +240,46 @@ public class DashbordMedicine {
                                 alert1.showAndWait();
                         }
                         else {
-                                Medicine medicine = new Medicine();
-                                medicine.setId(id);
-                                medicine.setMedicineName(medName.getText());
-                                medicine.setPrice(Double.parseDouble(price.getText()));
-                                medicine.setTax(Double.parseDouble(tax.getText()));
-                                medicine.setQuantity(Integer.parseInt(quantity.getText()));
+                                boolean b2=Pattern.matches("\\d*[\\.\\,]*\\d*",price.getText());
+                                boolean b3=Pattern.matches("\\d*[\\.\\,]*\\d*",tax.getText());
+                                boolean b4=Pattern.matches("\\d*",quantity.getText());
+                                if( b2==false || b3==false || b4==false)
+                                {
+                                        Alert ab = new Alert(Alert.AlertType.INFORMATION);
+                                        ab.setTitle("Wrong Information");
+                                        ab.setContentText("Please check whether you have entered proper values to the fields");
+                                        ab.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                                        ab.showAndWait();
+                                }
+                                else {
+                                        Medicine medicine = new Medicine();
+                                        medicine.setId(id);
+                                        medicine.setMedicineName(medName.getText());
+                                        medicine.setPrice(Double.parseDouble(price.getText()));
+                                        medicine.setTax(Double.parseDouble(tax.getText()));
+                                        medicine.setQuantity(Integer.parseInt(quantity.getText()));
 
-                                boolean v = Medicine.updateMedicine(medicine);
+                                        boolean v = Medicine.updateMedicine(medicine);
 
-                                if (v == false) {
+                                        if (v == false) {
 
-                                        Alert alert1 = new Alert(Alert.AlertType.ERROR);
-                                        alert1.setTitle("Update Error");
-                                        alert1.setContentText("Could Not update");
-                                        alert1.showAndWait();
-                                } else {
-                                        Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-                                        alert1.setTitle("Medicine Updated");
-                                        alert1.setContentText("Successfully Updated Medicine!!");
-                                        alert1.showAndWait();
-                                        parent.getScene().getWindow().hide();
-                                        Stage dashbordClerk = new Stage();
-                                        Parent root = FXMLLoader.load(getClass().getResource("/fxml/dashbordMedicine.fxml"));
-                                        Scene scene = new Scene(root);
-                                        dashbordClerk.setScene(scene);
-                                        dashbordClerk.show();
+                                                Alert alert1 = new Alert(Alert.AlertType.ERROR);
+                                                alert1.setTitle("Update Error");
+                                                alert1.setContentText("Could Not update");
+                                                alert1.showAndWait();
+                                        } else {
+                                                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                                                alert1.setTitle("Medicine Updated");
+                                                alert1.setContentText("Successfully Updated Medicine!!");
+                                                alert1.showAndWait();
+                                                parent.getScene().getWindow().hide();
+                                                Stage dashbordClerk = new Stage();
+                                                Parent root = FXMLLoader.load(getClass().getResource("/fxml/dashbordMedicine.fxml"));
+                                                Scene scene = new Scene(root);
+                                                dashbordClerk.setScene(scene);
+                                                dashbordClerk.show();
 
+                                        }
                                 }
                         }
 
@@ -272,25 +325,36 @@ public class DashbordMedicine {
                                         alert1.showAndWait();
                                 }
                                 else {
+                                        boolean b2=Pattern.matches("\\d*",medId.getText());
+                                        if(b2==false)
+                                        {
+                                                Alert ab = new Alert(Alert.AlertType.INFORMATION);
+                                                ab.setTitle("Wrong Information");
+                                                ab.setContentText("Please enter numeric value");
+                                                ab.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                                                ab.showAndWait();
+                                        }
+                                        else {
 
-                                        boolean v = Medicine.isMedicinePresent(Long.parseLong(medId.getText()));
-                                        addId = Long.parseLong(medId.getText());
-                                        if (v == false) {
-                                                Alert alert1 = new Alert(Alert.AlertType.ERROR);
-                                                alert1.setTitle("Not Present");
-                                                alert1.setContentText("Medicine Not present");
-                                                alert1.showAndWait();
+                                                boolean v = Medicine.isMedicinePresent(Long.parseLong(medId.getText()));
+                                                addId = Long.parseLong(medId.getText());
+                                                if (v == false) {
+                                                        Alert alert1 = new Alert(Alert.AlertType.ERROR);
+                                                        alert1.setTitle("Not Present");
+                                                        alert1.setContentText("Medicine Not present");
+                                                        alert1.showAndWait();
 
-                                        } else {
-                                                Medicine m = Medicine.getMedicine(Long.parseLong(medId.getText()));
-                                                addName = m.getMedicineName();
-                                                addPrice = m.getPrice();
-                                                addTax = m.getTax();
-                                                addQnty = m.getQuantity();
+                                                } else {
+                                                        Medicine m = Medicine.getMedicine(Long.parseLong(medId.getText()));
+                                                        addName = m.getMedicineName();
+                                                        addPrice = m.getPrice();
+                                                        addTax = m.getTax();
+                                                        addQnty = m.getQuantity();
 
-                                                medName.setText(addName);
-                                                qnty.setText("" + addQnty);
+                                                        medName.setText(addName);
+                                                        qnty.setText("" + addQnty);
 
+                                                }
                                         }
                                 }
 
@@ -309,37 +373,47 @@ public class DashbordMedicine {
                         }
                         else {
 
+                              boolean b1=Pattern.matches("\\d*",quantity.getText());
+                              if(b1==false)
+                              {
+                                      Alert ab = new Alert(Alert.AlertType.INFORMATION);
+                                      ab.setTitle("Wrong Information");
+                                      ab.setContentText("Please enter numeric value");
+                                      ab.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                                      ab.showAndWait();
+                              }
+                              else {
+                                      addQnty = addQnty + Integer.parseInt(quantity.getText());
+                                      System.out.println(addQnty);
+                                      Medicine medicine = new Medicine();
+                                      medicine.setId(addId);
+                                      medicine.setMedicineName(addName);
+                                      medicine.setPrice(addPrice);
+                                      medicine.setTax(addTax);
+                                      medicine.setQuantity(addQnty);
 
-                                addQnty = addQnty + Integer.parseInt(quantity.getText());
-                                System.out.println(addQnty);
-                                Medicine medicine = new Medicine();
-                                medicine.setId(addId);
-                                medicine.setMedicineName(addName);
-                                medicine.setPrice(addPrice);
-                                medicine.setTax(addTax);
-                                medicine.setQuantity(addQnty);
+                                      boolean v = Medicine.updateMedicine(medicine);
 
-                                boolean v = Medicine.updateMedicine(medicine);
+                                      if (v == false) {
 
-                                if (v == false) {
+                                              Alert alert1 = new Alert(Alert.AlertType.ERROR);
+                                              alert1.setTitle("Update Error Error");
+                                              alert1.setContentText("Could Not update");
+                                              alert1.showAndWait();
+                                      } else {
+                                              Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                                              alert1.setTitle("Medicine updated");
+                                              alert1.setContentText("Successfully Updated Medicine!!");
+                                              alert1.showAndWait();
+                                              parent.getScene().getWindow().hide();
+                                              Stage dashbordClerk = new Stage();
+                                              Parent root = FXMLLoader.load(getClass().getResource("/fxml/dashbordMedicine.fxml"));
+                                              Scene scene = new Scene(root);
+                                              dashbordClerk.setScene(scene);
+                                              dashbordClerk.show();
 
-                                        Alert alert1 = new Alert(Alert.AlertType.ERROR);
-                                        alert1.setTitle("Update Error Error");
-                                        alert1.setContentText("Could Not update");
-                                        alert1.showAndWait();
-                                } else {
-                                        Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-                                        alert1.setTitle("Medicine updated");
-                                        alert1.setContentText("Successfully Updated Medicine!!");
-                                        alert1.showAndWait();
-                                        parent.getScene().getWindow().hide();
-                                        Stage dashbordClerk = new Stage();
-                                        Parent root = FXMLLoader.load(getClass().getResource("/fxml/dashbordMedicine.fxml"));
-                                        Scene scene = new Scene(root);
-                                        dashbordClerk.setScene(scene);
-                                        dashbordClerk.show();
-
-                                }
+                                      }
+                              }
                         }
                 }
         }
