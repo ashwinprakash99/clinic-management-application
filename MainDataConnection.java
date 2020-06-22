@@ -17,8 +17,4 @@ public class MainDataConnection {
         connection = DriverManager.getConnection(connectionString, username, password);
         System.out.println("Connection Established Successfully...");
     }
-
-    public static void main(String[] args) throws Exception {
-        MainDataConnection.init();
-    }
 }
