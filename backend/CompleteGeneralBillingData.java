@@ -36,13 +36,4 @@ public class CompleteGeneralBillingData {
         public Medicine getMedicine() { return medicine; }
         public GeneralMedicineOutlet getGeneralMedicineOutlet() { return generalMedicineOutlet; }
     }
-
-    public static void main(String[] args) throws Exception {
-        CompleteGeneralBillingData c = new CompleteGeneralBillingData(1L);
-        System.out.println(c.getGeneralBilling());
-        for (GeneralMedicineData generalMedicineData: c.getGeneralMedicineDatas()) {
-            System.out.println(generalMedicineData.getMedicine());
-            System.out.println(generalMedicineData.getGeneralMedicineOutlet());
-        }
-    }
 }
