@@ -15,11 +15,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 public class DashbordPatient {
 
@@ -59,40 +61,49 @@ public class DashbordPatient {
         alert.getDialogPane().setContent(gridPane);
         Optional<ButtonType> result=alert.showAndWait();
 
-        if(result.get()==ButtonType.OK){
-            if(!pid.getText().equals("")) {
-                Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
-                alert1.setContentText("Are you sure of deleting the patient?");
-                Optional<ButtonType> res = alert1.showAndWait();
-                if (res.get() == ButtonType.OK) {
+        if(result.get()==ButtonType.OK) {
+
+            boolean b1 = Pattern.matches("\\d*", pid.getText());
+            if (b1 == false) {
+                Alert ab = new Alert(Alert.AlertType.INFORMATION);
+                ab.setTitle("Wrong Information");
+                ab.setContentText("Please enter numeric value");
+                ab.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                ab.showAndWait();
+            } else {
+                if (!pid.getText().equals("")) {
+                    Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert1.setContentText("Are you sure of deleting the patient?");
+                    Optional<ButtonType> res = alert1.showAndWait();
+                    if (res.get() == ButtonType.OK) {
 
 
-                    boolean v = Patient.removePatient(Long.parseLong(pid.getText()));
-                    if (v == true) {
-                        Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-                        alert2.setTitle("Patient Deleted");
-                        alert2.setContentText("Patient id " + pid.getText());
-                        alert2.showAndWait();
-                    } else {
-                        Alert alert2 = new Alert(Alert.AlertType.ERROR);
-                        alert2.setTitle("Patient Not Found");
-                        alert2.setContentText("Patient is not present");
-                        alert2.showAndWait();
+                        boolean v = Patient.removePatient(Long.parseLong(pid.getText()));
+                        if (v == true) {
+                            Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                            alert2.setTitle("Patient Deleted");
+                            alert2.setContentText("Patient id " + pid.getText());
+                            alert2.showAndWait();
+                        } else {
+                            Alert alert2 = new Alert(Alert.AlertType.ERROR);
+                            alert2.setTitle("Patient Not Found");
+                            alert2.setContentText("Patient is not present");
+                            alert2.showAndWait();
 
+                        }
                     }
+                } else {
+                    Alert alert3 = new Alert(Alert.AlertType.ERROR);
+                    alert3.setTitle("Error");
+                    alert3.setContentText("Field are empty");
+                    alert3.showAndWait();
                 }
-            }
-            else{
-                Alert alert3=new Alert(Alert.AlertType.ERROR);
-                alert3.setTitle("Error");
-                alert3.setContentText("Field are empty");
-                alert3.showAndWait();
-            }
 
 
             }
-
         }
+
+    }
 
 
     @FXML
@@ -152,13 +163,21 @@ public class DashbordPatient {
                     alert.showAndWait();
                 }
                 else {
+                    boolean b1 = Pattern.matches("[a-zA-Z]+[ ]*[\\.\\-\\_]?[a-zA-Z]*[ ]*[\\.\\-\\_]?[a-zA-Z]*", ptname.getText());
+                    if (b1 == false) {
+                        Alert ab = new Alert(Alert.AlertType.INFORMATION);
+                        ab.setTitle("Wrong Information");
+                        ab.setContentText("Name format didn't match");
+                        ab.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                        ab.showAndWait();
+                    } else {
 
+                        Patient[] patient = Patient.getPatients(ptname.getText());
 
-                    Patient[] patient = Patient.getPatients(ptname.getText());
-
-                    for (int i = 0; i < patient.length; i++) {
-                        list.add(new ForgotId(patient[i].getUHID(), patient[i].getPatientName(), patient[i].getPhoneNumber()));
-                        tableView.setItems(list);
+                        for (int i = 0; i < patient.length; i++) {
+                            list.add(new ForgotId(patient[i].getUHID(), patient[i].getPatientName(), patient[i].getPhoneNumber()));
+                            tableView.setItems(list);
+                        }
                     }
                 }
 
