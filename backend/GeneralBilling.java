@@ -1,62 +1,60 @@
+package backend;
+
 import java.util.Date;
-import java.util.*;
 import java.text.SimpleDateFormat;
 import java.sql.*;
 
-public class Treatment {
+public class GeneralBilling {
     private long id = 0L;
-    private String docName = null;
-    private String description = null;
-    private long complaintId = 0L;
+    private String name = null;
+    private double cost = 0.0;
+    private Date createdAt = new Date();
 
     static SimpleDateFormat dff = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
-    public Treatment() {}
-
-    public Treatment(String docName, String description, long complaintId) {
-        this.docName = docName;
-        this.description = description;
-        this.complaintId = complaintId;
+    public GeneralBilling() {}
+    
+    public GeneralBilling(String name) {
+        this.name = name;
     }
 
     public String toString() {
         String message = "";
-        message += "Treatment ID: " + id + "\n";
-        message += "Doctor Name: " + docName + "\n";
-        message += "Complaint ID: " + complaintId + "\n";
-        message += "Description: " + description;
+        message += "General Billing ID: " + id + "\n";
+        message += "Name: " + name + "\n";
+        message += "Cost: " + cost + "\n";
+        message += "Created At: " + createdAt;
         return message;
     }
 
     public void setId(long id) { this.id = id; }
     public long getId() { return id; }
 
-    public void setDocName(String docName) { this.docName = docName; }
-    public String getDocName() { return docName; }
+    public void setName(String name) { this.name = name; }
+    public String getName() { return name; }
 
-    public void setDescription(String description) { this.description = description; }
-    public String getDescription() { return description; }
+    public void setCost(double cost) { this.cost = cost; }
+    public double getCost() { return cost; }
 
-    public void setComplaintId(long complaintId) { this.complaintId = complaintId; }
-    public long getComplaintId() { return complaintId; }
+    public void setCreatedAt(Date createdAt) { this.createdAt = createdAt; }
+    public Date getCreatedAt() { return createdAt; }
 
-    public static long addTreatment(Treatment treatment) {
+    public static long addGeneralBilling(GeneralBilling generalBilling) {
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = MainDataConnection.connection.prepareStatement("INSERT INTO Treatment VALUES (0, ?, ?, ?, ?);");
-            preparedStatement.setString(1, treatment.getDocName());
-            preparedStatement.setString(2, treatment.getDescription());
-            preparedStatement.setLong(3, treatment.getComplaintId());
-            preparedStatement.setString(4, dff.format(new Date()));
+            preparedStatement = MainDataConnection.connection.prepareStatement("INSERT INTO General_Billing VALUES (0, ?, ?, ?);");
+            preparedStatement.setString(1, generalBilling.getName());
+            preparedStatement.setDouble(2, generalBilling.getCost());
+            preparedStatement.setString(3, dff.format(new Date()));
             int result = preparedStatement.executeUpdate();
             if (result != 0) {
                 System.out.println("Added record " + result);
                 preparedStatement.close();
-                preparedStatement = MainDataConnection.connection.prepareStatement("SELECT MAX(id) FROM Treatment;");
+                preparedStatement = MainDataConnection.connection.prepareStatement("SELECT MAX(id) FROM General_Billing;");
                 ResultSet resultSet = preparedStatement.executeQuery();
                 resultSet.next();
                 long id = resultSet.getLong(1);
-                treatment.setId(id);
+                generalBilling.setId(id);
                 return id;
             } else {
                 System.out.println("No records added");
@@ -76,10 +74,10 @@ public class Treatment {
         return -1;
     }
 
-    public static boolean removeTreatment(long id) {
+    public static boolean removeGeneralBilling(long id) {
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = MainDataConnection.connection.prepareStatement("DELETE FROM Treatment WHERE id = ?;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("DELETE FROM General_Billing WHERE id = ?;");
             preparedStatement.setLong(1, id);
             int result = preparedStatement.executeUpdate();
             if (result != 0) {
@@ -101,14 +99,13 @@ public class Treatment {
         return false;
     }
 
-    public static boolean updateTreatment(Treatment treatment) {
+    public static boolean updateGeneralBilling(GeneralBilling generalBilling) {
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = MainDataConnection.connection.prepareStatement("UPDATE Treatment SET doc_name = ?, description = ?, complaint_id = ? WHERE id = ?;");
-            preparedStatement.setString(1, treatment.getDocName());
-            preparedStatement.setString(2, treatment.getDescription());
-            preparedStatement.setLong(3, treatment.getComplaintId());
-            preparedStatement.setLong(4, treatment.getId());
+            preparedStatement = MainDataConnection.connection.prepareStatement("UPDATE General_Billing SET name = ?, cost = ? WHERE id = ?;");
+            preparedStatement.setString(1, generalBilling.getName());
+            preparedStatement.setDouble(2, generalBilling.getCost());
+            preparedStatement.setLong(3, generalBilling.getId());
             int result = preparedStatement.executeUpdate();
             if (result > 0) {
                 return true;
@@ -129,10 +126,10 @@ public class Treatment {
         return false;
     }
 
-    public static boolean isTreatmentPresent(long id) {
+    public static boolean isGeneralBillingPresent(long id) {
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT * FROM Treatment WHERE id = ?;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT * FROM General_Billing WHERE id = ?;");
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             int count = 0;
@@ -158,19 +155,19 @@ public class Treatment {
         return false;
     }
 
-    public static Treatment getTreatment(long id) {
+    public static GeneralBilling getGeneralBilling(long id) {
         PreparedStatement preparedStatement = null;
-        Treatment treatment = null;
+        GeneralBilling generalBilling = null;
         try {
-            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT * FROM Treatment WHERE id = ?;");
+            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT * FROM General_Billing WHERE id = ?;");
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                treatment = new Treatment();
-                treatment.setId(resultSet.getLong(1));
-                treatment.setDocName(resultSet.getString(2));
-                treatment.setDescription(resultSet.getString(3));
-                treatment.setComplaintId(resultSet.getLong(4));
+                generalBilling = new GeneralBilling();
+                generalBilling.setId(resultSet.getLong(1));
+                generalBilling.setName(resultSet.getString(2));
+                generalBilling.setCost(resultSet.getDouble(3));
+                generalBilling.setCreatedAt(resultSet.getDate(4));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -183,55 +180,29 @@ public class Treatment {
                 e.printStackTrace();
             }
         }
-        return treatment;
+        return generalBilling;
     }
 
-    public static Treatment getTreatmentWithComplaintId(long complaintId) {
+    public static boolean updateGeneralBillingCost(long id) {
         PreparedStatement preparedStatement = null;
-        Treatment treatment = null;
         try {
-            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT * FROM Treatment WHERE complaint_id = ?;");
-            preparedStatement.setLong(1, complaintId);
+            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT cost FROM General_Medicine_Outlet WHERE bill_id = ?;");
+            preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                treatment = new Treatment();
-                treatment.setId(resultSet.getLong(1));
-                treatment.setDocName(resultSet.getString(2));
-                treatment.setDescription(resultSet.getString(3));
-                treatment.setComplaintId(resultSet.getLong(4));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return treatment;
-    }
-
-    public static Treatment[] getTreatments(long patientId) {
-        PreparedStatement preparedStatement = null;
-        Treatment[] treatments = new Treatment[0];
-        try {
-            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT * FROM Treatment t, Complaint c WHERE t.complaint_id = c.id AND c.patient_id = ?;");
-            preparedStatement.setLong(1, patientId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            ArrayList<Treatment> resultTreatment = new ArrayList<>();
+            double cost = 0.0;
             while (resultSet.next()) {
-                Treatment treatment = new Treatment();
-                treatment.setId(resultSet.getLong(1));
-                treatment.setDocName(resultSet.getString(2));
-                treatment.setDescription(resultSet.getString(3));
-                treatment.setComplaintId(resultSet.getLong(4));
-                resultTreatment.add(treatment);
+                cost += resultSet.getDouble(1);
             }
-            if (resultTreatment.size() > 0) {
-                treatments = resultTreatment.toArray(treatments);
+            cost = (Math.round(cost*10.0)/10.0);
+            preparedStatement.close();
+            preparedStatement = MainDataConnection.connection.prepareStatement("UPDATE General_Billing SET cost = ? WHERE id = ?;");
+            preparedStatement.setDouble(1, cost);
+            preparedStatement.setLong(2, id);
+            int result = preparedStatement.executeUpdate();
+            if (result > 0) {
+                return true;
+            } else {
+                return false;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -244,6 +215,32 @@ public class Treatment {
                 e.printStackTrace();
             }
         }
-        return treatments;
+        return false;
+    }
+
+    public static double getGeneralBillTotalBetweenDates(String from_date, String to_date) {
+        PreparedStatement preparedStatement = null;
+        double total = 0.0;
+        try {
+            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT cost FROM General_Billing WHERE DATE(created_at) BETWEEN ? AND ?;");
+            preparedStatement.setString(1, from_date);
+            preparedStatement.setString(2, to_date);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                total += resultSet.getDouble(1);
+            }
+            total = (Math.round(total*10.0)/10.0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return total;
     }
 }
