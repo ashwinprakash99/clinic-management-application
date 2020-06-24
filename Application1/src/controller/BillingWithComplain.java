@@ -19,11 +19,18 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class BillingWithComplain implements Initializable {
@@ -241,12 +248,84 @@ public class BillingWithComplain implements Initializable {
 
         }
 
-    public void printClick(ActionEvent actionEvent) throws IOException {
-        Stage dashbordClerk=new Stage();
-        Parent root= FXMLLoader.load(getClass().getResource("/fxml/printMedicinePage.fxml"));
-        Scene scene=new Scene(root);
-        dashbordClerk.setScene(scene);
-        dashbordClerk.show();
+    public void printClick(ActionEvent actionEvent) throws Exception {
+//        Stage dashbordClerk=new Stage();
+//        Parent root= FXMLLoader.load(getClass().getResource("/fxml/printMedicinePage.fxml"));
+//        Scene scene=new Scene(root);
+//        dashbordClerk.setScene(scene);
+//        dashbordClerk.show();
+
+//        String outputFile="C:\\otherFile\\ClilnicManagmentProject\\New folder\\sample.pdf";
+//
+//        List<GetterSetter.BillingWithComplain> list=new ArrayList<GetterSetter.BillingWithComplain>();
+//
+//        //ObservableList<GetterSetter.BillingWithComplain> list= FXCollections.observableArrayList();
+//
+//
+//        CompleteMedicinePrescription[] cp=CompleteMedicinePrescription.getCompleteMedicineData(Long.parseLong(complaintId.getText()));
+//
+//        for(int i=0;i<cp.length;i++){
+//            list.add(new GetterSetter.BillingWithComplain((long) (i + 1), cp[i].getMedicine().getMedicineName(), cp[i].getMedicinePrescription().getQuantity(), cp[i].getMedicinePrescription().getCost(), cp[i].getMedicinePrescription().getMorning(), cp[i].getMedicinePrescription().getAfternoon(), cp[i].getMedicinePrescription().getNight()));
+//            System.out.println((long) (i + 1)+ cp[i].getMedicine().getMedicineName()+ cp[i].getMedicinePrescription().getQuantity()+ cp[i].getMedicinePrescription().getCost()+ cp[i].getMedicinePrescription().getMorning()+ cp[i].getMedicinePrescription().getAfternoon()+ cp[i].getMedicinePrescription().getNight());
+//
+//        }
+//
+//
+//        JRBeanCollectionDataSource itemJRBean=new JRBeanCollectionDataSource(list);
+//
+//        Map<String,Object> parameter= new HashMap<>();
+//        parameter.put("CollectionBeanParameter",itemJRBean);
+//
+//        InputStream input=new FileInputStream(new File("C:\\otherFile\\ClilnicManagmentProject\\frontend\\Application1\\src\\image\\med.jrxml"));
+//
+//        JasperDesign jasperDesign= JRXmlLoader.load(input);
+//
+//        JasperReport jasperReport= JasperCompileManager.compileReport(jasperDesign);
+//
+//        JasperPrint jasperPrint= JasperFillManager.fillReport(jasperReport,parameter,new JREmptyDataSource());
+//
+//        JasperViewer.viewReport(jasperPrint);
+
+        //output
+//        OutputStream outputStream=new FileOutputStream(new File(outputFile));
+//        JasperExportManager.exportReportToPdfStream(jasperPrint,outputStream);
+
+
+//        System.out.println("Success");
+
+
+        /* Convert List to JRBeanCollectionDataSource */
+//        JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(list);
+//
+//        /* Map to hold Jasper report Parameters */
+//        Map<String, Object> parameters = new HashMap<String, Object>();
+//        parameters.put("CollectionBeanParam", itemsJRBean);
+//
+//        //read jrxml file and creating jasperdesign object
+//        InputStream input = new FileInputStream(new File("C:\\otherFile\\ClilnicManagmentProject\\New folder\\medicine.jrxml"));
+//
+//        JasperDesign jasperDesign = JRXmlLoader.load(input);
+//
+//        /*compiling jrxml with help of JasperReport class*/
+//        JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+//
+//        /* Using jasperReport object to generate PDF */
+//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
+//
+//        /*call jasper engine to display report in jasperviewer window*/
+//        JasperViewer.viewReport(jasperPrint);
+//
+//
+//        /* outputStream to create PDF */
+//        //OutputStream outputStream = new FileOutputStream(new File(outputFile));
+//
+//
+//        /* Write content to PDF file */
+//        //JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
+//
+//        System.out.println("File Generated");
+
+
 
 
     }

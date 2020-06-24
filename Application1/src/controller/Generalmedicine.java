@@ -152,6 +152,32 @@ public class Generalmedicine implements Initializable  {
     }
 
 
+    public void backClicks(ActionEvent actionEvent) throws IOException {
+        patene.getScene().getWindow().hide();
+        Stage dashbordClerk=new Stage();
+        Parent root= FXMLLoader.load(getClass().getResource("/fxml/dashbordPatient.fxml"));
+        Scene scene=new Scene(root);
+        dashbordClerk.setScene(scene);
+        dashbordClerk.show();
+    }
+
+    public void doctorPage(ActionEvent actionEvent) throws IOException {
+        patene.getScene().getWindow().hide();
+        Stage dashbordClerk=new Stage();
+        Parent root= FXMLLoader.load(getClass().getResource("/fxml/complaint.fxml"));
+        Scene scene=new Scene(root);
+        dashbordClerk.setScene(scene);
+        dashbordClerk.show();
+    }
+
+    public void allDetailClick(ActionEvent actionEvent) throws IOException {
+        patene.getScene().getWindow().hide();
+        Stage dashbordClerk=new Stage();
+        Parent root= FXMLLoader.load(getClass().getResource("/fxml/dashbordDetail.fxml"));
+        Scene scene=new Scene(root);
+        dashbordClerk.setScene(scene);
+        dashbordClerk.show();
+    }
 }
 
 
