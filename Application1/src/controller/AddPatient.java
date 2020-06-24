@@ -83,7 +83,7 @@ public class AddPatient implements Initializable {
         paddress=patientAddress.getText();
         pphone=patientPhoneNumber.getText();
         boolean b1= Pattern.matches("\\d{10}",pphone);
-        boolean b2=Pattern.matches("[a-zA-Z]+[ ]*[\\.\\-\\_]?[a-zA-Z]*[ ]*[\\.\\-\\_]?[a-zA-Z]*",pname);
+        boolean b2=Pattern.matches("([a-zA-Z]+[ ]*[\\.\\-\\_]?[a-zA-Z]*)*",pname);
 
 
 

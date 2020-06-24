@@ -74,7 +74,7 @@ public class Generalmedicine implements Initializable  {
 
     @FXML
     void patientSubmitClick(ActionEvent event) {
-        boolean b1= Pattern.matches("[a-zA-Z]+[ ]*[\\.\\-\\_]?[a-zA-Z]*[ ]*[\\.\\-\\_]?[a-zA-Z]*",patientName.getText());
+        boolean b1= Pattern.matches("([a-zA-Z]+[ ]*[\\.\\-\\_]?[a-zA-Z]*)*",patientName.getText());
         if(b1==false)
         {
             Alert ab = new Alert(Alert.AlertType.INFORMATION);
@@ -85,6 +85,7 @@ public class Generalmedicine implements Initializable  {
 
         }
         else {
+
             GeneralBilling gb = new GeneralBilling(patientName.getText());
             id = GeneralBilling.addGeneralBilling(gb);
             System.out.println(id);

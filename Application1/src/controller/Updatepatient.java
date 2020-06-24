@@ -135,7 +135,7 @@ public class Updatepatient {
             paddress = patientAddress.getText();
             pphone = Long.parseLong(patientPhonenumber.getText());
             boolean b2=Pattern.matches("\\d{10}",patientPhonenumber.getText());
-            boolean b3=Pattern.matches("[a-zA-Z]+[ ]*[\\.\\-\\_]?[a-zA-Z]*[ ]*[\\.\\-\\_]?[a-zA-Z]*",pname);
+            boolean b3=Pattern.matches("([a-zA-Z]+[ ]*[\\.\\-\\_]?[a-zA-Z]*)*",pname);
             if (b2 == false || b3 == false) {
                 Alert ab = new Alert(Alert.AlertType.INFORMATION);
                 ab.setTitle("Wrong Information");

@@ -163,7 +163,7 @@ public class DashbordPatient {
                     alert.showAndWait();
                 }
                 else {
-                    boolean b1 = Pattern.matches("[a-zA-Z]+[ ]*[\\.\\-\\_]?[a-zA-Z]*[ ]*[\\.\\-\\_]?[a-zA-Z]*", ptname.getText());
+                    boolean b1 = Pattern.matches("([a-zA-Z]+[ ]*[\\.\\-\\_]?[a-zA-Z]*)*", ptname.getText());
                     if (b1 == false) {
                         Alert ab = new Alert(Alert.AlertType.INFORMATION);
                         ab.setTitle("Wrong Information");
