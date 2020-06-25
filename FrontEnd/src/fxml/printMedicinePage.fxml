@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="720.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PrintMedicinePage">
+   <children>
+      <TextArea fx:id="printMedicine" prefHeight="200.0" prefWidth="200.0" text="&#9;&#10;&#9;&#9;SWATHI CLINIC&#10;&#9;&#9;Near Pompei English&#10;&#9;&#9;Medium School Kaikamba&#10;&#9;&#9;574151&#10;------------------------------------------------------------------------------------------------------------------------------------------------------------------&#10;&#10;&#9;Medicine ID&#9;|&#9;Medicine Name&#9;|&#9;morning&#9;|&#9;Afternoon&#9;|&#9;Night&#9;|&#9;Quantity&#9;|&#9;Price&#10;&#9;--------------------------------------------------------------------------------------------------------------------------------&#10;&#10;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+   </children>
+</AnchorPane>

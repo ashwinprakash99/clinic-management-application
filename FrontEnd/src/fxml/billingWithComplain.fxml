@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="parent" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BillingWithComplain">
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="1080.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane prefHeight="200.0" prefWidth="1080.0" />
+                  <AnchorPane prefHeight="200.0" prefWidth="1080.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#backClick" prefHeight="101.0" prefWidth="158.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="52.0" fitWidth="76.0">
+                                       <image>
+                                          <Image url="@../image/Arrow Back 4.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <ButtonBar prefHeight="100.0" prefWidth="1002.0">
+                                 <buttons>
+                                    <Button mnemonicParsing="false" onAction="#doctorPageClick" prefHeight="60.0" prefWidth="445.0" text="DOCTOR" />
+                                    <Button mnemonicParsing="false" onAction="#allDetailClick" prefHeight="60.0" prefWidth="234.0" text="ALL DETAIL" />
+                                 </buttons>
+                                 <padding>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </padding>
+                              </ButtonBar>
+                           </children>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </children></AnchorPane>
+      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="520.0" prefWidth="1080.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="50.0">
+                     <children>
+                        <TextField fx:id="complaintId" alignment="CENTER" prefHeight="50.0" prefWidth="300.0" promptText="COMPLAINT ID" />
+                        <Button mnemonicParsing="false" onAction="#checkComplaint" prefHeight="50.0" prefWidth="200.0" text="CHECK" />
+                     </children>
+                  </HBox>
+                  <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                     <content>
+                        <TableView fx:id="tableView" prefHeight="1000.0" prefWidth="862.0">
+                          <columns>
+                            <TableColumn fx:id="tabId" prefWidth="62.0" text="ID" />
+                            <TableColumn fx:id="tabMed" prefWidth="266.0" text="MEDICINE NAME" />
+                              <TableColumn fx:id="morn" minWidth="0.0" prefWidth="106.0" text="MORNING" />
+                              <TableColumn fx:id="after" minWidth="0.0" prefWidth="124.0" text="AFTERNOON" />
+                              <TableColumn fx:id="nig" minWidth="0.0" prefWidth="111.0" text="NIGHT" />
+                              <TableColumn fx:id="tabQntty" prefWidth="83.0" text="QUANTITY" />
+                              <TableColumn fx:id="tabPrice" minWidth="0.0" prefWidth="105.0" text="PRICE" />
+                          </columns>
+                        </TableView>
+                     </content>
+                  </ScrollPane>
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="50.0">
+                     <children>
+                        <TextField fx:id="cusultaion" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" promptText="CONSULTATION FEES(200)" />
+                        <TextField fx:id="extra" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" promptText="IF EXTRA" />
+                     </children>
+                  </HBox>
+                  <HBox fx:id="feesBox" alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Fees :" textAlignment="CENTER" wrappingWidth="288.28271484375">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="totalFess" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="288.28271484375">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="50.0">
+                     <children>
+                        <Button fx:id="okBt" mnemonicParsing="false" onAction="#okButton" prefHeight="50.0" prefWidth="200.0" text="OK" />
+                        <Button mnemonicParsing="false" onAction="#updateButon" prefHeight="50.0" prefWidth="200.0" text="UPDATE" />
+                        <Button mnemonicParsing="false" onAction="#printClick" prefHeight="50.0" prefWidth="200.0" text="PRINT" />
+                        <Button mnemonicParsing="false" onAction="#home" prefHeight="50.0" prefWidth="200.0" text="HOME" />
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="100.0" right="100.0" top="20.0" />
+               </padding>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
