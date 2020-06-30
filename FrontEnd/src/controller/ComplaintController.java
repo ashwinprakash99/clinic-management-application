@@ -409,7 +409,7 @@ public class ComplaintController {
     void enterTreatmentClick(ActionEvent event) {
 
         if (doctorName.getText().equals("")){
-            doctorName.setText("Default");
+            doctorName.setText("Dr Ashok");
         }
         if(treatmentDescription.getText().equals("")){
             treatmentDescription.setText("Everything is good, Please take some rest !!");
