@@ -4,6 +4,8 @@ package controller;
 import dbConnector.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,6 +39,8 @@ public class Generalmedicine implements Initializable  {
 
     @FXML
     private TextField patientName;
+    @FXML
+    private TextField filterfield;
 
     @FXML
     private TableView<GetterSetter.Generalmedicine> tabview;
@@ -111,10 +115,34 @@ public class Generalmedicine implements Initializable  {
                 tabview.setItems(ol);
 
             }
+            FilteredList<GetterSetter.Generalmedicine> filterdata=new FilteredList<>(ol, p->true);
+            filterfield.textProperty().addListener((observable,oldvalue,newvalue)->{
+                filterdata.setPredicate(e->{
+                    if(newvalue==null || newvalue.isEmpty())
+                    {
+                        return true;
+                    }
+                    String searchvalue=newvalue.toLowerCase();
+                    if(e.getMedName().toLowerCase().contains(searchvalue))
+                    {
+                        return true;
+                    }
+                    else if(e.getSelect().isSelected()) {
+                        return true;
+                    }
+                    else
+                        return false;
+                });
+            });
+            SortedList<GetterSetter.Generalmedicine> sorteddata=new SortedList<>(filterdata);
+            sorteddata.comparatorProperty().bind(tabview.comparatorProperty());
+            tabview.setItems(sorteddata);
+
+        }
         }
 
 
-    }
+
 
     @FXML
     void generalMedicineClick(ActionEvent event) throws IOException {

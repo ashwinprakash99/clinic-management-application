@@ -5,6 +5,8 @@ import GetterSetter.PreviousHistory;
 import dbConnector.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -127,6 +129,9 @@ public class ComplaintController {
 
     @FXML
     private TextField doctorName;
+
+    @FXML
+    private TextField filtertext;
 
     @FXML
     private TextArea treatmentDescription;
@@ -453,8 +458,32 @@ public class ComplaintController {
             list.add(new PrescriptionOperation(selcts,m[i].getMedicineName(),m[i].getQuantity(),geQuantity,m[i].getPrice(),morn,after,nig));
             tableView.setItems(list);
         }
+        FilteredList<PrescriptionOperation> filterdata=new FilteredList<>(list, p->true);
+        filtertext.textProperty().addListener((observable,oldvalue,newvalue)->{
+            filterdata.setPredicate(e->{
+                if(newvalue==null || newvalue.isEmpty())
+                {
+                    return true;
+                }
+                String searchvalue=newvalue.toLowerCase();
+                if(e.getPrescMedName().toLowerCase().contains(searchvalue))
+                {
+                    return true;
+                }
+                else if(e.getSelect().isSelected()) {
+                    return true;
+                }
+                else
+                    return false;
+            });
+        });
+        SortedList<PrescriptionOperation> sorteddata=new SortedList<>(filterdata);
+        sorteddata.comparatorProperty().bind(tableView.comparatorProperty());
+        tableView.setItems(sorteddata);
 
     }
+
+
 
 
 

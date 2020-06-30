@@ -13,4 +13,7 @@ public class MainDataConnection {
             System.out.println(e);
         }
     }
+
+    public static void init() {
+    }
 }
