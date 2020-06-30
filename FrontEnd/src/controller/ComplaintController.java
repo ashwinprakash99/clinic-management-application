@@ -514,7 +514,8 @@ public class ComplaintController {
                     night = true;
                 }
 
-                MedicinePrescription mp = new MedicinePrescription(complainId, m[i].getId(), Integer.parseInt(tableView.getItems().get(i).getPresQuantity().getText()), morning, afernoon, night);
+                MedicinePrescription mp = new MedicinePrescription(complainId, Long.parseLong(tableView.getItems().get(i).getSelect().getText()), Integer.parseInt(tableView.getItems().get(i).getPresQuantity().getText()), morning, afernoon, night);
+               // System.out.println(m[i].getId()+" "+Long.parseLong(tableView.getItems().get(i).getSelect().getText()));
                 Long prescId = MedicinePrescription.addMedicinePrescription(mp);
 
                 if (prescId == -1) {

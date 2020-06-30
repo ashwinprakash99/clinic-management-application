@@ -79,7 +79,7 @@ public class Generalmedicine implements Initializable  {
     @FXML
     void patientSubmitClick(ActionEvent event) {
         boolean b1= Pattern.matches("([a-zA-Z]+[ ]*[\\.\\-\\_]?[a-zA-Z]*)*",patientName.getText());
-        if(b1==false)
+        if(b1==false || patientName.getText().equals(""))
         {
             Alert ab = new Alert(Alert.AlertType.INFORMATION);
             ab.setTitle("Wrong Information");
@@ -149,7 +149,8 @@ public class Generalmedicine implements Initializable  {
 
         for (int i = 0; i < tabview.getItems().size(); i++) {
             if (tabview.getItems().get(i).getSelect().isSelected()) {
-                GeneralMedicineOutlet gm = new GeneralMedicineOutlet(id, m[i].getId(), Integer.parseInt(tabview.getItems().get(i).getQuantity().getText()));
+                GeneralMedicineOutlet gm = new GeneralMedicineOutlet(id, Long.parseLong(tabview.getItems().get(i).getSelect().getText()), Integer.parseInt(tabview.getItems().get(i).getQuantity().getText()));
+                //System.out.println(m[i].getId()+" "+Long.parseLong(tabview.getItems().get(i).getSelect().getText()));
                 Long billid = GeneralMedicineOutlet.addGeneralMedicineOutlet(gm);
                 if (billid == -1) {
                     Alert a3 = new Alert(Alert.AlertType.INFORMATION);
