@@ -5,11 +5,14 @@ import dbConnector.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -36,6 +39,7 @@ public class DashbordMedicine {
         @FXML
         private AnchorPane parent;
         Long id;
+        TextField txtfield=new TextField();
 
         Long addId;
         String addName;
@@ -457,7 +461,35 @@ public class DashbordMedicine {
                         }
                 }
 
-                gridPane.add(tableView,0,0);
+
+
+                txtfield.setAlignment(Pos.CENTER);
+                txtfield.setPromptText("Search");
+                gridPane.add(txtfield,0,0);
+                gridPane.add(tableView,0,1);
+
+                FilteredList<LowMedicineDetails> filterdata=new FilteredList<>(list, p1->true);
+                txtfield.textProperty().addListener((observable,oldvalue,newvalue)->{
+                        filterdata.setPredicate(e1->{
+                                if(newvalue==null || newvalue.isEmpty())
+                                {
+                                        return true;
+                                }
+                                String searchvalue=newvalue.toLowerCase();
+                                if(e1.getMedName().toLowerCase().contains(searchvalue))
+                                {
+                                        return true;
+                                }
+                                else
+                                        return false;
+                        });
+                });
+                SortedList<LowMedicineDetails> sorteddata=new SortedList<>(filterdata);
+                sorteddata.comparatorProperty().bind(tableView.comparatorProperty());
+                tableView.setItems(sorteddata);
+
+
+
                 alert.getDialogPane().setContent(gridPane);
                 alert.showAndWait();
         }

@@ -567,7 +567,7 @@ public class ComplaintController {
     public void allDetailClick(ActionEvent actionEvent) throws IOException {
         parent.getScene().getWindow().hide();
         Stage dashbordClerk=new Stage();
-        Parent root= FXMLLoader.load(getClass().getResource("/fxml/dashbordClerk.fxml"));
+        Parent root= FXMLLoader.load(getClass().getResource("/fxml/dashbordDetail.fxml"));
         Scene scene=new Scene(root);
         dashbordClerk.setScene(scene);
         dashbordClerk.show();

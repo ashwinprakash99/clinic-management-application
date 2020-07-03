@@ -1,14 +1,18 @@
 package controller;
 
 import GetterSetter.*;
+import GetterSetter.Generalmedicine;
 import dbConnector.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.AmbientLight;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -28,8 +32,12 @@ public class DashbordDetail {
     @FXML
     private AnchorPane patent;
 
+    TextField txtfield=new TextField();
+
+
     @FXML
     void allMedicineInfoClick(ActionEvent event) {
+
 
         Alert alert=new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Medicine Details");
@@ -61,9 +69,34 @@ public class DashbordDetail {
             list.add(new allMedicine(m[i].getId(),m[i].getMedicineName(),m[i].getPrice(),m[i].getQuantity()));
             tableView.setItems(list);
         }
-        gridPane.add(tableView,0,0);
-        alert.getDialogPane().setContent(gridPane);
 
+        txtfield.setAlignment(Pos.CENTER);
+        txtfield.setPromptText("Search");
+        gridPane.add(txtfield,0,0);
+        gridPane.add(tableView,0,1);
+
+        FilteredList<allMedicine> filterdata=new FilteredList<>(list, p->true);
+        txtfield.textProperty().addListener((observable,oldvalue,newvalue)->{
+            filterdata.setPredicate(e->{
+                if(newvalue==null || newvalue.isEmpty())
+                {
+                    return true;
+                }
+                String searchvalue=newvalue.toLowerCase();
+                if(e.getName().toLowerCase().contains(searchvalue))
+                {
+                    return true;
+                }
+                else
+                    return false;
+            });
+        });
+        SortedList<allMedicine> sorteddata=new SortedList<>(filterdata);
+        sorteddata.comparatorProperty().bind(tableView.comparatorProperty());
+        tableView.setItems(sorteddata);
+
+
+        alert.getDialogPane().setContent(gridPane);
         alert.showAndWait();
     }
 
@@ -107,7 +140,33 @@ public class DashbordDetail {
             tableView.setItems(list);
         }
 
-        gridPane.add(tableView,0,0);
+        txtfield.setAlignment(Pos.CENTER);
+        txtfield.setPromptText("Search");
+        gridPane.add(txtfield,0,0);
+        gridPane.add(tableView,0,1);
+
+        FilteredList<AllPatientDetails> filterdata=new FilteredList<>(list, p1->true);
+        txtfield.textProperty().addListener((observable,oldvalue,newvalue)->{
+            filterdata.setPredicate(e1->{
+                if(newvalue==null || newvalue.isEmpty())
+                {
+                    return true;
+                }
+                String searchvalue=newvalue.toLowerCase();
+                if(e1.getName().toLowerCase().contains(searchvalue))
+                {
+                    return true;
+                }
+                else
+                    return false;
+            });
+        });
+        SortedList<AllPatientDetails> sorteddata=new SortedList<>(filterdata);
+        sorteddata.comparatorProperty().bind(tableView.comparatorProperty());
+        tableView.setItems(sorteddata);
+
+
+
         alert.getDialogPane().setContent(gridPane);
         alert.showAndWait();
 
