@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="dashbordfront" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashbordFront">
+<AnchorPane fx:id="dashbordfront" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashbordFront">
    <children>
       <AnchorPane prefHeight="100.0" prefWidth="1080.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <AnchorPane layoutX="5.0" layoutY="100.0" prefHeight="620.0" prefWidth="1080.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="5.0">
@@ -38,7 +35,7 @@
                         <Font size="30.0" />
                      </font>
                   </Button>
-                  <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" prefHeight="265.0" prefWidth="496.0" text="INFO" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#todaysInfo" prefHeight="265.0" prefWidth="496.0" text="TOTAL" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font size="30.0" />
                      </font>

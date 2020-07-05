@@ -5,7 +5,8 @@ public class PreviousHistory {
     String comp1, comp2, comp3, examin1, examin2, examin3;
     long excompid, examid;
     String bp, pulse, temp, cvs, rs, pa, cns, lab, ecg, xray, ct, two, tmt, eeg, diag, other;
-    long presecompid, presecid, medid;
+    long presecompid, presecid;
+    String medName;
     int quantity;
     boolean morning, afternoon, night;
 
@@ -41,15 +42,16 @@ public class PreviousHistory {
         this.other = other;
     }
 
-    public PreviousHistory(long presecompid, long presecid, long medid, int quantity, boolean morning, boolean afternoon, boolean night) {
+    public PreviousHistory(long presecompid, long presecid, String medName, int quantity, boolean morning, boolean afternoon, boolean night) {
         this.presecompid = presecompid;
         this.presecid = presecid;
-        this.medid = medid;
+        this.medName = medName;
         this.quantity = quantity;
         this.morning = morning;
         this.afternoon = afternoon;
         this.night = night;
     }
+
 
     public long getCompid() {
         return compid;
@@ -267,12 +269,12 @@ public class PreviousHistory {
         this.presecid = presecid;
     }
 
-    public long getMedid() {
-        return medid;
+    public String getMedName() {
+        return medName;
     }
 
-    public void setMedid(long medid) {
-        this.medid = medid;
+    public void setMedName(String medName) {
+        this.medName = medName;
     }
 
     public int getQuantity() {

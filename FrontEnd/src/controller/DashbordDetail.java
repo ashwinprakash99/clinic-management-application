@@ -307,7 +307,7 @@ public class DashbordDetail {
 
                         tl1.setCellValueFactory(new PropertyValueFactory<>("presecompid"));
                         tl2.setCellValueFactory(new PropertyValueFactory<>("presecid"));
-                        tl3.setCellValueFactory(new PropertyValueFactory<>("medid"));
+                        tl3.setCellValueFactory(new PropertyValueFactory<>("medName"));
                         tl4.setCellValueFactory(new PropertyValueFactory<>("quantity"));
                         tl5.setCellValueFactory(new PropertyValueFactory<>("morning"));
                         tl6.setCellValueFactory(new PropertyValueFactory<>("afternoon"));
@@ -318,7 +318,7 @@ public class DashbordDetail {
                         for (int i = 0; i < cd.length; i++) {
                             CompleteMedicinePrescription[] cm = cd[i].getCompleteMedicinePrescriptions();
                             for (int j = 0; j < cm.length; j++) {
-                                ob2.add(new PreviousHistory(cm[j].getMedicinePrescription().getComplaintId(), cm[j].getMedicinePrescription().getId(), cm[j].getMedicinePrescription().getMedicineId(), cm[j].getMedicinePrescription().getQuantity(), cm[j].getMedicinePrescription().getMorning(), cm[j].getMedicinePrescription().getAfternoon(), cm[j].getMedicinePrescription().getNight()));
+                                ob2.add(new PreviousHistory(cm[j].getMedicinePrescription().getComplaintId(), cm[j].getMedicinePrescription().getId(), cm[j].getMedicine().getMedicineName(), cm[j].getMedicinePrescription().getQuantity(), cm[j].getMedicinePrescription().getMorning(), cm[j].getMedicinePrescription().getAfternoon(), cm[j].getMedicinePrescription().getNight()));
                                 t2.setItems(ob2);
                             }
 

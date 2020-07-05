@@ -81,6 +81,9 @@ public class BillingWithComplain implements Initializable {
     @FXML
     private Button okBt;
 
+    @FXML
+    private Button updateBtn;
+
     static Long compId;
 
     @Override
@@ -164,6 +167,7 @@ public class BillingWithComplain implements Initializable {
             feesBox.setVisible(true);
             totalFess.setText(""+billing.getTotalFee());
             okBt.setDisable(true);
+            updateBtn.setDisable(true);
         }
 
     }

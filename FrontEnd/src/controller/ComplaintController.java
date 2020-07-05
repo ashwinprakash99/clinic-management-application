@@ -321,7 +321,7 @@ public class ComplaintController {
 
             TableColumn<PreviousHistory, Long> tl1 = new TableColumn<>("Prescription-complaint id");
             TableColumn<PreviousHistory, Long> tl2 = new TableColumn<>("Prescription id");
-            TableColumn<PreviousHistory, Long> tl3 = new TableColumn<>("Medicine id");
+            TableColumn<PreviousHistory, String> tl3 = new TableColumn<>("Medicine Name");
             TableColumn<PreviousHistory, Integer> tl4 = new TableColumn<>("Quantity");
             TableColumn<PreviousHistory, Boolean> tl5 = new TableColumn<>("Morning");
             TableColumn<PreviousHistory, Boolean> tl6 = new TableColumn<>("Afternoon");
@@ -329,7 +329,7 @@ public class ComplaintController {
 
             tl1.setCellValueFactory(new PropertyValueFactory<>("presecompid"));
             tl2.setCellValueFactory(new PropertyValueFactory<>("presecid"));
-            tl3.setCellValueFactory(new PropertyValueFactory<>("medid"));
+            tl3.setCellValueFactory(new PropertyValueFactory<>("medName"));
             tl4.setCellValueFactory(new PropertyValueFactory<>("quantity"));
             tl5.setCellValueFactory(new PropertyValueFactory<>("morning"));
             tl6.setCellValueFactory(new PropertyValueFactory<>("afternoon"));
@@ -340,23 +340,34 @@ public class ComplaintController {
             for (int i = 0; i < cd.length; i++) {
                 CompleteMedicinePrescription[] cm = cd[i].getCompleteMedicinePrescriptions();
                 for (int j = 0; j < cm.length; j++) {
-                    ob2.add(new PreviousHistory(cm[j].getMedicinePrescription().getComplaintId(), cm[j].getMedicinePrescription().getId(), cm[j].getMedicinePrescription().getMedicineId(), cm[j].getMedicinePrescription().getQuantity(), cm[j].getMedicinePrescription().getMorning(), cm[j].getMedicinePrescription().getAfternoon(), cm[j].getMedicinePrescription().getNight()));
+                    ob2.add(new PreviousHistory(cm[j].getMedicinePrescription().getComplaintId(), cm[j].getMedicinePrescription().getId(), cm[j].getMedicine().getMedicineName(), cm[j].getMedicinePrescription().getQuantity(), cm[j].getMedicinePrescription().getMorning(), cm[j].getMedicinePrescription().getAfternoon(), cm[j].getMedicinePrescription().getNight()));
                     t2.setItems(ob2);
                 }
 
             }
 
 
-            Text tx = new Text("Complaints :");
-            Text tx1 = new Text("Examination :");
-            Text tx2 = new Text("Prescription :");
+            Text tx = new Text("Complaints ");
+            Text tx1 = new Text("Examination ");
+            Text tx2 = new Text("Prescription ");
+            tx.setUnderline(true);
+            tx1.setUnderline(true);
+            tx2.setUnderline(true);
 
-            grid.add(tx, 0, 0);
-            grid.add(tb, 0, 1);
-            grid.add(tx1, 0, 2);
-            grid.add(t1, 0, 3);
-            grid.add(tx2, 0, 4);
-            grid.add(t2, 0, 5);
+            Patient patient=Patient.getPatient(Long.parseLong(patientId.getText()));
+
+            Text tid=new Text("ID : "+patientId.getText());
+
+            Text tname=new Text("Name : "+patient.getPatientName());
+
+            grid.add(tid, 0, 0);
+            grid.add(tname, 0, 1);
+            grid.add(tx, 0, 2);
+            grid.add(tb, 0, 3);
+            grid.add(tx1, 0, 4);
+            grid.add(t1, 0, 5);
+            grid.add(tx2, 0, 6);
+            grid.add(t2, 0, 7);
 
             a.getDialogPane().setContent(grid);
 

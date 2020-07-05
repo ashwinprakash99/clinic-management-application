@@ -267,4 +267,30 @@ public class Billing {
         }
         return billings;
     }
+
+    public static double getBillTotalBetweenDates(String from_date, String to_date) {
+        PreparedStatement preparedStatement = null;
+        double total = 0.0;
+        try {
+            preparedStatement = MainDataConnection.connection.prepareStatement("SELECT total_fee FROM Billing WHERE DATE(created_at) BETWEEN ? AND ?;");
+            preparedStatement.setString(1, from_date);
+            preparedStatement.setString(2, to_date);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                total += resultSet.getDouble(1);
+            }
+            total = (Math.round(total*10.0)/10.0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return total;
+    }
 }

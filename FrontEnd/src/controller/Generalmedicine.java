@@ -166,6 +166,8 @@ public class Generalmedicine implements Initializable  {
        hbox.setVisible(true);
        tv.setText(""+sum);
        submitBtn.setDisable(true);
+       boolean generalBilling=GeneralBilling.updateGeneralBillingCost(id);
+        System.out.println(generalBilling);
    }
 
 
