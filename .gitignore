@@ -2,3 +2,5 @@ mariadb_connector.jar
 *.class
 .vscode/*
 json_simple.jar
+/node_modules
+build

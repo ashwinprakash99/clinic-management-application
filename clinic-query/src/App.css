@@ -36,3 +36,35 @@
     transform: rotate(360deg);
   }
 }
+
+
+.wrapper {
+  padding: 5px 20px;
+}
+
+.wrapper fieldset {
+  margin: 20px 0;
+}
+
+.tabletag {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.tabletag td, .tabletag th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.tabletag tr:nth-child(even){background-color: #f2f2f2;}
+
+.tabletag tr:hover {background-color: #ddd;}
+
+.tabletag th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
