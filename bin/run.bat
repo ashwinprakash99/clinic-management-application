@@ -1,1 +1,0 @@
-java -cp ".;controller.jar;db.jar;getter_setter.jar;json_simple.jar;mariadb_connector.jar" --module-path javafx/lib --add-modules javafx.controls,javafx.fxml  Main
